@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import { Text } from 'react-native-ui-lib';
+import HomeScreen from '../screens/tabs/HomeScreen';
+import ProfileScreen from '../screens/tabs/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,6 +13,7 @@ const TabNavigator = () => (
     })}
     sceneContainerStyle={{ backgroundColor: 'transparent' }}>
     <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
 );
 

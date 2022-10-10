@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native-ui-lib';
 
-const HomeScreen = () => {
+const ProfileScreen = () => {
   return (
     <View flex>
-      <Text bold>Hi!!!!!!</Text>
+      <Text bold>Profile</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default ProfileScreen;
