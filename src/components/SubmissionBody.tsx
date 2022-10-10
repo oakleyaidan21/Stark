@@ -11,7 +11,7 @@ interface SubmissionBodyProps {
 }
 
 const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
-  const { url } = submission;
+  const { url, selftext } = submission;
 
   const postType = useMemo(() => {
     return determinePostType(submission);
@@ -31,9 +31,6 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
         return (
           <Image
             source={{ uri: url }}
-            // resizeMode={'contain'}
-            // resizeMethod={'scale'}
-            // width={100}
             progressiveRenderingEnabled
             resizeMode={'contain'}
             aspectRatio={1}
@@ -53,15 +50,17 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
       //     );
       case 'WEB':
         return null;
-      //   case 'SLF':
-      //     return (
-      //       <View>
-      //         <MDRenderer
-      //           html={submission.selftext_html ? submission.selftext_html : ''}
-      //           onLinkPress={() => {}}
-      //         />
-      //       </View>
-      //     );
+      case 'SLF':
+        return selftext ? (
+          <View
+            bg-selfTextBgColor
+            margin-5
+            style={{ borderRadius: 3 }}
+            padding-5>
+            <Text>{selftext}</Text>
+          </View>
+        ) : null;
+
       default:
         return (
           <View height={150} center>

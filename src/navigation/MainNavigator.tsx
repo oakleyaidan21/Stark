@@ -3,6 +3,7 @@ import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View } from 'react-native-ui-lib';
 import TabNavigator from './TabNavigator';
+import SubmissionScreen from '../screens/SubmissionScreen';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -17,6 +18,7 @@ const MainNavigator = () => {
           animation: 'slide_from_right',
         })}>
         <Stack.Screen name="Tabs" component={TabNavigator} />
+        <Stack.Screen name="Submission" component={SubmissionScreen} />
       </Stack.Navigator>
     </View>
   );

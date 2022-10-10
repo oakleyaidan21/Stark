@@ -6,6 +6,7 @@ export const loadUIConfig = () => {
       textColor: Colors.black,
       bgColor: Colors.white,
       emptyBgColor: '#E9E9E9',
+      selfTextBgColor: '#E9E9E9',
       oBgColor: Colors.black,
       hfBorderColor: Colors.black,
       unfocusedTab: '#4a4a4a',
@@ -15,6 +16,7 @@ export const loadUIConfig = () => {
     dark: {
       textColor: Colors.white,
       emptyBgColor: Colors.black,
+      selfTextBgColor: '#E9E9E9',
       bgColor: Colors.black,
       oBgColor: Colors.white,
       hfBorderColor: '#4a4a4a',

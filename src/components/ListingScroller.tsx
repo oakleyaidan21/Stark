@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
@@ -9,8 +10,17 @@ interface ListingScrollerProps {
 }
 
 const ListingScroller = ({ content }: ListingScrollerProps) => {
+  const navigation = useNavigation();
+
   const renderItem = useCallback(({ item }) => {
-    return <SubmissionListCard submission={item} />;
+    return (
+      <SubmissionListCard
+        submission={item}
+        onPress={() =>
+          (navigation as any).navigate('Submission', { submission: item })
+        }
+      />
+    );
   }, []);
 
   return content ? (

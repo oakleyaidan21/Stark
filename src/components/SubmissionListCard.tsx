@@ -6,9 +6,13 @@ import SubmissionBody from './SubmissionBody';
 
 interface SubmissionListCardProps {
   submission: Submission;
+  onPress: Function;
 }
 
-const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
+const SubmissionListCard = ({
+  submission,
+  onPress,
+}: SubmissionListCardProps) => {
   const {
     title,
     author,
@@ -28,7 +32,7 @@ const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
       : link_flair_text_color;
 
   return (
-    <TouchableNativeFeedback onPress={() => console.log('press!')}>
+    <TouchableNativeFeedback onPress={onPress}>
       <View>
         <View marginT-10 bg-bgColor padding-10>
           {/* sub, user, time */}
@@ -40,15 +44,17 @@ const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
               backgroundColor={'lightgray'}
               marginR-5
             />
-            <Text style={{ color: Colors.primary }}>
-              {subreddit.display_name}
+            <Text style={{ fontSize: 12 }}>
+              <Text style={{ color: Colors.primary }}>
+                {subreddit.display_name}
+              </Text>
+              <Text> | </Text>
+              <Text color-tertiaryText>{author.name}</Text>
             </Text>
-            <Text> | </Text>
-            <Text color-tertiaryText>{author.name}</Text>
           </View>
           {/* title */}
           <View marginT-10>
-            <Text>{title}</Text>
+            <Text style={{ fontSize: 16 }}>{title}</Text>
           </View>
           {/* flairs */}
           {link_flair_text && (
@@ -66,9 +72,11 @@ const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
           )}
           {/* points, comments */}
           <View row centerV marginT-10>
-            <Text>{score}</Text>
+            <Text bold style={{ fontSize: 16 }}>
+              {score}
+            </Text>
             <Text> | </Text>
-            <Text>
+            <Text style={{ fontSize: 12 }}>
               {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
             </Text>
           </View>
