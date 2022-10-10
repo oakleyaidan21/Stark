@@ -5,18 +5,22 @@ export const loadUIConfig = () => {
     light: {
       textColor: Colors.black,
       bgColor: Colors.white,
+      emptyBgColor: '#E9E9E9',
       oBgColor: Colors.black,
       hfBorderColor: Colors.black,
       unfocusedTab: '#4a4a4a',
       seeCommentsColor: '#a3a3a3',
+      tertiaryText: '#A1A1A1',
     },
     dark: {
       textColor: Colors.white,
+      emptyBgColor: Colors.black,
       bgColor: Colors.black,
       oBgColor: Colors.white,
       hfBorderColor: '#4a4a4a',
       unfocusedTab: '#4a4a4a',
       seeCommentsColor: '#a3a3a3',
+      tertiaryText: '#A1A1A1',
     },
   });
 
@@ -24,6 +28,7 @@ export const loadUIConfig = () => {
     subOutline: '#' + Math.floor(Math.random() * 16777215).toString(16),
     upvoted: '#ff4500',
     downvoted: '#7193ff',
+    primary: '#008EE2',
   });
 
   Typography.loadTypographies({
