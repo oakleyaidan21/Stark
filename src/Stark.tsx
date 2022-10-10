@@ -1,15 +1,19 @@
-import { Text, View } from 'react-native-ui-lib';
+import { NavigationContainer } from '@react-navigation/native';
+import { View } from 'react-native-ui-lib';
 import StarkContext from './context/StarkContext';
 import useSnoowrap from './hooks/useSnoowrap';
+import MainNavigator from './navigation/MainNavigator';
 
 const Stark = () => {
   const { snoowrap } = useSnoowrap();
   return (
-    <View useSafeArea bg-bgColor>
-      <StarkContext.Provider value={{ snoowrap: snoowrap }}>
-        <Text>hi!</Text>
-      </StarkContext.Provider>
-    </View>
+    <NavigationContainer>
+      <View useSafeArea bg-bgColor flex>
+        <StarkContext.Provider value={{ snoowrap: snoowrap }}>
+          <MainNavigator />
+        </StarkContext.Provider>
+      </View>
+    </NavigationContainer>
   );
 };
 

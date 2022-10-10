@@ -1,4 +1,4 @@
-import {Colors, ThemeManager, Typography} from 'react-native-ui-lib';
+import { Colors, ThemeManager, Typography } from 'react-native-ui-lib';
 
 export const loadUIConfig = () => {
   Colors.loadSchemes({
@@ -27,10 +27,10 @@ export const loadUIConfig = () => {
   });
 
   Typography.loadTypographies({
-    postTitle: {fontSize: 14, fontWeight: 'bold'},
-    homeSubTitle: {fontSize: 24, fontWeight: 'bold'},
-    bold: {fontWeight: 'bold'},
-    commentOptions: {fontSize: 12, fontWeight: 'bold', color: '#a3a3a3'},
+    postTitle: { fontSize: 14, fontWeight: 'bold' },
+    homeSubTitle: { fontSize: 24, fontWeight: 'bold' },
+    bold: { fontWeight: 'bold' },
+    commentOptions: { fontSize: 12, fontWeight: 'bold', color: '#a3a3a3' },
   });
 
   ThemeManager.setComponentTheme('Image', {
