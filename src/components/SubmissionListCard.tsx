@@ -6,7 +6,7 @@ import SubmissionBody from './SubmissionBody';
 
 interface SubmissionListCardProps {
   submission: Submission;
-  onPress: Function;
+  onPress: () => undefined;
 }
 
 const SubmissionListCard = ({

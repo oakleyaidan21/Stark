@@ -4,9 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View } from 'react-native-ui-lib';
 import TabNavigator from './TabNavigator';
 import SubmissionScreen from '../screens/SubmissionScreen';
+import ScreenProps from '../types/ScreenProps';
 
 enableScreens();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ScreenProps>();
 
 const MainNavigator = () => {
   return (
