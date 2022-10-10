@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
+import SubmissionBody from './SubmissionBody';
 
 interface SubmissionListCardProps {
   submission: Submission;
@@ -29,7 +30,7 @@ const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
   return (
     <TouchableNativeFeedback onPress={() => console.log('press!')}>
       <View>
-        <View marginT-10 bg-white padding-10>
+        <View marginT-10 bg-bgColor padding-10>
           {/* sub, user, time */}
           <View row centerV>
             <View
@@ -73,7 +74,7 @@ const SubmissionListCard = ({ submission }: SubmissionListCardProps) => {
           </View>
         </View>
         {/* content */}
-        <View height={100} bg-black></View>
+        <SubmissionBody submission={submission} />
       </View>
     </TouchableNativeFeedback>
   );
