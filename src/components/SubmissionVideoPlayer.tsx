@@ -19,8 +19,6 @@ const SubmissionVideoPlayer = ({
 
   useEffect(() => setPaused(!shouldPlay), [shouldPlay]);
 
-  console.log('Scaled height', scaledHeight);
-
   return (
     <View>
       <Video
