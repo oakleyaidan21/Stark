@@ -1,14 +1,17 @@
 import React, { useCallback, useMemo } from 'react';
-import { Image, Text, View } from 'react-native-ui-lib';
+import { Image } from 'react-native';
+import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import { determinePostType } from '../util/RedditUtil';
+import ScaledImage from './ScaledImage';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 
 interface SubmissionBodyProps {
   submission: Submission;
+  inView: boolean;
 }
 
-const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
+const SubmissionBody = ({ submission, inView }: SubmissionBodyProps) => {
   const { url, selftext } = submission;
 
   const postType = useMemo(() => {
@@ -18,14 +21,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
   const renderSubmissionMedia = useCallback(() => {
     switch (postType.code) {
       case 'IMG':
-        return (
-          <Image
-            source={{ uri: url }}
-            progressiveRenderingEnabled
-            resizeMode={'contain'}
-            aspectRatio={1}
-          />
-        );
+        return <ScaledImage url={url} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer
@@ -34,6 +30,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
                 ? url.substring(0, url.length - 4) + 'mp4'
                 : (submission.media?.reddit_video?.hls_url as string)
             }
+            shouldPlay={inView}
           />
         );
       case 'WEB':
@@ -56,7 +53,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
           </View>
         );
     }
-  }, [submission.id]);
+  }, [submission.id, inView]);
 
   return (
     <View bg-bgColor>

@@ -7,11 +7,13 @@ import SubmissionBody from './SubmissionBody';
 interface SubmissionListCardProps {
   submission: Submission;
   onPress: () => undefined;
+  inView: boolean;
 }
 
 const SubmissionListCard = ({
   submission,
   onPress,
+  inView,
 }: SubmissionListCardProps) => {
   const {
     title,
@@ -82,12 +84,15 @@ const SubmissionListCard = ({
           </View>
         </View>
         {/* content */}
-        <SubmissionBody submission={submission} />
+        <SubmissionBody submission={submission} inView={inView} />
       </View>
     </TouchableNativeFeedback>
   );
 };
 
 export default memo(SubmissionListCard, (prevProps, newProps) => {
-  return prevProps.submission.id === newProps.submission.id;
+  return (
+    prevProps.submission.id === newProps.submission.id &&
+    prevProps.inView === newProps.inView
+  );
 });
