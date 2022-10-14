@@ -86,7 +86,7 @@ const SubmissionListCard = ({
         </View>
         {/* content */}
         <SubmissionBody submission={submission} inView={inView} />
-        <SubmissionActionBar />
+        <SubmissionActionBar submission={submission} />
       </View>
     </TouchableNativeFeedback>
   );

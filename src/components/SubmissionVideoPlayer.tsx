@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 import Video from 'react-native-video';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ww = Dimensions.get('window').width;
 
@@ -15,26 +16,45 @@ const SubmissionVideoPlayer = ({
   shouldPlay,
 }: SubmissionVideoPlayerProps) => {
   const [paused, setPaused] = useState(!shouldPlay);
-  const [scaledHeight, setScaledHeight] = useState<number>();
+  const [scaledHeight, setScaledHeight] = useState<number>(1);
+  const [muted, setMuted] = useState(true);
 
   useEffect(() => setPaused(!shouldPlay), [shouldPlay]);
 
   return (
     <View>
+      {/* volume button */}
+
       <Video
         source={{ uri: videoUrl }}
         paused={paused}
         resizeMode={'cover'}
+        muted={muted}
         style={{
           width: ww,
-          height: scaledHeight,
+          height: scaledHeight ? scaledHeight : undefined,
           aspectRatio: scaledHeight ? undefined : 1,
         }}
         onLoad={response => {
           const { width, height } = response.naturalSize;
-          setScaledHeight(height * (ww / width));
+          const newHeight = height * (ww / width);
+          setScaledHeight(newHeight);
         }}
       />
+      <View
+        style={{ position: 'absolute', borderRadius: 15, top: 5, left: 5 }}
+        width={30}
+        height={30}
+        center
+        backgroundColor="black">
+        <TouchableOpacity onPress={() => setMuted(!muted)}>
+          <Icon
+            name={muted ? 'volume-off' : 'volume-high'}
+            size={18}
+            color={'white'}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

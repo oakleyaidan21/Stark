@@ -40,6 +40,10 @@ export const loadUIConfig = () => {
     commentOptions: { fontSize: 12, fontWeight: 'bold', color: '#a3a3a3' },
   });
 
+  ThemeManager.setComponentTheme('Text', {
+    color: Colors.textColor,
+  });
+
   ThemeManager.setComponentTheme('Image', {
     fadeDuration: 0,
   });
