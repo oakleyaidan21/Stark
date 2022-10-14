@@ -16,7 +16,7 @@ export const loadUIConfig = () => {
     },
     dark: {
       textColor: Colors.white,
-      emptyBgColor: Colors.black,
+      emptyBgColor: '#1a1a1a',
       selfTextBgColor: '#E9E9E9',
       bgColor: Colors.black,
       oBgColor: Colors.white,

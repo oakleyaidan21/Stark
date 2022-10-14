@@ -8,11 +8,13 @@ interface SubmissionActionBarProps {
 
 const SubmissionActionBar = ({ submission }: SubmissionActionBarProps) => {
   return (
-    <View row padding-10 spread>
-      <Icon name="arrow-up" size={25} color={'grey'} />
-      <Icon name="arrow-down" size={25} color={'grey'} />
-      <Icon name="star" size={25} color={'grey'} />
-      <Icon name="dots-vertical" size={25} color={'grey'} />
+    <View row height={40} paddingH-10 spread centerV>
+      <Icon name="arrow-up-bold-outline" size={23} color={'grey'} />
+      <Icon name="arrow-down-bold-outline" size={23} color={'grey'} />
+      <Icon name="star-outline" size={23} color={'grey'} />
+      <Icon name="comment-text-outline" size={23} color={'grey'} />
+      <Icon name="exit-to-app" size={23} color={'grey'} />
+      <Icon name="dots-vertical" size={23} color={'grey'} />
     </View>
   );
 };

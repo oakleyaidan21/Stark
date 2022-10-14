@@ -1,7 +1,9 @@
 import { memo } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
+import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
 import SubmissionActionBar from './SubmissionActionBar';
 import SubmissionBody from './SubmissionBody';
 
@@ -34,18 +36,22 @@ const SubmissionListCard = ({
       ? 'white'
       : link_flair_text_color;
 
+  const subredditIcon = useGetSubredditIcon(subreddit);
+
   return (
     <TouchableNativeFeedback onPress={onPress}>
-      <View bg-bgColor marginB-10>
+      <View marginB-10 bg-bgColor>
         <View padding-10>
           {/* sub, user, time */}
           <View row centerV>
-            <View
-              width={20}
-              height={20}
-              style={{ borderRadius: 10 }}
-              backgroundColor={'lightgray'}
-              marginR-5
+            <FastImage
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                marginRight: 5,
+              }}
+              source={{ uri: subredditIcon }}
             />
             <Text style={{ fontSize: 12 }}>
               <Text style={{ color: Colors.primary }}>
