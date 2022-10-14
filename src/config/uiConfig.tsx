@@ -12,6 +12,7 @@ export const loadUIConfig = () => {
       unfocusedTab: '#4a4a4a',
       seeCommentsColor: '#a3a3a3',
       tertiaryText: '#A1A1A1',
+      statusBarBg: Colors.white,
     },
     dark: {
       textColor: Colors.white,
@@ -23,6 +24,7 @@ export const loadUIConfig = () => {
       unfocusedTab: '#4a4a4a',
       seeCommentsColor: '#a3a3a3',
       tertiaryText: '#A1A1A1',
+      statusBarBg: Colors.black,
     },
   });
 

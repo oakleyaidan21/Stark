@@ -36,7 +36,7 @@ const SubmissionListCard = ({
 
   return (
     <TouchableNativeFeedback onPress={onPress}>
-      <View bg-bgColor marginT-10>
+      <View bg-bgColor marginB-10>
         <View padding-10>
           {/* sub, user, time */}
           <View row centerV>

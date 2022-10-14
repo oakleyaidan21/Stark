@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux/store';
 import Stark from './src/Stark';
+require('react-native-ui-lib/config').setConfig({ appScheme: 'dark' });
 
 // These next three blocks are for snoowrap shenannigans
 declare var global: any;
