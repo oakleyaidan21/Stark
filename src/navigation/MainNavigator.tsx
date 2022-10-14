@@ -5,6 +5,7 @@ import { View } from 'react-native-ui-lib';
 import TabNavigator from './TabNavigator';
 import SubmissionScreen from '../screens/SubmissionScreen';
 import ScreenProps from '../types/ScreenProps';
+import MainHeader from '../components/MainHeader';
 
 enableScreens();
 const Stack = createNativeStackNavigator<ScreenProps>();
@@ -14,9 +15,10 @@ const MainNavigator = () => {
     <View flex>
       <Stack.Navigator
         screenOptions={({ route }) => ({
-          headerShown: false,
+          headerShown: route.name !== 'Tabs',
           contentStyle: { backgroundColor: 'transparent' },
           animation: 'slide_from_right',
+          header: MainHeader,
         })}>
         <Stack.Screen name="Tabs" component={TabNavigator} />
         <Stack.Screen name="Submission" component={SubmissionScreen} />

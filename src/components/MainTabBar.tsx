@@ -1,7 +1,7 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { TouchableNativeFeedback } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const MainTabBar = ({
@@ -9,7 +9,7 @@ const MainTabBar = ({
   navigation: { navigate },
 }: BottomTabBarProps) => {
   return (
-    <View center>
+    <View center bg-bgColor>
       <View height={40} row spread padding-5 width={'90%'}>
         {routeNames.map(name => {
           return (

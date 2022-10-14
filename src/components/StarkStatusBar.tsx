@@ -1,7 +1,7 @@
 import { Appearance, Platform, StatusBar } from 'react-native';
-import { Colors, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const colorScheme = Appearance.getColorScheme();
 
 const StarkStatusBar = () => {
