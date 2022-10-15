@@ -6,6 +6,7 @@ import TabNavigator from './TabNavigator';
 import SubmissionScreen from '../screens/SubmissionScreen';
 import ScreenProps from '../types/ScreenProps';
 import MainHeader from '../components/MainHeader';
+import LoginScreen from '../screens/LoginScreen';
 
 enableScreens();
 const Stack = createNativeStackNavigator<ScreenProps>();
@@ -22,6 +23,7 @@ const MainNavigator = () => {
         })}>
         <Stack.Screen name="Tabs" component={TabNavigator} />
         <Stack.Screen name="Submission" component={SubmissionScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </View>
   );

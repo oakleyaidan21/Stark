@@ -14,7 +14,7 @@ const TabNavigator = () => (
       header: TabHeader,
     })}
     sceneContainerStyle={{ backgroundColor: 'transparent' }}
-    tabBar={MainTabBar}>
+    tabBar={props => <MainTabBar {...props} />}>
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
