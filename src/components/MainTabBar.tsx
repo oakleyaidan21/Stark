@@ -13,7 +13,7 @@ const MainTabBar = ({
   const noUsers = Object.keys(users).length === 0;
   return (
     <View center bg-bgColor>
-      <View height={40} row spread padding-5 width={'90%'}>
+      <View height={50} row spread padding-5 width={'90%'} centerV>
         {routeNames.map(name => {
           const onPress = () => {
             if (name === 'Profile' && noUsers) {

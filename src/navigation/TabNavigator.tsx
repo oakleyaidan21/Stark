@@ -9,9 +9,10 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => (
   <Tab.Navigator
-    screenOptions={() => ({
+    screenOptions={({ route }) => ({
       flex: 1,
       header: TabHeader,
+      headerShown: route.name !== 'Home',
     })}
     sceneContainerStyle={{ backgroundColor: 'transparent' }}
     tabBar={props => <MainTabBar {...props} />}>

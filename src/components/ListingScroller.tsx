@@ -11,9 +11,14 @@ const viewabilityConfig = {
 
 interface ListingScrollerProps {
   content?: Listing<any>;
+  header:
+    | React.ComponentType<any>
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | null
+    | undefined;
 }
 
-const ListingScroller = ({ content }: ListingScrollerProps) => {
+const ListingScroller = ({ content, header }: ListingScrollerProps) => {
   const [viewableItems, setViewableItems] = useState<(number | null)[]>([]);
 
   const navigation = useNavigation();
@@ -46,6 +51,9 @@ const ListingScroller = ({ content }: ListingScrollerProps) => {
     <FlatList
       data={content}
       renderItem={renderItem}
+      ListHeaderComponent={header}
+      stickyHeaderHiddenOnScroll
+      stickyHeaderIndices={[0]}
       viewabilityConfig={viewabilityConfig}
       onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item, index) => item.id + index.toString()}

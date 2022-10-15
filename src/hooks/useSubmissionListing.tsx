@@ -4,19 +4,21 @@ import { ListingOptions } from 'snoowrap/dist/objects';
 import StarkContext from '../context/StarkContext';
 
 export interface UseSubmissionListingProps {
-  subredditName: string;
+  subName: string;
   options: ListingOptions;
 }
 
 const useSubmissionListing = ({
-  subredditName,
+  subName,
   options,
 }: UseSubmissionListingProps) => {
   const { snoowrap } = useContext(StarkContext);
 
   const [listing, setListing] = useState<Listing<Submission>>();
+  const [refreshing, setRefreshing] = useState(false);
+  const [subredditName, setSubredditName] = useState(subName);
 
-  useEffect(() => {
+  const getPosts = () => {
     snoowrap
       ?.getHot(
         subredditName === 'Front Page' ? undefined : subredditName,
@@ -24,13 +26,23 @@ const useSubmissionListing = ({
       )
       .then(listing => {
         setListing(listing);
+        setRefreshing(false);
       })
       .catch(e => {
         console.log('e', e.body);
       });
-  }, [subredditName, snoowrap, setListing]);
+  };
 
-  return { listing };
+  useEffect(() => {
+    getPosts();
+  }, [subredditName, snoowrap, setListing, subredditName]);
+
+  const refresh = () => {
+    setRefreshing(true);
+    getPosts();
+  };
+
+  return { listing, refresh, refreshing, subredditName };
 };
 
 export default useSubmissionListing;

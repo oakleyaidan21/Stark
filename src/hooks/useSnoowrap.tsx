@@ -58,7 +58,7 @@ const useSnoowrap = () => {
 
   useEffect(() => {
     handleTokenChange().catch(error => {
-      console.log('error my guy', error.request);
+      console.log('error creating snoowrap', error, error.body);
     });
   }, [refreshToken, authCode]);
 
