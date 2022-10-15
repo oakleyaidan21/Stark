@@ -5,26 +5,37 @@ import useStarkStorage from './useStarkStorage';
 
 const useSnoowrap = () => {
   const [snoowrap, setSnoowrap] = useState<Snoowrap>();
-  const { refreshToken, authCode } = useStarkStorage();
+  const { refreshToken, authCode, setRefreshToken, addUser } =
+    useStarkStorage();
 
   const handleTokenChange = async () => {
     if (refreshToken) {
       console.log('creating snoowrap from refresh token');
-      const snoo = new Snoowrap(snoowrapConfig);
+      const snoo = new Snoowrap({
+        clientId: snoowrapConfig.clientId,
+        clientSecret: snoowrapConfig.clientSecret,
+        refreshToken: refreshToken,
+        userAgent: snoowrapConfig.userAgent,
+      });
       snoo._nextRequestTimestamp = -1;
       snoo.config({ proxies: false });
       setSnoowrap(snoo);
     } else if (authCode) {
-      console.log('creating snoowrap from auth code');
+      console.log('creating snoowrap from auth code', authCode);
       try {
         const snoo = await Snoowrap.fromAuthCode({
-          ...snoowrapConfig,
           code: authCode,
+          userAgent: snoowrapConfig.userAgent,
+          clientId: snoowrapConfig.clientId,
           redirectUri: 'https://localhost:8080',
         });
         snoo._nextRequestTimestamp = -1;
         snoo.config({ proxies: false });
-        setSnoowrap(snoo);
+        snoo.getMe().then(result => {
+          setRefreshToken(snoo.refreshToken);
+          addUser(result.name, snoo.refreshToken);
+          setSnoowrap(snoo);
+        });
       } catch (error) {
         throw error;
       }
@@ -46,7 +57,9 @@ const useSnoowrap = () => {
   };
 
   useEffect(() => {
-    handleTokenChange();
+    handleTokenChange().catch(error => {
+      console.log('error my guy', error.request);
+    });
   }, [refreshToken, authCode]);
 
   return { snoowrap };

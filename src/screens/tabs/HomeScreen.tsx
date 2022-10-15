@@ -4,7 +4,10 @@ import ListingScroller from '../../components/ListingScroller';
 import useSubmissionListing from '../../hooks/useSubmissionListing';
 
 const HomeScreen = () => {
-  const { listing } = useSubmissionListing('Front Page', {});
+  const { listing } = useSubmissionListing({
+    subredditName: 'Front Page',
+    options: { limit: 25 },
+  });
 
   return (
     <View flex>

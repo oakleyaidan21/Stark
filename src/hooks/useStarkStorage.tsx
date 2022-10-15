@@ -12,6 +12,12 @@ const useStarkStorage = () => {
     dispatch({ type: 'SET_AUTH_CODE', authCode: code });
   };
 
+  const addUser = (name: string, token: string) => {
+    let newUsers = { ...users };
+    newUsers[name] = token;
+    dispatch({ type: 'SET_USERS', users: newUsers });
+  };
+
   return {
     refreshToken,
     authCode,
@@ -19,6 +25,7 @@ const useStarkStorage = () => {
     dispatch,
     setRefreshToken,
     setAuthCode,
+    addUser,
   };
 };
 

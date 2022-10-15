@@ -3,15 +3,15 @@ import { Listing, Submission } from 'snoowrap';
 import { ListingOptions } from 'snoowrap/dist/objects';
 import StarkContext from '../context/StarkContext';
 
-interface UseSubmissionListingProps {
+export interface UseSubmissionListingProps {
   subredditName: string;
   options: ListingOptions;
 }
 
-const useSubmissionListing = (
-  subredditName: string,
-  options: ListingOptions,
-) => {
+const useSubmissionListing = ({
+  subredditName,
+  options,
+}: UseSubmissionListingProps) => {
   const { snoowrap } = useContext(StarkContext);
 
   const [listing, setListing] = useState<Listing<Submission>>();
@@ -26,9 +26,9 @@ const useSubmissionListing = (
         setListing(listing);
       })
       .catch(e => {
-        console.log('e', e);
+        console.log('e', e.body);
       });
-  }, [subredditName, options, snoowrap]);
+  }, [subredditName, snoowrap, setListing]);
 
   return { listing };
 };
