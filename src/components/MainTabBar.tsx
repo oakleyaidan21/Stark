@@ -1,12 +1,12 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { TouchableNativeFeedback } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { Colors, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useStarkStorage from '../hooks/useStarkStorage';
 
 const MainTabBar = ({
-  state: { routeNames },
+  state: { routeNames, index },
   navigation: { navigate },
 }: BottomTabBarProps) => {
   const { users } = useStarkStorage();
@@ -14,7 +14,8 @@ const MainTabBar = ({
   return (
     <View center bg-bgColor>
       <View height={50} row spread padding-5 width={'90%'} centerV>
-        {routeNames.map(name => {
+        {routeNames.map((name, i) => {
+          const focused = i === index;
           const onPress = () => {
             if (name === 'Profile' && noUsers) {
               navigate('Login');
@@ -34,7 +35,7 @@ const MainTabBar = ({
               onLongPress={onLongPress}>
               <Icon
                 name={iconNameForRouteName(name)}
-                color={'grey'}
+                color={focused ? Colors.primary : 'grey'}
                 size={25}
               />
             </TouchableNativeFeedback>

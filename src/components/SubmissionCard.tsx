@@ -1,8 +1,9 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import FastImage from 'react-native-fast-image';
-import { Colors, Text, View } from 'react-native-ui-lib';
+import { Colors, Image, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
+import { determinePostType } from '../util/RedditUtil';
 import Flair from './Flair';
 import SubmissionActionBar from './SubmissionActionBar';
 import SubmissionBody from './SubmissionBody';
@@ -22,9 +23,16 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
     num_comments,
     link_flair_background_color,
     link_flair_text_color,
+    thumbnail,
   } = submission;
 
   const subredditIcon = useGetSubredditIcon(subreddit);
+
+  const postType = useMemo(() => {
+    return determinePostType(submission);
+  }, [submission.id]);
+
+  const showThumbnail = postType.code === 'WEB';
 
   return (
     <View bg-bgColor>
@@ -48,19 +56,29 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
             <Text color={Colors.tertiaryText}>{author.name}</Text>
           </Text>
         </View>
-        {/* title */}
-        <View marginT-10>
-          <Text style={{ fontSize: 16 }}>{title}</Text>
+        <View row>
+          <View flex>
+            {/* title */}
+            <View marginT-10>
+              <Text style={{ fontSize: 16 }}>{title}</Text>
+            </View>
+            {/* flairs */}
+            {link_flair_text && (
+              <Flair
+                text={link_flair_text}
+                backgroundColor={link_flair_background_color}
+                flairTextColor={link_flair_text_color}
+                style={{ marginTop: 5 }}
+              />
+            )}
+          </View>
+          {showThumbnail && (
+            <Image
+              source={{ uri: thumbnail }}
+              style={{ width: 70, height: 70, borderRadius: 5 }}
+            />
+          )}
         </View>
-        {/* flairs */}
-        {link_flair_text && (
-          <Flair
-            text={link_flair_text}
-            backgroundColor={link_flair_background_color}
-            flairTextColor={link_flair_text_color}
-            style={{ marginTop: 5 }}
-          />
-        )}
         {/* points, comments */}
         <View row centerV marginT-5>
           <Text bold style={{ fontSize: 16 }}>

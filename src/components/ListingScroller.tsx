@@ -6,7 +6,7 @@ import {
   TouchableNativeFeedback,
   ViewToken,
 } from 'react-native';
-import { View, Text, TouchableOpacity } from 'react-native-ui-lib';
+import { View, LoaderScreen } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
 import SeparatorComponent from './SeparatorComponent';
 import SubmissionCard from './SubmissionCard';
@@ -36,9 +36,11 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
         (navigation as any).navigate('Submission', { submission: item });
       };
       return (
-        <TouchableOpacity onPress={onPress}>
-          <SubmissionCard submission={item} inView={inView} />
-        </TouchableOpacity>
+        <TouchableNativeFeedback onPress={onPress}>
+          <View>
+            <SubmissionCard submission={item} inView={inView} />
+          </View>
+        </TouchableNativeFeedback>
       );
     },
     [viewableItems],
@@ -52,9 +54,11 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
     [setViewableItems],
   );
 
-  return content ? (
+  return (
     <FlatList
       data={content}
+      contentContainerStyle={content ? undefined : { flex: 1 }}
+      ListEmptyComponent={<LoaderScreen />}
       renderItem={renderItem}
       ListHeaderComponent={header}
       stickyHeaderHiddenOnScroll
@@ -64,10 +68,6 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
       onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item, index) => item.id + index.toString()}
     />
-  ) : (
-    <View flex center>
-      <Text bold>Error loading content</Text>
-    </View>
   );
 };
 
