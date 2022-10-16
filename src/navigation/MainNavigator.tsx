@@ -1,7 +1,7 @@
 import React from 'react';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View } from 'react-native-ui-lib';
+import { Colors, View } from 'react-native-ui-lib';
 import TabNavigator from './TabNavigator';
 import SubmissionScreen from '../screens/SubmissionScreen';
 import ScreenProps from '../types/ScreenProps';
@@ -17,7 +17,7 @@ const MainNavigator = () => {
       <Stack.Navigator
         screenOptions={({ route }) => ({
           headerShown: route.name !== 'Tabs',
-          contentStyle: { backgroundColor: 'transparent' },
+          contentStyle: { backgroundColor: Colors.emptyBgColor },
           animation: 'slide_from_right',
           header: MainHeader,
         })}>

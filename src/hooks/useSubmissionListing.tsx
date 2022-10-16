@@ -29,7 +29,7 @@ const useSubmissionListing = ({
         setRefreshing(false);
       })
       .catch(e => {
-        console.log('e', e.body);
+        console.log('Error getting posts', e.body);
       });
   };
 

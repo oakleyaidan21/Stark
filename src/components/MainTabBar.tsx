@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useStarkStorage from '../hooks/useStarkStorage';
 
 const MainTabBar = ({
-  state: { routeNames, index },
+  state: { routeNames },
   navigation: { navigate },
 }: BottomTabBarProps) => {
   const { users } = useStarkStorage();
@@ -22,8 +22,16 @@ const MainTabBar = ({
               navigate(name);
             }
           };
+          const onLongPress = () => {
+            if (name === 'Profile') {
+              navigate('Login');
+            }
+          };
           return (
-            <TouchableNativeFeedback key={name} onPress={onPress}>
+            <TouchableNativeFeedback
+              key={name}
+              onPress={onPress}
+              onLongPress={onLongPress}>
               <Icon
                 name={iconNameForRouteName(name)}
                 color={'grey'}

@@ -9,9 +9,9 @@ const Stark = () => {
   const { snoowrap } = useSnoowrap();
   return (
     <NavigationContainer>
-      <View flex>
+      <View flex bg-bgColor>
         <StarkStatusBar />
-        <View useSafeArea bg-emptyBgColor flex>
+        <View useSafeArea flex>
           <StarkContext.Provider value={{ snoowrap: snoowrap }}>
             <MainNavigator />
           </StarkContext.Provider>
