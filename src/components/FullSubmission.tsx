@@ -3,7 +3,9 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import { LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Comment, Submission } from 'snoowrap';
 import useSubmissionComments from '../hooks/useSubmissionComments';
-import SubmissionListCard from './SubmissionListCard';
+import CommentCard from './CommentCard';
+import SeparatorComponent from './SeparatorComponent';
+import SubmissionCard from './SubmissionCard';
 
 export interface FullSubmissionProps {
   submission: Submission;
@@ -13,15 +15,10 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
   const { comments } = useSubmissionComments(submission);
 
   const _renderHeader = () =>
-    useCallback(
-      () => (
-        <SubmissionListCard submission={submission} inView onPress={() => {}} />
-      ),
-      [],
-    );
+    useCallback(() => <SubmissionCard submission={submission} inView />, []);
 
   const _renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Comment>) => <Text>{item.body}</Text>,
+    ({ item }: ListRenderItemInfo<Comment>) => <CommentCard comment={item} />,
     [],
   );
 
@@ -29,6 +26,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
     <View flex>
       <FlatList
         data={comments}
+        ItemSeparatorComponent={SeparatorComponent}
         style={{ flex: 1 }}
         ListHeaderComponent={_renderHeader()}
         renderItem={_renderItem}

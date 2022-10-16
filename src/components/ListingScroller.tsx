@@ -1,9 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
-import { FlatList, ListRenderItemInfo, ViewToken } from 'react-native';
-import { View, Text } from 'react-native-ui-lib';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  TouchableNativeFeedback,
+  ViewToken,
+} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
-import SubmissionListCard from './SubmissionListCard';
+import SeparatorComponent from './SeparatorComponent';
+import SubmissionCard from './SubmissionCard';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -26,14 +32,13 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Submission>) => {
       const inView = viewableItems.includes(index);
+      const onPress = () => {
+        (navigation as any).navigate('Submission', { submission: item });
+      };
       return (
-        <SubmissionListCard
-          submission={item}
-          onPress={() =>
-            (navigation as any).navigate('Submission', { submission: item })
-          }
-          inView={inView}
-        />
+        <TouchableOpacity onPress={onPress}>
+          <SubmissionCard submission={item} inView={inView} />
+        </TouchableOpacity>
       );
     },
     [viewableItems],
@@ -54,6 +59,7 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
       ListHeaderComponent={header}
       stickyHeaderHiddenOnScroll
       stickyHeaderIndices={[0]}
+      ItemSeparatorComponent={SeparatorComponent}
       viewabilityConfig={viewabilityConfig}
       onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item, index) => item.id + index.toString()}
