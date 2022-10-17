@@ -5,7 +5,7 @@ import useStarkStorage from './useStarkStorage';
 
 const useSnoowrap = () => {
   const [snoowrap, setSnoowrap] = useState<Snoowrap>();
-  const { refreshToken, authCode, setRefreshToken, addUser } =
+  const { refreshToken, authCode, setRefreshToken, addUser, setAuthCode } =
     useStarkStorage();
 
   const handleTokenChange = async () => {
@@ -33,6 +33,7 @@ const useSnoowrap = () => {
         snoo.config({ proxies: false });
         snoo.getMe().then(result => {
           setRefreshToken(snoo.refreshToken);
+          setAuthCode(null);
           addUser(result.name, snoo.refreshToken);
           setSnoowrap(snoo);
         });
