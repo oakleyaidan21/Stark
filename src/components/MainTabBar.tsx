@@ -1,8 +1,9 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import StarkContext from '../context/StarkContext';
 import useStarkStorage from '../hooks/useStarkStorage';
 import UserSelector from './UserSelector';
 
@@ -10,16 +11,16 @@ const MainTabBar = ({
   state: { routeNames, index },
   navigation: { navigate },
 }: BottomTabBarProps) => {
-  const { users } = useStarkStorage();
+  const { user } = useContext(StarkContext);
   const [showUserSelector, setShowUserSelector] = useState(false);
-  const noUsers = Object.keys(users).length === 0;
+  const noUser = !user;
   return (
     <View center bg-bgColor>
       <View height={50} row spread padding-5 width={'90%'} centerV>
         {routeNames.map((name, i) => {
           const focused = i === index;
           const onPress = () => {
-            if (name === 'Profile' && noUsers) {
+            if (name === 'Profile' && noUser) {
               setShowUserSelector(true);
             } else {
               navigate(name);

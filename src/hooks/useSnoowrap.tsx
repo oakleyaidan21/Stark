@@ -55,6 +55,7 @@ const useSnoowrap = () => {
         });
         snoo._nextRequestTimestamp = -1;
         snoo.config({ proxies: false });
+        setUser(undefined);
         setSnoowrap(snoo);
       } catch (error) {
         throw error;
