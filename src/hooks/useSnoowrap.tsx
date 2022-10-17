@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Snoowrap from 'snoowrap';
+import Snoowrap, { RedditUser } from 'snoowrap';
 import snoowrapConfig from '../config/snoowrapConfig';
 import useStarkStorage from './useStarkStorage';
 
@@ -7,6 +7,7 @@ const useSnoowrap = () => {
   const [snoowrap, setSnoowrap] = useState<Snoowrap>();
   const { refreshToken, authCode, setRefreshToken, addUser, setAuthCode } =
     useStarkStorage();
+  const [user, setUser] = useState<RedditUser>();
 
   const handleTokenChange = async () => {
     if (refreshToken) {
@@ -19,7 +20,10 @@ const useSnoowrap = () => {
       });
       snoo._nextRequestTimestamp = -1;
       snoo.config({ proxies: false });
-      setSnoowrap(snoo);
+      snoo.getMe().then(result => {
+        setUser(result);
+        setSnoowrap(snoo);
+      });
     } else if (authCode) {
       console.log('creating snoowrap from auth code', authCode);
       try {
@@ -32,6 +36,7 @@ const useSnoowrap = () => {
         snoo._nextRequestTimestamp = -1;
         snoo.config({ proxies: false });
         snoo.getMe().then(result => {
+          setUser(result);
           setRefreshToken(snoo.refreshToken);
           setAuthCode(null);
           addUser(result, snoo.refreshToken);
@@ -63,7 +68,7 @@ const useSnoowrap = () => {
     });
   }, [refreshToken, authCode]);
 
-  return { snoowrap };
+  return { snoowrap, user };
 };
 
 export default useSnoowrap;
