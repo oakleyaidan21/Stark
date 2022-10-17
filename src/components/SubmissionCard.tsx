@@ -26,6 +26,15 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
     thumbnail,
   } = submission;
 
+  const thumbnailUrl =
+    thumbnail == '' ||
+    thumbnail === 'self' ||
+    thumbnail === 'spoiler' ||
+    thumbnail === 'nsfw' ||
+    thumbnail === 'default'
+      ? 'https://cdn.iconscout.com/icon/free/png-256/reddit-74-434748.png'
+      : thumbnail;
+
   const subredditIcon = useGetSubredditIcon(subreddit);
 
   const postType = useMemo(() => {
@@ -74,7 +83,7 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
           </View>
           {showThumbnail && (
             <Image
-              source={{ uri: thumbnail }}
+              source={{ uri: thumbnailUrl }}
               style={{ width: 70, height: 70, borderRadius: 5 }}
             />
           )}

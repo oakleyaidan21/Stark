@@ -6,10 +6,11 @@ import SubmissionListingContext from '../../context/SubmissionListingContext';
 import useSubmissionListing from '../../hooks/useSubmissionListing';
 
 const HomeScreen = () => {
-  const { listing, refresh, refreshing, subredditName } = useSubmissionListing({
-    subName: 'Front Page',
-    options: { limit: 25 },
-  });
+  const { listing, refresh, refreshing, subredditName, fetchMore } =
+    useSubmissionListing({
+      subName: 'Front Page',
+      options: { limit: 25 },
+    });
 
   return (
     <SubmissionListingContext.Provider
@@ -19,7 +20,11 @@ const HomeScreen = () => {
         subredditName: subredditName,
       }}>
       <View flex>
-        <ListingScroller content={listing} header={HomeHeader} />
+        <ListingScroller
+          content={listing}
+          header={HomeHeader}
+          onEndReached={fetchMore}
+        />
       </View>
     </SubmissionListingContext.Provider>
   );

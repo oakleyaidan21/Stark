@@ -4,7 +4,7 @@ import { ListingOptions } from 'snoowrap/dist/objects';
 import StarkContext from '../context/StarkContext';
 
 export interface UseSubmissionListingProps {
-  subName: string;
+  subName?: string;
   options: ListingOptions;
 }
 
@@ -42,7 +42,19 @@ const useSubmissionListing = ({
     getPosts();
   };
 
-  return { listing, refresh, refreshing, subredditName };
+  const fetchMore = async () => {
+    try {
+      const moreSubmissions = await listing?.fetchMore({
+        amount: 25,
+        append: true,
+      });
+      setListing(moreSubmissions);
+    } catch (error) {
+      console.log('error fetching more', error);
+    }
+  };
+
+  return { listing, refresh, refreshing, subredditName, fetchMore };
 };
 
 export default useSubmissionListing;

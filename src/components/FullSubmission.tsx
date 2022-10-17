@@ -15,10 +15,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
   const { comments } = useSubmissionComments(submission);
 
   const _renderHeader = () =>
-    useCallback(
-      () => <SubmissionCard submission={submission} inView showThumbnail />,
-      [],
-    );
+    useCallback(() => <SubmissionCard submission={submission} inView />, []);
 
   const _renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Comment>) => <CommentCard comment={item} />,

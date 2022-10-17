@@ -17,6 +17,7 @@ const viewabilityConfig = {
 
 interface ListingScrollerProps {
   content?: Listing<any>;
+  onEndReached?: any;
   header:
     | React.ComponentType<any>
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
@@ -24,7 +25,11 @@ interface ListingScrollerProps {
     | undefined;
 }
 
-const ListingScroller = ({ content, header }: ListingScrollerProps) => {
+const ListingScroller = ({
+  content,
+  header,
+  onEndReached,
+}: ListingScrollerProps) => {
   const [viewableItems, setViewableItems] = useState<(number | null)[]>([]);
 
   const navigation = useNavigation();
@@ -67,6 +72,7 @@ const ListingScroller = ({ content, header }: ListingScrollerProps) => {
       viewabilityConfig={viewabilityConfig}
       onViewableItemsChanged={onViewableItemsChanged}
       keyExtractor={(item, index) => item.id + index.toString()}
+      onEndReached={onEndReached}
     />
   );
 };
