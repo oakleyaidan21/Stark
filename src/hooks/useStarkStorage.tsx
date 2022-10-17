@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { RedditUser } from 'snoowrap';
 
 const useStarkStorage = () => {
   const { refreshToken, authCode, users } = useSelector((state: any) => state);
@@ -12,9 +13,10 @@ const useStarkStorage = () => {
     dispatch({ type: 'SET_AUTH_CODE', authCode: code });
   };
 
-  const addUser = (name: string, token: string) => {
+  const addUser = (user: RedditUser, token: string) => {
     let newUsers = { ...users };
-    newUsers[name] = token;
+    const newUser = { refreshToken: token, pfpUrl: user.icon_img };
+    newUsers[user.name] = newUser;
     dispatch({ type: 'SET_USERS', users: newUsers });
   };
 

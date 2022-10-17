@@ -34,7 +34,7 @@ const useSnoowrap = () => {
         snoo.getMe().then(result => {
           setRefreshToken(snoo.refreshToken);
           setAuthCode(null);
-          addUser(result.name, snoo.refreshToken);
+          addUser(result, snoo.refreshToken);
           setSnoowrap(snoo);
         });
       } catch (error) {

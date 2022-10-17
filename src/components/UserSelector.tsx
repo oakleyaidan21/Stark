@@ -5,6 +5,7 @@ import {
   ActionSheet,
   ButtonProps,
   Colors,
+  Image,
   Text,
   View,
 } from 'react-native-ui-lib';
@@ -22,8 +23,17 @@ const UserSelector = ({ visible, setVisible }: UserSelectorProps) => {
   const { users, setRefreshToken } = useStarkStorage();
 
   const userItems = Object.keys(users).map((user: string) => {
-    return { label: user, onPress: () => setRefreshToken(users[user]) };
+    return {
+      label: user,
+      onPress: () => setRefreshToken(users[user].refreshToken),
+    };
   });
+
+  const options = [
+    ...userItems,
+    { label: 'Add User', onPress: () => navigation.navigate('Login') },
+    { label: 'Anonymous', onPress: () => setRefreshToken(null) },
+  ];
 
   const getLeftIcon = (label: string | undefined) => {
     switch (label) {
@@ -32,7 +42,14 @@ const UserSelector = ({ visible, setVisible }: UserSelectorProps) => {
       case 'Add User':
         return <Icon name="plus" size={25} color={Colors.textColor} />;
       default:
-        return <></>;
+        return label ? (
+          <Image
+            style={{ width: '100%', height: '100%', borderRadius: 5 }}
+            source={{ uri: users[label].pfpUrl }}
+          />
+        ) : (
+          <></>
+        );
     }
   };
 
@@ -68,11 +85,7 @@ const UserSelector = ({ visible, setVisible }: UserSelectorProps) => {
       dialogStyle={{ backgroundColor: Colors.bgColor, paddingBottom: 10 }}
       migrateDialog
       optionsStyle={{ backgroundColor: Colors.bgColor }}
-      options={[
-        ...userItems,
-        { label: 'Add User', onPress: () => navigation.navigate('Login') },
-        { label: 'Anonymous', onPress: () => setRefreshToken(null) },
-      ]}
+      options={options}
       renderAction={_renderAction}
       visible={visible}
       onDismiss={() => setVisible(false)}
