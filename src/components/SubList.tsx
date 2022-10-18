@@ -1,10 +1,22 @@
 import { useContext } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Colors, Dialog, Text, View } from 'react-native-ui-lib';
+import {
+  StyleSheet,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  ActionSheet,
+  ButtonProps,
+  Colors,
+  Dialog,
+  Image,
+  Text,
+  View,
+} from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
 import StarkContext from '../context/StarkContext';
 import SubmissionListingContext from '../context/SubmissionListingContext';
-import useStarkStorage from '../hooks/useStarkStorage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export interface SubListProps {
   visible: boolean;
@@ -23,67 +35,78 @@ const SubList = ({ visible, setVisible }: SubListProps) => {
     }
   };
 
+  const options = userSubs?.map(sub => ({
+    label: sub.display_name,
+    onPress: () => onSubPress(sub),
+  }));
+
+  const getLeftIcon = (index: number) => {
+    const icon_url = userSubs
+      ? index < userSubs.length
+        ? userSubs[index].icon_img
+        : ''
+      : '';
+    // switch (label) {
+    //   case 'All':
+    //     return <Icon name="incognito" size={25} color={Colors.textColor} />;
+    //   case 'Front Page':
+    //     return <Icon name="plus" size={25} color={Colors.textColor} />;
+    //   default:
+    //     return label ? (
+    //       <Image
+    // style={{ width: '100%', height: '100%', borderRadius: 5 }}
+    // source={{ uri:  }}
+    //       />
+    //     ) : (
+    //       <></>
+    //     );
+    // }
+    return (
+      <Image
+        style={{ width: '100%', height: '100%', borderRadius: 5 }}
+        source={{ uri: icon_url }}
+      />
+    );
+  };
+
+  const _renderAction = (
+    { label }: ButtonProps,
+    index: number,
+    onOptionPress: any,
+  ) => {
+    return (
+      <TouchableNativeFeedback onPress={() => onOptionPress(index)} key={label}>
+        <View centerV height={40} paddingL-10>
+          <View row centerV>
+            <View
+              width={30}
+              height={30}
+              center
+              marginR-10
+              style={{ borderRadius: 5 }}
+              backgroundColor={'grey'}>
+              {getLeftIcon(index)}
+            </View>
+            <Text>{label}</Text>
+          </View>
+        </View>
+      </TouchableNativeFeedback>
+    );
+  };
+
   return (
-    <Dialog
-      useSafeArea
-      top
-      height={'100%'}
-      style={{ backgroundColor: Colors.bgColor }}
-      panDirection={Dialog.directions.DOWN}
-      containerStyle={styles.roundedDialog}
+    <ActionSheet
+      bg-bgColor
+      containerStyle={{ backgroundColor: Colors.bgColor }}
+      dialogStyle={{ backgroundColor: Colors.bgColor, paddingBottom: 10 }}
+      migrateDialog
+      optionsStyle={{ backgroundColor: Colors.bgColor }}
+      options={options}
+      renderAction={_renderAction}
       visible={visible}
       onDismiss={() => setVisible(false)}
-      supportedOrientations={['portrait']}>
-      <View center flex>
-        <TouchableOpacity
-          onPress={() =>
-            changeSubreddit ? changeSubreddit('Front Page') : null
-          }>
-          <View>
-            <Text>Front Page</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => (changeSubreddit ? changeSubreddit('all') : null)}>
-          <View>
-            <Text>All</Text>
-          </View>
-        </TouchableOpacity>
-        {userSubs?.map(sub => (
-          <TouchableOpacity
-            onPress={() => onSubPress(sub)}
-            key={sub.display_name}>
-            <View>
-              <Text>{sub.display_name}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </Dialog>
+    />
   );
 };
 
 export default SubList;
-
-const styles = StyleSheet.create({
-  dialog: {
-    backgroundColor: Colors.bgColor,
-  },
-  roundedDialog: {
-    flex: 1,
-    backgroundColor: Colors.bgColor,
-    borderRadius: 12,
-  },
-  button: {
-    margin: 5,
-    alignSelf: 'flex-start',
-  },
-  verticalScroll: {
-    marginTop: 20,
-  },
-  horizontalTextContainer: {
-    alignSelf: 'center',
-    position: 'absolute',
-    top: 10,
-  },
-});

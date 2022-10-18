@@ -25,7 +25,7 @@ const ScaledImage = ({ url }: ScaledImageProps) => {
     height: height,
   };
 
-  return <FastImage source={{ uri: url }} style={style} />;
+  return <Image source={{ uri: url }} style={style} />;
 };
 
 export default ScaledImage;
