@@ -9,22 +9,29 @@ const useGetSubredditIcon = (subreddit: Subreddit) => {
   const [iconUrl, setIconUrl] = useState('');
 
   useEffect(() => {
-    // check if in cache
-    getJSON(STORAGE_KEY).then(urls => {
-      if (urls[display_name] !== undefined) {
-        setIconUrl(urls[display_name]);
-      } else {
-        subreddit.fetch().then(fullSubreddit => {
-          const { icon_img, community_icon } = fullSubreddit;
-          const iconUrl = icon_img.length > 0 ? icon_img : community_icon;
-          setIconUrl(iconUrl);
-          let newIconUrls = { ...urls };
-          newIconUrls[display_name] = iconUrl;
-          setJSON(STORAGE_KEY, newIconUrls);
-        });
-      }
-    });
-    // if not, fetch subreddit and cache icon url with name
+    if (subreddit.icon_img !== undefined) {
+      const url =
+        subreddit.icon_img.length > 0
+          ? subreddit.icon_img
+          : subreddit.community_icon;
+      setIconUrl(url);
+    } else {
+      // check if in cache
+      getJSON(STORAGE_KEY).then(urls => {
+        if (urls[display_name] !== undefined) {
+          setIconUrl(urls[display_name]);
+        } else {
+          subreddit.fetch().then(fullSubreddit => {
+            const { icon_img, community_icon } = fullSubreddit;
+            const url = icon_img.length > 0 ? icon_img : community_icon;
+            setIconUrl(url);
+            let newIconUrls = { ...urls };
+            newIconUrls[display_name] = url;
+            setJSON(STORAGE_KEY, newIconUrls);
+          });
+        }
+      });
+    }
   }, [setIconUrl, getJSON, setJSON, subreddit]);
 
   return (
