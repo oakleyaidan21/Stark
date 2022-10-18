@@ -8,14 +8,15 @@ import useSnoowrap from './hooks/useSnoowrap';
 import MainNavigator from './navigation/MainNavigator';
 
 const Stark = () => {
-  const { snoowrap, user } = useSnoowrap();
+  const { snoowrap, user, userSubs } = useSnoowrap();
 
   return (
     <NavigationContainer>
       <View flex bg-bgColor>
         <StarkStatusBar />
         <View useSafeArea flex>
-          <StarkContext.Provider value={{ snoowrap: snoowrap, user: user }}>
+          <StarkContext.Provider
+            value={{ snoowrap: snoowrap, user: user, userSubs: userSubs }}>
             <MainNavigator />
           </StarkContext.Provider>
         </View>

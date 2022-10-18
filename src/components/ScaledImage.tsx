@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, Image } from 'react-native';
-import FastImage, { OnLoadEvent } from 'react-native-fast-image';
-import { View } from 'react-native-ui-lib';
+import FastImage from 'react-native-fast-image';
 
 interface ScaledImageProps {
   url: string;

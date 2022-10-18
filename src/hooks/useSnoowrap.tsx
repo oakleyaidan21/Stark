@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Snoowrap, { RedditUser } from 'snoowrap';
+import Snoowrap, { Listing, RedditUser, Subreddit } from 'snoowrap';
 import snoowrapConfig from '../config/snoowrapConfig';
 import useStarkStorage from './useStarkStorage';
 
@@ -8,6 +8,7 @@ const useSnoowrap = () => {
   const { refreshToken, authCode, setRefreshToken, addUser, setAuthCode } =
     useStarkStorage();
   const [user, setUser] = useState<RedditUser>();
+  const [userSubs, setUserSubs] = useState<Listing<Subreddit>>();
 
   const handleTokenChange = async () => {
     if (refreshToken) {
@@ -20,10 +21,13 @@ const useSnoowrap = () => {
       });
       snoo._nextRequestTimestamp = -1;
       snoo.config({ proxies: false });
-      snoo.getMe().then(result => {
-        setUser(result);
-        setSnoowrap(snoo);
-      });
+      const results = await Promise.all([
+        snoo.getMe(),
+        snoo.getSubscriptions(),
+      ]);
+      setUser(results[0]);
+      setUserSubs(results[1]);
+      setSnoowrap(snoo);
     } else if (authCode) {
       console.log('creating snoowrap from auth code', authCode);
       try {
@@ -35,13 +39,16 @@ const useSnoowrap = () => {
         });
         snoo._nextRequestTimestamp = -1;
         snoo.config({ proxies: false });
-        snoo.getMe().then(result => {
-          setUser(result);
-          setRefreshToken(snoo.refreshToken);
-          setAuthCode(null);
-          addUser(result, snoo.refreshToken);
-          setSnoowrap(snoo);
-        });
+        const results = await Promise.all([
+          snoo.getMe(),
+          snoo.getSubscriptions(),
+        ]);
+        setUser(results[0]);
+        setUserSubs(results[1]);
+        setRefreshToken(snoo.refreshToken);
+        setAuthCode(null);
+        addUser(results[0], snoo.refreshToken);
+        setSnoowrap(snoo);
       } catch (error) {
         throw error;
       }
@@ -69,7 +76,7 @@ const useSnoowrap = () => {
     });
   }, [refreshToken, authCode]);
 
-  return { snoowrap, user };
+  return { snoowrap, user, userSubs };
 };
 
 export default useSnoowrap;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native-ui-lib';
 import ListingScroller from '../../components/ListingScroller';
 import HomeHeader from '../../components/tabHeaders/HomeHeader';
@@ -6,11 +6,12 @@ import SubmissionListingContext from '../../context/SubmissionListingContext';
 import useSubmissionListing from '../../hooks/useSubmissionListing';
 
 const HomeScreen = () => {
-  const { listing, refresh, refreshing, subredditName, fetchMore } =
-    useSubmissionListing({
-      subName: 'Front Page',
-      options: { limit: 25 },
-    });
+  const [subredditName, setSubredditName] = useState('Front Page');
+
+  const { listing, refresh, refreshing, fetchMore } = useSubmissionListing({
+    subredditName: subredditName,
+    options: { limit: 25 },
+  });
 
   return (
     <SubmissionListingContext.Provider
@@ -18,6 +19,7 @@ const HomeScreen = () => {
         refresh: refresh,
         refreshing: refreshing,
         subredditName: subredditName,
+        changeSubreddit: setSubredditName,
       }}>
       <View flex>
         <ListingScroller

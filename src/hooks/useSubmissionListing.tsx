@@ -4,21 +4,21 @@ import { ListingOptions } from 'snoowrap/dist/objects';
 import StarkContext from '../context/StarkContext';
 
 export interface UseSubmissionListingProps {
-  subName?: string;
+  subredditName?: string;
   options: ListingOptions;
 }
 
 const useSubmissionListing = ({
-  subName,
+  subredditName,
   options,
 }: UseSubmissionListingProps) => {
   const { snoowrap } = useContext(StarkContext);
 
   const [listing, setListing] = useState<Listing<Submission>>();
   const [refreshing, setRefreshing] = useState(false);
-  const [subredditName, setSubredditName] = useState(subName);
 
   const getPosts = () => {
+    console.log('getting new posts for', subredditName);
     snoowrap
       ?.getHot(
         subredditName === 'Front Page' ? undefined : subredditName,
@@ -35,7 +35,7 @@ const useSubmissionListing = ({
 
   useEffect(() => {
     getPosts();
-  }, [subredditName, snoowrap, setListing, subredditName]);
+  }, [subredditName, snoowrap, setListing]);
 
   const refresh = () => {
     setRefreshing(true);
