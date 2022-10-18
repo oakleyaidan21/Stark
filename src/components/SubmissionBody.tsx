@@ -9,9 +9,14 @@ import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 interface SubmissionBodyProps {
   submission: Submission;
   inView: boolean;
+  inList?: boolean;
 }
 
-const SubmissionBody = ({ submission, inView }: SubmissionBodyProps) => {
+const SubmissionBody = ({
+  submission,
+  inView,
+  inList,
+}: SubmissionBodyProps) => {
   const { url, selftext } = submission;
 
   const postType = useMemo(() => {
@@ -36,7 +41,7 @@ const SubmissionBody = ({ submission, inView }: SubmissionBodyProps) => {
       case 'WEB':
         return null;
       case 'SLF':
-        return selftext ? (
+        return selftext && !inList ? (
           <View
             bg-selfTextBgColor
             margin-5

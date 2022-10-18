@@ -11,9 +11,14 @@ import SubmissionBody from './SubmissionBody';
 export interface SubmissionCardProps {
   submission: Submission;
   inView: boolean;
+  inList?: boolean;
 }
 
-const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
+const SubmissionCard = ({
+  submission,
+  inView,
+  inList,
+}: SubmissionCardProps) => {
   const {
     title,
     author,
@@ -100,7 +105,7 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
         </View>
       </View>
       {/* content */}
-      <SubmissionBody submission={submission} inView={inView} />
+      <SubmissionBody submission={submission} inView={inView} inList={inList} />
       <SubmissionActionBar submission={submission} />
     </View>
   );

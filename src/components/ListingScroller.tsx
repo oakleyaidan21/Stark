@@ -43,7 +43,7 @@ const ListingScroller = ({
       return (
         <TouchableNativeFeedback onPress={onPress}>
           <View>
-            <SubmissionCard submission={item} inView={inView} />
+            <SubmissionCard submission={item} inView={inView} inList />
           </View>
         </TouchableNativeFeedback>
       );
