@@ -60,20 +60,29 @@ const ListingScroller = ({
   );
 
   return (
-    <FlatList
-      data={content}
-      contentContainerStyle={content ? undefined : { flex: 1 }}
-      ListEmptyComponent={<LoaderScreen />}
-      renderItem={renderItem}
-      ListHeaderComponent={header}
-      stickyHeaderHiddenOnScroll
-      stickyHeaderIndices={[0]}
-      ItemSeparatorComponent={SeparatorComponent}
-      viewabilityConfig={viewabilityConfig}
-      onViewableItemsChanged={onViewableItemsChanged}
-      keyExtractor={(item, index) => item.id + index.toString()}
-      onEndReached={onEndReached}
-    />
+    <View flex center>
+      <FlatList
+        data={content}
+        style={{ flex: 1, width: '100%' }}
+        ListEmptyComponent={
+          <View marginT-200>
+            <LoaderScreen />
+          </View>
+        }
+        renderItem={renderItem}
+        ListHeaderComponent={header}
+        stickyHeaderHiddenOnScroll
+        removeClippedSubviews
+        stickyHeaderIndices={[0]}
+        maxToRenderPerBatch={7}
+        windowSize={18}
+        ItemSeparatorComponent={SeparatorComponent}
+        viewabilityConfig={viewabilityConfig}
+        onViewableItemsChanged={onViewableItemsChanged}
+        keyExtractor={(item, index) => item.id + index.toString()}
+        onEndReached={onEndReached}
+      />
+    </View>
   );
 };
 

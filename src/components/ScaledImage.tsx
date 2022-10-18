@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, Image } from 'react-native';
+import FastImage, { OnLoadEvent } from 'react-native-fast-image';
 import { View } from 'react-native-ui-lib';
 
 interface ScaledImageProps {
@@ -11,21 +12,20 @@ const ww = Dimensions.get('window').width;
 const ScaledImage = ({ url }: ScaledImageProps) => {
   const [height, setHeight] = useState<number>(0);
 
-  useEffect(() => {
-    Image.getSize(url, (w, h) => {
-      const ratio = ww / w;
-      setHeight(h * ratio);
-    });
-  }, []);
+  const onLoadEnd = (event: OnLoadEvent) => {
+    const {
+      nativeEvent: { width, height },
+    } = event;
+    const ratio = ww / width;
+    setHeight(height * ratio);
+  };
 
   const style = {
     width: '100%',
     height: height,
   };
 
-  return (
-    <Image source={{ uri: url }} progressiveRenderingEnabled style={style} />
-  );
+  return <FastImage source={{ uri: url }} style={style} onLoad={onLoadEnd} />;
 };
 
 export default ScaledImage;
