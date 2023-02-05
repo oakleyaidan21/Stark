@@ -1,4 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import { memo, useMemo } from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Image, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
@@ -42,6 +44,8 @@ const SubmissionCard = ({
 
   const subredditIcon = useGetSubredditIcon(subreddit);
 
+  const navigation = useNavigation();
+
   const postType = useMemo(() => {
     return determinePostType(submission);
   }, [submission.id]);
@@ -50,60 +54,66 @@ const SubmissionCard = ({
 
   return (
     <View bg-bgColor>
-      <View padding-10>
-        {/* sub, user, time */}
-        <View row centerV>
-          <FastImage
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 10,
-              marginRight: 5,
-            }}
-            source={{ uri: subredditIcon }}
-          />
-          <Text style={{ fontSize: 12 }}>
-            <Text style={{ color: Colors.primary }}>
-              {subreddit.display_name}
+      <TouchableWithoutFeedback
+        disabled={inList}
+        onPress={() =>
+          (navigation as any).navigate('Web', { url: submission.url })
+        }>
+        <View padding-10>
+          {/* sub, user, time */}
+          <View row centerV>
+            <FastImage
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                marginRight: 5,
+              }}
+              source={{ uri: subredditIcon }}
+            />
+            <Text style={{ fontSize: 12 }}>
+              <Text style={{ color: Colors.primary }}>
+                {subreddit.display_name}
+              </Text>
+              <Text color={Colors.tertiaryText}> | </Text>
+              <Text color={Colors.tertiaryText}>{author.name}</Text>
             </Text>
-            <Text color={Colors.tertiaryText}> | </Text>
-            <Text color={Colors.tertiaryText}>{author.name}</Text>
-          </Text>
-        </View>
-        <View row>
-          <View flex>
-            {/* title */}
-            <View marginT-10>
-              <Text style={{ fontSize: 16 }}>{title}</Text>
+          </View>
+          <View row>
+            <View flex>
+              {/* title */}
+              <View marginT-10>
+                <Text style={{ fontSize: 16 }}>{title}</Text>
+              </View>
+              {/* flairs */}
+              {link_flair_text && (
+                <Flair
+                  text={link_flair_text}
+                  backgroundColor={link_flair_background_color}
+                  flairTextColor={link_flair_text_color}
+                  style={{ marginTop: 5 }}
+                />
+              )}
             </View>
-            {/* flairs */}
-            {link_flair_text && (
-              <Flair
-                text={link_flair_text}
-                backgroundColor={link_flair_background_color}
-                flairTextColor={link_flair_text_color}
-                style={{ marginTop: 5 }}
+            {showThumbnail && (
+              <Image
+                source={{ uri: thumbnailUrl }}
+                style={{ width: 70, height: 70, borderRadius: 5 }}
               />
             )}
           </View>
-          {showThumbnail && (
-            <Image
-              source={{ uri: thumbnailUrl }}
-              style={{ width: 70, height: 70, borderRadius: 5 }}
-            />
-          )}
+          {/* points, comments */}
+          <View row centerV marginT-5>
+            <Text bold style={{ fontSize: 16 }}>
+              {score}
+            </Text>
+            <Text color={Colors.tertiaryText}> | </Text>
+            <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
+              {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
+            </Text>
+          </View>
         </View>
-        {/* points, comments */}
-        <View row centerV marginT-5>
-          <Text bold style={{ fontSize: 16 }}>
-            {score}
-          </Text>
-          <Text color={Colors.tertiaryText}> | </Text>
-          <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
-            {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
-          </Text>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
       {/* content */}
       <SubmissionBody submission={submission} inView={inView} inList={inList} />
       <SubmissionActionBar submission={submission} />
