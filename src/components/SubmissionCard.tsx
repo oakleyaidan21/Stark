@@ -13,13 +13,13 @@ import SubmissionBody from './SubmissionBody';
 export interface SubmissionCardProps {
   submission: Submission;
   inView: boolean;
-  inList?: boolean;
+  showBody?: boolean;
 }
 
 const SubmissionCard = ({
   submission,
   inView,
-  inList,
+  showBody,
 }: SubmissionCardProps) => {
   const {
     title,
@@ -31,6 +31,7 @@ const SubmissionCard = ({
     link_flair_background_color,
     link_flair_text_color,
     thumbnail,
+    url,
   } = submission;
 
   const thumbnailUrl =
@@ -50,72 +51,69 @@ const SubmissionCard = ({
     return determinePostType(submission);
   }, [submission.id]);
 
-  const showThumbnail = postType.code === 'WEB';
+  const showThumbnail = postType.code !== 'SLF';
 
   return (
     <View bg-bgColor>
-      <TouchableWithoutFeedback
-        disabled={inList}
-        onPress={() =>
-          (navigation as any).navigate('Web', { url: submission.url })
-        }>
-        <View padding-10>
-          {/* sub, user, time */}
-          <View row centerV>
-            <FastImage
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 10,
-                marginRight: 5,
-              }}
-              source={{ uri: subredditIcon }}
-            />
-            <Text style={{ fontSize: 12 }}>
-              <Text style={{ color: Colors.primary }}>
-                {subreddit.display_name}
-              </Text>
-              <Text color={Colors.tertiaryText}> | </Text>
-              <Text color={Colors.tertiaryText}>{author.name}</Text>
+      <View padding-10>
+        {/* sub, user, time */}
+        <View row centerV>
+          <FastImage
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: 10,
+              marginRight: 5,
+            }}
+            source={{ uri: subredditIcon }}
+          />
+          <Text style={{ fontSize: 12 }}>
+            <Text style={{ color: Colors.primary }}>
+              {subreddit.display_name}
             </Text>
-          </View>
-          <View row>
-            <View flex>
-              {/* title */}
-              <View marginT-10>
-                <Text style={{ fontSize: 16 }}>{title}</Text>
-              </View>
-              {/* flairs */}
-              {link_flair_text && (
-                <Flair
-                  text={link_flair_text}
-                  backgroundColor={link_flair_background_color}
-                  flairTextColor={link_flair_text_color}
-                  style={{ marginTop: 5 }}
-                />
-              )}
+            <Text color={Colors.tertiaryText}> | </Text>
+            <Text color={Colors.tertiaryText}>{author.name}</Text>
+          </Text>
+        </View>
+        <View row>
+          <View flex marginR-5>
+            {/* title */}
+            <View marginT-10>
+              <Text style={{ fontSize: 16 }}>{title}</Text>
             </View>
-            {showThumbnail && (
+            {/* flairs */}
+            {link_flair_text && (
+              <Flair
+                text={link_flair_text}
+                backgroundColor={link_flair_background_color}
+                flairTextColor={link_flair_text_color}
+                style={{ marginTop: 5 }}
+              />
+            )}
+          </View>
+          {showThumbnail && (
+            <TouchableWithoutFeedback
+              onPress={() => (navigation as any).navigate('Web', { url: url })}>
               <Image
                 source={{ uri: thumbnailUrl }}
                 style={{ width: 70, height: 70, borderRadius: 5 }}
               />
-            )}
-          </View>
-          {/* points, comments */}
-          <View row centerV marginT-5>
-            <Text bold style={{ fontSize: 16 }}>
-              {score}
-            </Text>
-            <Text color={Colors.tertiaryText}> | </Text>
-            <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
-              {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
-            </Text>
-          </View>
+            </TouchableWithoutFeedback>
+          )}
         </View>
-      </TouchableWithoutFeedback>
+        {/* points, comments */}
+        <View row centerV marginT-5>
+          <Text bold style={{ fontSize: 16 }}>
+            {score}
+          </Text>
+          <Text color={Colors.tertiaryText}> | </Text>
+          <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
+            {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
+          </Text>
+        </View>
+      </View>
       {/* content */}
-      <SubmissionBody submission={submission} inView={inView} inList={inList} />
+      {showBody && <SubmissionBody submission={submission} inView={inView} />}
       <SubmissionActionBar submission={submission} />
     </View>
   );
@@ -124,6 +122,7 @@ const SubmissionCard = ({
 export default memo(SubmissionCard, (prevProps, newProps) => {
   return (
     prevProps.submission.id === newProps.submission.id &&
-    prevProps.inView === newProps.inView
+    prevProps.inView === newProps.inView &&
+    prevProps.showBody === newProps.showBody
   );
 });

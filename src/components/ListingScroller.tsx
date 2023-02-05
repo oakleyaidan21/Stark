@@ -1,15 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  TouchableNativeFeedback,
-  ViewToken,
-} from 'react-native';
+import { FlatList, ListRenderItemInfo, ViewToken } from 'react-native';
 import { View, LoaderScreen } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
+import ListSubmissionCard from './ListSubmissionCard';
 import SeparatorComponent from './SeparatorComponent';
-import SubmissionCard from './SubmissionCard';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -37,15 +32,13 @@ const ListingScroller = ({
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Submission>) => {
       const inView = viewableItems.includes(index);
-      const onPress = () => {
-        (navigation as any).navigate('Submission', { submission: item });
-      };
+
       return (
-        <TouchableNativeFeedback onPress={onPress}>
-          <View>
-            <SubmissionCard submission={item} inView={inView} inList />
-          </View>
-        </TouchableNativeFeedback>
+        <ListSubmissionCard
+          submission={item}
+          inView={inView}
+          navigation={navigation}
+        />
       );
     },
     [viewableItems],
