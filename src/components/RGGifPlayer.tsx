@@ -30,8 +30,6 @@ const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
       : 0,
   };
 
-  console.log('gif', gifInfo?.gif?.poster);
-
   return gifInfo ? (
     // <SubmissionVideoPlayer
     //   videoUrl={gifInfo['gif']['urls']['hd']}
