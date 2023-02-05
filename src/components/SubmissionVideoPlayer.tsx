@@ -23,8 +23,6 @@ const SubmissionVideoPlayer = ({
 
   return (
     <View>
-      {/* volume button */}
-
       <Video
         source={{ uri: videoUrl }}
         paused={paused}

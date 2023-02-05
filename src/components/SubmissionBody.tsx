@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import { determinePostType } from '../util/RedditUtil';
+import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 
@@ -27,6 +28,8 @@ const SubmissionBody = ({
     switch (postType.code) {
       case 'IMG':
         return <ScaledImage url={url} />;
+      case 'RED':
+        return <RGGifPlayer url={url} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer
