@@ -1,18 +1,62 @@
+import { Dimensions } from 'react-native';
 import { Text } from 'react-native-ui-lib';
+import { Image } from 'react-native';
+import WebView from 'react-native-webview';
 import useGetRGInfo from '../hooks/useGetRGInfo';
-import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 
 interface RGGifPlayerProps {
   url: string;
+  shouldPlay: boolean;
+  inList?: boolean;
 }
 
-const RGGifPlayer = ({ url }: RGGifPlayerProps) => {
+const ww = Dimensions.get('window').width;
+
+const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
   const tokens = url.split('/');
   const identifier = tokens[tokens.length - 1];
-  const { info } = useGetRGInfo(identifier);
+  const { gifInfo, authInfo } = useGetRGInfo(identifier);
 
-  return info ? (
-    <SubmissionVideoPlayer videoUrl={info['gif']['urls']['hd']} shouldPlay />
+  const headers = {
+    Authorization: `Bearer ${authInfo?.token}`,
+    'User-Agent': authInfo?.agent,
+    'User-Addr': authInfo?.addr,
+  };
+
+  const style = {
+    width: ww,
+    height: gifInfo
+      ? gifInfo['gif']['height'] * (ww / gifInfo['gif']['width'])
+      : 0,
+  };
+
+  console.log('gif', gifInfo?.gif?.poster);
+
+  return gifInfo ? (
+    // <SubmissionVideoPlayer
+    //   videoUrl={gifInfo['gif']['urls']['hd']}
+    //   shouldPlay={shouldPlay}
+    //   headers={headers}
+    // />
+    inList ? (
+      <Image
+        style={style}
+        source={{ uri: gifInfo['gif']['urls']['poster'], headers: headers }}
+        onError={error => {
+          console.log('error getting image', error);
+        }}
+      />
+    ) : (
+      <WebView
+        source={{
+          uri: gifInfo['gif']['urls']['hd'],
+          headers: headers,
+        }}
+        style={style}
+        mediaPlaybackRequiresUserAction
+        allowsFullscreenVideo
+      />
+    )
   ) : (
     <Text>loading</Text>
   );

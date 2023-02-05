@@ -29,7 +29,7 @@ const SubmissionBody = ({
       case 'IMG':
         return <ScaledImage url={url} />;
       case 'RED':
-        return <RGGifPlayer url={url} />;
+        return <RGGifPlayer url={url} shouldPlay={inView} inList={inList} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer

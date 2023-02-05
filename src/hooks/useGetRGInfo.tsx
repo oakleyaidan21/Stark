@@ -3,12 +3,12 @@ import useGetRGToken from './useGetRGAuthInfo';
 
 const useGetRGInfo = (identifier: string) => {
   const { authInfo } = useGetRGToken();
-  const [info, setInfo] = useState();
+  const [gifInfo, setGifInfo] = useState<any>();
 
   useEffect(() => {
     if (authInfo) {
-      console.log('token haha!!', authInfo.token);
-      fetch(`https://api.redgifs.com/v2/gifs/${identifier}`, {
+      const url = `https://api.redgifs.com/v2/gifs/${identifier}`;
+      fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -16,12 +16,12 @@ const useGetRGInfo = (identifier: string) => {
         },
       })
         .then(response => response.json())
-        .then(info => setInfo(info))
+        .then(info => setGifInfo(info))
         .catch(e => console.log('Error getting RG info:', e));
     }
   }, [authInfo]);
 
-  return { info };
+  return { gifInfo, authInfo };
 };
 
 export default useGetRGInfo;
