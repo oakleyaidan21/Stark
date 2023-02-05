@@ -24,20 +24,30 @@ export interface SubListProps {
   setVisible: any;
 }
 
+const defaults = ['All', 'Front Page', 'Saved'];
+
 const SubList = ({ visible, setVisible }: SubListProps) => {
   const { changeSubreddit } = useContext(SubmissionListingContext);
 
   const { userSubs } = useContext(StarkContext);
 
-  const onSubPress = (sub: Subreddit) => {
+  const allSubs = defaults.concat(
+    userSubs ? userSubs.map(sub => sub.display_name) : [],
+  );
+
+  const onSubPress = (sub: Subreddit | string) => {
     if (changeSubreddit) {
-      changeSubreddit(sub.display_name);
+      if (typeof sub === 'string') {
+        changeSubreddit(sub);
+      } else {
+        changeSubreddit(sub.display_name);
+      }
       setVisible(false);
     }
   };
 
-  const options = userSubs?.map(sub => ({
-    label: sub.display_name,
+  const options = allSubs.map(sub => ({
+    label: sub,
     onPress: () => onSubPress(sub),
   }));
 
@@ -46,13 +56,13 @@ const SubList = ({ visible, setVisible }: SubListProps) => {
     index: number,
     onOptionPress: any,
   ) => {
-    return userSubs ? (
+    return (
       <SubredditActionRow
-        sub={userSubs[index]}
+        sub={allSubs[index]}
         onPress={() => onOptionPress(index)}
         key={label}
       />
-    ) : null;
+    );
   };
 
   return (
@@ -71,7 +81,7 @@ const SubList = ({ visible, setVisible }: SubListProps) => {
 };
 
 export interface SubredditActionRowProps {
-  sub: Subreddit;
+  sub: Subreddit | string;
   onPress: any;
 }
 
@@ -88,7 +98,7 @@ const SubredditActionRow = ({ sub, onPress }: SubredditActionRowProps) => {
               source={{ uri: url }}
             />
           </View>
-          <Text>{sub.display_name}</Text>
+          <Text>{sub}</Text>
         </View>
       </View>
     </TouchableNativeFeedback>
