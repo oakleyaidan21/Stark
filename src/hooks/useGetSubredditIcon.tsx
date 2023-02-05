@@ -6,7 +6,7 @@ const STORAGE_KEY = 'SUBREDDIT_ICONS';
 
 const useGetSubredditIcon = (subreddit: Subreddit) => {
   const { display_name } = subreddit;
-  const [iconUrl, setIconUrl] = useState('');
+  const [iconUrl, setIconUrl] = useState<string>('');
 
   useEffect(() => {
     if (subreddit.icon_img !== undefined) {
@@ -34,10 +34,9 @@ const useGetSubredditIcon = (subreddit: Subreddit) => {
     }
   }, [setIconUrl, getJSON, setJSON, subreddit]);
 
-  return (
-    iconUrl ??
-    'https://cdn.iconscout.com/icon/free/png-256/reddit-74-434748.png'
-  );
+  return iconUrl.length > 0
+    ? iconUrl
+    : 'https://cdn.iconscout.com/icon/free/png-256/reddit-74-434748.png';
 };
 
 export default useGetSubredditIcon;
