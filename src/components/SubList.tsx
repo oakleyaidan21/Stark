@@ -82,15 +82,9 @@ const SubredditActionRow = ({ sub, onPress }: SubredditActionRowProps) => {
     <TouchableNativeFeedback onPress={onPress}>
       <View centerV height={40} paddingL-10>
         <View row centerV>
-          <View
-            width={30}
-            height={30}
-            center
-            marginR-10
-            style={{ borderRadius: 5 }}
-            backgroundColor={'grey'}>
+          <View width={30} height={30} center marginR-10>
             <Image
-              style={{ width: '100%', height: '100%', borderRadius: 5 }}
+              style={{ width: '100%', height: '100%', borderRadius: 30 }}
               source={{ uri: url }}
             />
           </View>
