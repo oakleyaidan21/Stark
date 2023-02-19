@@ -63,7 +63,3 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
-
-src/config/snoowrapConfig.tsx
-src/config/imgurConfig.tsx
-src/config/gfyConfig.tsx
