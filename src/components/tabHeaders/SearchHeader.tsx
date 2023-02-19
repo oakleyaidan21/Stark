@@ -14,9 +14,11 @@ const SearchHeader = () => {
       <TextInput
         style={{
           flex: 1,
+          color: Colors.textColor,
         }}
         onChangeText={onType}
         placeholder={'Search Reddit'}
+        placeholderTextColor={Colors.tertiaryText}
       />
     </View>
   );
