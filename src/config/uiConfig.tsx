@@ -1,19 +1,9 @@
 import { Colors, ThemeManager, Typography } from 'react-native-ui-lib';
 
 export const loadUIConfig = () => {
+  Colors.setScheme('default');
+
   Colors.loadSchemes({
-    light: {
-      textColor: Colors.black,
-      bgColor: Colors.white,
-      emptyBgColor: '#E9E9E9',
-      selfTextBgColor: '#E9E9E9',
-      oBgColor: Colors.black,
-      hfBorderColor: Colors.black,
-      unfocusedTab: '#4a4a4a',
-      seeCommentsColor: '#a3a3a3',
-      tertiaryText: '#A1A1A1',
-      statusBarBg: Colors.white,
-    },
     dark: {
       textColor: Colors.white,
       emptyBgColor: '#1a1a1a',
@@ -25,6 +15,18 @@ export const loadUIConfig = () => {
       seeCommentsColor: '#a3a3a3',
       tertiaryText: '#A1A1A1',
       statusBarBg: Colors.black,
+    },
+    light: {
+      textColor: Colors.black,
+      bgColor: Colors.white,
+      emptyBgColor: '#E9E9E9',
+      selfTextBgColor: '#E9E9E9',
+      oBgColor: Colors.black,
+      hfBorderColor: Colors.black,
+      unfocusedTab: '#4a4a4a',
+      seeCommentsColor: '#a3a3a3',
+      tertiaryText: '#A1A1A1',
+      statusBarBg: Colors.white,
     },
   });
 
