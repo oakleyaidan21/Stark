@@ -35,13 +35,16 @@ const SubmissionCard = ({
   } = submission;
 
   const thumbnailUrl =
-    thumbnail == '' ||
+    thumbnail === '' ||
     thumbnail === 'self' ||
     thumbnail === 'spoiler' ||
     thumbnail === 'nsfw' ||
-    thumbnail === 'default'
+    thumbnail === 'default' ||
+    thumbnail === 'image'
       ? 'https://cdn.iconscout.com/icon/free/png-256/reddit-74-434748.png'
       : thumbnail;
+
+  console.log('thumbnail url!', thumbnailUrl);
 
   const subredditIcon = useGetSubredditIcon(subreddit);
 
@@ -99,6 +102,16 @@ const SubmissionCard = ({
                 style={{ marginTop: 5 }}
               />
             )}
+            {/* points, comments */}
+            <View row centerV marginT-5>
+              <Text bold style={{ fontSize: 16 }}>
+                {score}
+              </Text>
+              <Text color={Colors.tertiaryText}> | </Text>
+              <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
+                {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
+              </Text>
+            </View>
           </View>
           {showThumbnail && (
             <TouchableWithoutFeedback
@@ -109,16 +122,6 @@ const SubmissionCard = ({
               />
             </TouchableWithoutFeedback>
           )}
-        </View>
-        {/* points, comments */}
-        <View row centerV marginT-5>
-          <Text bold style={{ fontSize: 16 }}>
-            {score}
-          </Text>
-          <Text color={Colors.tertiaryText}> | </Text>
-          <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
-            {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
-          </Text>
         </View>
       </View>
       {/* content */}
