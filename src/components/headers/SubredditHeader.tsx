@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
@@ -14,9 +14,17 @@ const SubredditHeader = ({ subreddit }: SubredditHeaderProps) => {
     public_description,
     banner_img,
     community_icon,
+    banner_background_image,
   } = subreddit;
 
-  const hasBannerImage = banner_img.length > 0;
+  const bannerImg =
+    banner_img.length > 0
+      ? banner_img
+      : banner_background_image.length > 0
+      ? banner_background_image
+      : '';
+
+  const hasBannerImage = bannerImg.length > 0;
   const hasCommunityIcon = community_icon.length > 0;
 
   const [subscribing, setSubscribing] = useState(false);
@@ -42,7 +50,7 @@ const SubredditHeader = ({ subreddit }: SubredditHeaderProps) => {
     <View bg-bgColor marginB-10 style={{ position: 'relative' }}>
       <View style={{ height: 150, backgroundColor: Colors.primary }}>
         {hasBannerImage && (
-          <Image source={{ uri: banner_img }} style={{ flex: 1 }} />
+          <Image source={{ uri: bannerImg }} style={{ flex: 1 }} />
         )}
       </View>
       <View
