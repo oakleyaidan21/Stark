@@ -18,6 +18,7 @@ import StarkContext from '../context/StarkContext';
 import SubmissionListingContext from '../context/SubmissionListingContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
+import SubredditRow from './SubredditRow';
 
 export interface SubListProps {
   visible: boolean;
@@ -86,22 +87,13 @@ export interface SubredditActionRowProps {
 }
 
 const SubredditActionRow = ({ sub, onPress }: SubredditActionRowProps) => {
-  const url = useGetSubredditIcon(sub);
-
   return (
-    <TouchableNativeFeedback onPress={onPress}>
-      <View centerV height={40} paddingL-10>
-        <View row centerV>
-          <View width={30} height={30} center marginR-10>
-            <Image
-              style={{ width: '100%', height: '100%', borderRadius: 30 }}
-              source={{ uri: url }}
-            />
-          </View>
-          <Text>{sub}</Text>
-        </View>
-      </View>
-    </TouchableNativeFeedback>
+    <>
+      <View style={{ height: 10 }} />
+      <TouchableNativeFeedback onPress={onPress}>
+        <SubredditRow subreddit={sub} />
+      </TouchableNativeFeedback>
+    </>
   );
 };
 

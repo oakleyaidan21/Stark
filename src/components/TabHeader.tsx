@@ -1,6 +1,7 @@
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native-ui-lib';
 import HomeHeader from './tabHeaders/HomeHeader';
+import SearchHeader from './tabHeaders/SearchHeader';
 
 const TabHeader = (props: BottomTabHeaderProps) => {
   const { route } = props;
@@ -15,6 +16,8 @@ const getContentForRoute = (route: string) => {
   switch (route) {
     case 'Home':
       return <HomeHeader />;
+    case 'Search':
+      return <SearchHeader />;
     default:
       return null;
   }

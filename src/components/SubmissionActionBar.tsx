@@ -1,4 +1,4 @@
-import { Button, Colors, Text, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 

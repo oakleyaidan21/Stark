@@ -4,7 +4,6 @@ import { TouchableNativeFeedback } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StarkContext from '../context/StarkContext';
-import useStarkStorage from '../hooks/useStarkStorage';
 import UserSelector from './UserSelector';
 
 const MainTabBar = ({
@@ -59,6 +58,8 @@ const iconNameForRouteName = (routeName: string) => {
       return 'home';
     case 'Profile':
       return 'account';
+    case 'Search':
+      return 'magnify';
     default:
       return 'home';
   }

@@ -13,7 +13,7 @@ const useGetSubredditIcon = (subreddit: Subreddit | string) => {
   const [iconUrl, setIconUrl] = useState<string>('');
 
   useEffect(() => {
-    if (typeof subreddit !== 'string' && subreddit.icon_img !== undefined) {
+    if (typeof subreddit !== 'string' && subreddit.icon_img) {
       const url =
         subreddit.icon_img.length > 0
           ? subreddit.icon_img
