@@ -6,14 +6,17 @@ import SubredditRow from '../../components/SubredditRow';
 import useSearchSubreddits from '../../hooks/useSearchSubreddits';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const SearchScreen = ({ route }: any) => {
+const SearchScreen = ({ route, navigation }: any) => {
   const searchString = route.params?.searchString;
 
   const { results } = useSearchSubreddits(searchString);
 
   const renderItem = ({ item }: ListRenderItemInfo<Subreddit>) => {
     return (
-      <TouchableOpacity onPress={() => console.log('yeet!')}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('SubredditScreen', { subreddit: item })
+        }>
         <SubredditRow subreddit={item} />
       </TouchableOpacity>
     );

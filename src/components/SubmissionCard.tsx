@@ -53,6 +53,13 @@ const SubmissionCard = ({
 
   const showThumbnail = postType.code !== 'SLF' || !showBody;
 
+  const goToSub = () => {
+    console.log('yeet');
+    navigation.navigate('SubredditScreen', {
+      subreddit: subreddit.display_name,
+    });
+  };
+
   return (
     <View bg-bgColor>
       <View padding-10>
@@ -68,9 +75,11 @@ const SubmissionCard = ({
             source={{ uri: subredditIcon }}
           />
           <Text style={{ fontSize: 12 }}>
-            <Text style={{ color: Colors.primary }}>
-              {subreddit.display_name}
-            </Text>
+            <TouchableWithoutFeedback onPress={goToSub}>
+              <Text style={{ color: Colors.primary }}>
+                {subreddit.display_name}
+              </Text>
+            </TouchableWithoutFeedback>
             <Text color={Colors.tertiaryText}> | </Text>
             <Text color={Colors.tertiaryText}>{author.name}</Text>
           </Text>

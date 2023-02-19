@@ -11,7 +11,12 @@ const SubmissionActionBar = ({ submission }: SubmissionActionBarProps) => {
     <View row height={40} paddingH-10 spread centerV>
       <Icon name="arrow-up-bold-outline" size={23} color={'grey'} />
       <Icon name="arrow-down-bold-outline" size={23} color={'grey'} />
-      <Icon name="star-outline" size={23} color={'grey'} />
+      <Icon
+        name="star-outline"
+        size={23}
+        color={'grey'}
+        onPress={submission.save}
+      />
       <Icon name="comment-text-outline" size={23} color={'grey'} />
       <Icon name="exit-to-app" size={23} color={'grey'} />
       <Icon name="dots-vertical" size={23} color={'grey'} />
