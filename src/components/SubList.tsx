@@ -1,23 +1,9 @@
 import { useContext } from 'react';
-import {
-  StyleSheet,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-} from 'react-native';
-import {
-  ActionSheet,
-  ButtonProps,
-  Colors,
-  Dialog,
-  Image,
-  Text,
-  View,
-} from 'react-native-ui-lib';
+import { TouchableOpacity } from 'react-native';
+import { ActionSheet, ButtonProps, Colors, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
 import StarkContext from '../context/StarkContext';
 import SubmissionListingContext from '../context/SubmissionListingContext';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
 import SubredditRow from './SubredditRow';
 
 export interface SubListProps {
@@ -90,9 +76,9 @@ const SubredditActionRow = ({ sub, onPress }: SubredditActionRowProps) => {
   return (
     <>
       <View style={{ height: 10 }} />
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         <SubredditRow subreddit={sub} />
-      </TouchableNativeFeedback>
+      </TouchableOpacity>
     </>
   );
 };

@@ -1,17 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  View,
-  Linking,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Linking, Dimensions, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Text } from 'react-native-ui-lib';
 import ScreenProps from '../types/ScreenProps';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Colors } from 'react-native-ui-lib';
 
 type WebProps = NativeStackScreenProps<ScreenProps, 'Web'>;
 
@@ -53,36 +46,31 @@ const Web: React.FC<WebProps> = props => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* URL AND PROGRESS */}
-      {/* <View>
-        <View style={{ width: '100%', justifyContent: 'center' }}>
-          <View
-            style={{ flexDirection: 'row', alignItems: 'center', height: 60 }}>
-            <TouchableOpacity
-              style={{ margin: 10 }}
-              onPress={props.navigation.goBack}>
-              <Icon name="close" color="white" size={30} />
-            </TouchableOpacity>
-            <Text style={{ color: 'grey', flex: 1 }} numberOfLines={1}>
-              {currUrl}
-            </Text>
-            <View style={{ width: 50 }}>
-              {loading && <ActivityIndicator color="grey" />}
-            </View>
-          </View>
-        </View>
-      </View> */}
-
       {/* WEB FUNCTIONS */}
       <View style={s.webFunctions}>
-        <Icon name="arrow-left" color="white" onPress={goBack} size={30} />
-        <Icon name="arrow-right" color="white" onPress={goForward} size={30} />
-        <Icon name="refresh" color="white" onPress={refresh} size={30} />
+        <Icon
+          name="arrow-left"
+          color={Colors.oBgColor}
+          onPress={goBack}
+          size={25}
+        />
+        <Icon
+          name="arrow-right"
+          color={Colors.oBgColor}
+          onPress={goForward}
+          size={25}
+        />
+        <Icon
+          name="refresh"
+          color={Colors.oBgColor}
+          onPress={refresh}
+          size={25}
+        />
         <Icon
           name="link"
-          color="white"
+          color={Colors.oBgColor}
           onPress={() => Linking.openURL(props.route.params.url)}
-          size={30}
+          size={25}
         />
       </View>
 
@@ -110,6 +98,7 @@ const s = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: Colors.bgColor,
   },
 });
 
