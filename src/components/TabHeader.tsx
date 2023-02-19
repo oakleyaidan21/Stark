@@ -19,8 +19,7 @@ const getContentForRoute = (route: string) => {
     case 'Search':
       return <SearchHeader />;
     default:
-      console.log('route!', route);
-      return <Text>impl</Text>;
+      return null;
   }
 };
 

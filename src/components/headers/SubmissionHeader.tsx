@@ -13,9 +13,14 @@ const SubmissionHeader = ({ navProps }: SubmissionHeaderProps) => {
       <TouchableWithoutFeedback onPress={navProps.navigation.goBack}>
         <Icon name="arrow-left" size={25} color={Colors.oBgColor} />
       </TouchableWithoutFeedback>
-      <Text flex bold marginL-10>
+      <Text flex-2 bold marginL-10>
         Comments
       </Text>
+      <View row flex spread>
+        <Icon name="magnify" color={Colors.oBgColor} size={20} />
+        <Icon name="filter-variant" color={Colors.oBgColor} size={20} />
+        <Icon name="dots-vertical" color={Colors.oBgColor} size={20} />
+      </View>
     </View>
   );
 };

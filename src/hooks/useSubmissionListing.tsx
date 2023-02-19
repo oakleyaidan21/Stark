@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Listing, Submission } from 'snoowrap';
-import { ListingOptions } from 'snoowrap/dist/objects';
+import { Comment, ListingOptions } from 'snoowrap/dist/objects';
 import StarkContext from '../context/StarkContext';
+import { getSubPosts } from '../util/RedditUtil';
 
 export interface UseSubmissionListingProps {
   subredditName?: string;
@@ -14,23 +15,20 @@ const useSubmissionListing = ({
 }: UseSubmissionListingProps) => {
   const { snoowrap } = useContext(StarkContext);
 
-  const [listing, setListing] = useState<Listing<Submission>>();
+  const [listing, setListing] = useState<Listing<Submission | Comment>>();
   const [refreshing, setRefreshing] = useState(false);
 
   const getPosts = () => {
-    console.log('getting new posts for', subredditName);
-    snoowrap
-      ?.getHot(
-        subredditName === 'Front Page' ? undefined : subredditName,
-        options,
-      )
-      .then(listing => {
-        setListing(listing);
-        setRefreshing(false);
-      })
-      .catch(e => {
-        console.log('Error getting posts', e.body);
-      });
+    if (snoowrap) {
+      getSubPosts(snoowrap, subredditName, options)
+        .then(listing => {
+          setListing(listing);
+          setRefreshing(false);
+        })
+        .catch(error => {
+          console.log('Error getting posts', error.body);
+        });
+    }
   };
 
   useEffect(() => {

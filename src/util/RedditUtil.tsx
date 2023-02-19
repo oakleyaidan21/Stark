@@ -1,4 +1,25 @@
 import Snoowrap, { Submission } from 'snoowrap';
+import { ListingOptions } from 'snoowrap/dist/objects';
+
+export const isSubmission = (content: any): content is Submission =>
+  content instanceof Submission;
+
+export const getSubPosts = async (
+  snoowrap: Snoowrap,
+  subredditName: string | undefined,
+  options: ListingOptions,
+) => {
+  console.log('getting posts for', subredditName);
+  if (subredditName === 'Saved') {
+    return snoowrap.getMe().then(async me => {
+      return await me.getSavedContent();
+    });
+  }
+  return await snoowrap.getHot(
+    subredditName === 'Front Page' ? undefined : subredditName,
+    options,
+  );
+};
 
 export const postRegex =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)$/;

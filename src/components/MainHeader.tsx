@@ -1,6 +1,6 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import { TouchableWithoutFeedback } from 'react-native';
-import { View, Colors } from 'react-native-ui-lib';
+import { View, Colors, Text } from 'react-native-ui-lib';
 import SubmissionHeader from './headers/SubmissionHeader';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
