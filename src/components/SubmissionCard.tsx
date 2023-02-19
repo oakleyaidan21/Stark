@@ -44,8 +44,6 @@ const SubmissionCard = ({
       ? 'https://cdn.iconscout.com/icon/free/png-256/reddit-74-434748.png'
       : thumbnail;
 
-  console.log('thumbnail url!', thumbnailUrl);
-
   const subredditIcon = useGetSubredditIcon(subreddit);
 
   const navigation = useNavigation();
