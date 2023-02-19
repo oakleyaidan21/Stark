@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import useGetRGToken from './useGetRGAuthInfo';
 
 const useGetRGInfo = (identifier: string) => {
-  const { authInfo } = useGetRGToken();
+  const { authInfo, getInfo } = useGetRGToken();
   const [gifInfo, setGifInfo] = useState<any>();
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     if (authInfo) {
@@ -16,7 +17,13 @@ const useGetRGInfo = (identifier: string) => {
         },
       })
         .then(response => response.json())
-        .then(info => setGifInfo(info))
+        .then(info => {
+          if (info['error']) {
+            getInfo();
+          } else {
+            setGifInfo(info);
+          }
+        })
         .catch(e => console.log('Error getting RG info:', e));
     }
   }, [authInfo]);

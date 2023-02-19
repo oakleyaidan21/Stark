@@ -51,7 +51,7 @@ const SubmissionCard = ({
     return determinePostType(submission);
   }, [submission.id]);
 
-  const showThumbnail = postType.code !== 'SLF' && !showBody;
+  const showThumbnail = postType.code !== 'SLF' || !showBody;
 
   return (
     <View bg-bgColor>
