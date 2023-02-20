@@ -8,10 +8,15 @@ import useSubmissionListing from '../../hooks/useSubmissionListing';
 const HomeScreen = () => {
   const [subredditName, setSubredditName] = useState('Front Page');
 
-  const { listing, refresh, refreshing, fetchMore } = useSubmissionListing({
-    subredditName: subredditName,
-    options: { limit: 25 },
-  });
+  const { listing, refresh, refreshing, fetchMore, sort, setSort } =
+    useSubmissionListing({
+      subredditName: subredditName,
+      options: { limit: 25 },
+    });
+
+  const renderHeader = () => {
+    return <HomeHeader sort={sort} setSort={setSort} />;
+  };
 
   return (
     <SubmissionListingContext.Provider
@@ -24,7 +29,7 @@ const HomeScreen = () => {
       <View flex>
         <ListingScroller
           content={listing}
-          header={HomeHeader}
+          header={renderHeader}
           onEndReached={fetchMore}
         />
       </View>

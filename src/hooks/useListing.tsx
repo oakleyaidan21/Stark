@@ -6,10 +6,10 @@ export interface UseListingProps {
   getListing: (
     options: ListingOptions | SortedListingOptions,
   ) => Promise<Listing<any>>;
-  sorted?: boolean;
+  sortable?: boolean;
 }
 
-const useListing = ({ getListing, sorted = false }: UseListingProps) => {
+const useListing = ({ getListing, sortable = false }: UseListingProps) => {
   const [listing, setListing] = useState<Listing<any>>();
   const [errored, setErrored] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -30,7 +30,7 @@ const useListing = ({ getListing, sorted = false }: UseListingProps) => {
   const get = () => {
     if (getListing !== undefined) {
       setLoading(true);
-      getListing(sorted ? sortedOptions : options)
+      getListing(sortable ? sortedOptions : options)
         .then(list => {
           setListing(list);
         })

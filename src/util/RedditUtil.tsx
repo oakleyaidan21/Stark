@@ -1,5 +1,6 @@
 import Snoowrap, { Submission } from 'snoowrap';
-import { ListingOptions } from 'snoowrap/dist/objects';
+import { ListingOptions, SortedListingOptions } from 'snoowrap/dist/objects';
+import { SortType } from '../hooks/useListingSort';
 
 export const isSubmission = (content: any): content is Submission =>
   content instanceof Submission;
@@ -7,18 +8,29 @@ export const isSubmission = (content: any): content is Submission =>
 export const getSubPosts = async (
   snoowrap: Snoowrap,
   subredditName: string | undefined,
-  options: ListingOptions,
+  options: SortedListingOptions,
+  sort: SortType,
 ) => {
-  console.log('getting posts for', subredditName);
+  console.log(
+    `getting ${sort} posts for`,
+    subredditName,
+    `of the ${options.time}`,
+  );
   if (subredditName === 'Saved') {
     return snoowrap.getMe().then(async me => {
       return await me.getSavedContent();
     });
   }
-  return await snoowrap.getHot(
-    subredditName === 'Front Page' ? undefined : subredditName,
-    options,
-  );
+  const subName = 'Front Page' ? undefined : subredditName;
+  const sortType = sort.toLowerCase();
+  switch (sortType) {
+    case 'new':
+      return await snoowrap.getNew(subName, options);
+    case 'top':
+      return await snoowrap.getTop(subName, options);
+    default:
+      return await snoowrap.getHot(subName, options);
+  }
 };
 
 export const postRegex =

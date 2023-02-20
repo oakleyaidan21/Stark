@@ -1,9 +1,15 @@
 import { useContext, useState } from 'react';
 import SubmissionListingContext from '../../../context/SubmissionListingContext';
+import { SortType } from '../../../hooks/useListingSort';
 import SubList from '../../SubList';
 import ConfigHeader from '../ConfigHeader';
 
-const HomeHeader = () => {
+export interface HomeHeaderProps {
+  sort: SortType;
+  setSort: any;
+}
+
+const HomeHeader = ({ sort, setSort }: HomeHeaderProps) => {
   const { subredditName } = useContext(SubmissionListingContext);
   const [showSubList, setShowSubList] = useState(false);
 
@@ -11,7 +17,7 @@ const HomeHeader = () => {
     <>
       <ConfigHeader
         title={subredditName}
-        subtitle={'Filter'}
+        subtitle={sort}
         onTitlePress={() => setShowSubList(true)}
       />
       <SubList visible={showSubList} setVisible={setShowSubList} />
