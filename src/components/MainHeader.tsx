@@ -4,23 +4,32 @@ import { View, Colors } from 'react-native-ui-lib';
 import SubmissionHeader from './headers/SubmissionHeader';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const renderContainer = (routeName: string) => {
-  return routeName !== 'SubredditScreen';
-};
-
 const MainHeader = (props: NativeStackHeaderProps) => {
   const { route } = props;
-  return renderContainer(route.name) ? (
+  const showHeader = renderContainer(route.name);
+  console.log('how my guy', showHeader, route.name);
+  return showHeader ? (
     <View height={50} bg-bgColor center>
       {getContentForRoute(route.name, props)}
     </View>
   ) : null;
 };
 
+const renderContainer = (routeName: string) => {
+  switch (routeName) {
+    case 'SearchResultScreen':
+    case 'SubredditScreen':
+      return false;
+    default:
+      return true;
+  }
+};
+
 const getContentForRoute = (route: string, props: NativeStackHeaderProps) => {
   switch (route) {
     case 'Submission':
       return <SubmissionHeader navProps={props} />;
+    case 'SearchResultScreen':
     case 'SubredditScreen':
       return null;
     default:

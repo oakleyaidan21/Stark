@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native';
-import { Colors, Text, View } from 'react-native-ui-lib';
+import { Colors, View } from 'react-native-ui-lib';
 
 const SearchHeader = () => {
   const navigation = useNavigation();

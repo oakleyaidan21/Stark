@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ActivityIndicator } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
+import SearchResultHeader from '../components/headers/SearchResultHeader';
 import ListingScroller from '../components/ListingScroller';
 import SubmissionListingContext from '../context/SubmissionListingContext';
 import useSearchPosts from '../hooks/useSearchPosts';
@@ -26,7 +27,7 @@ const SearchResultScreen = ({
           ) : (
             <ListingScroller
               content={results}
-              header={null}
+              header={() => <SearchResultHeader query={query} />}
               onEndReached={getMore}
             />
           )}
