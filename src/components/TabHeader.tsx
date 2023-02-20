@@ -1,7 +1,7 @@
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native-ui-lib';
-import HomeHeader from './tabHeaders/HomeHeader';
-import SearchHeader from './tabHeaders/SearchHeader';
+import HomeHeader from './headers/tabHeaders/HomeHeader';
+import SearchHeader from './headers/tabHeaders/SearchHeader';
 
 const TabHeader = (props: BottomTabHeaderProps) => {
   const { route } = props;

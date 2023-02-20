@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native-ui-lib';
 import ListingScroller from '../../components/ListingScroller';
-import HomeHeader from '../../components/tabHeaders/HomeHeader';
+import HomeHeader from '../../components/headers/tabHeaders/HomeHeader';
 import SubmissionListingContext from '../../context/SubmissionListingContext';
 import useSubmissionListing from '../../hooks/useSubmissionListing';
 
