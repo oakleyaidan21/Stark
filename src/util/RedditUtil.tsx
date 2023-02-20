@@ -21,7 +21,7 @@ export const getSubPosts = async (
       return await me.getSavedContent();
     });
   }
-  const subName = 'Front Page' ? undefined : subredditName;
+  const subName = subredditName === 'Front Page' ? undefined : subredditName;
   const sortType = sort.toLowerCase();
   switch (sortType) {
     case 'new':

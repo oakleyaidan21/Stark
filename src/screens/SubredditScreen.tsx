@@ -1,7 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Image, TouchableOpacity } from 'react-native';
-import { Colors, Text, View } from 'react-native-ui-lib';
-import { Subreddit } from 'snoowrap';
+import { Text, View } from 'react-native-ui-lib';
 import SubredditHeader from '../components/headers/SubredditHeader';
 import ListingScroller from '../components/ListingScroller';
 import SubmissionListingContext from '../context/SubmissionListingContext';
