@@ -29,6 +29,8 @@ const ListingScroller = ({
 
   const navigation = useNavigation();
 
+  const hasHeader = !!header;
+
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Submission>) => {
       const inView = viewableItems.includes(index);
@@ -66,7 +68,7 @@ const ListingScroller = ({
         ListHeaderComponent={header}
         stickyHeaderHiddenOnScroll
         removeClippedSubviews
-        stickyHeaderIndices={[0]}
+        stickyHeaderIndices={hasHeader ? [0] : undefined}
         maxToRenderPerBatch={7}
         windowSize={18}
         ItemSeparatorComponent={SeparatorComponent}

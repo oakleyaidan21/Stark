@@ -11,7 +11,7 @@ const SearchResultScreen = ({
     params: { query },
   },
 }: NativeStackScreenProps<ScreenProps, 'SearchResultScreen'>) => {
-  const { loading, results, search } = useSearchPosts(query);
+  const { loading, results, search, getMore } = useSearchPosts(query);
 
   return (
     <View flex>
@@ -24,7 +24,11 @@ const SearchResultScreen = ({
           {loading ? (
             <ActivityIndicator color={Colors.oBgColor} />
           ) : (
-            <ListingScroller content={results} header={null} />
+            <ListingScroller
+              content={results}
+              header={null}
+              onEndReached={getMore}
+            />
           )}
         </View>
       </SubmissionListingContext.Provider>
