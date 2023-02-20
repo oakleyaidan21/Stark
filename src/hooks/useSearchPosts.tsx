@@ -23,8 +23,9 @@ const useSearchPosts = (query: string) => {
     }
   }, [query, snoowrap]);
 
-  const getMore = () => {
-    results?.fetchMore({ amount: 25 });
+  const getMore = async () => {
+    const moreResults = await results?.fetchMore({ amount: 25, append: true });
+    setResults(moreResults);
   };
 
   useEffect(() => {

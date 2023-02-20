@@ -27,7 +27,7 @@ const renderContainer = (routeName: string) => {
 const getContentForRoute = (route: string, props: NativeStackHeaderProps) => {
   switch (route) {
     case 'Submission':
-      return <SubmissionHeader navProps={props} />;
+      return <SubmissionHeader />;
     case 'SearchResultScreen':
     case 'SubredditScreen':
       return null;
