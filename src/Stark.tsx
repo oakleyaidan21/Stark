@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { RedditUser } from 'snoowrap';
 import StarkStatusBar from './components/StarkStatusBar';
 import StarkContext from './context/StarkContext';
 import useSnoowrap from './hooks/useSnoowrap';
@@ -15,10 +14,14 @@ const Stark = () => {
       <View flex bg-bgColor>
         <StarkStatusBar />
         <View useSafeArea flex>
-          <StarkContext.Provider
-            value={{ snoowrap: snoowrap, user: user, userSubs: userSubs }}>
-            <MainNavigator />
-          </StarkContext.Provider>
+          {snoowrap ? (
+            <StarkContext.Provider
+              value={{ snoowrap: snoowrap, user: user, userSubs: userSubs }}>
+              <MainNavigator />
+            </StarkContext.Provider>
+          ) : (
+            <ActivityIndicator />
+          )}
         </View>
       </View>
     </NavigationContainer>

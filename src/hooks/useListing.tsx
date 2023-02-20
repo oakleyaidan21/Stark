@@ -1,15 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Listing } from 'snoowrap';
+import { ListingOptions, SortedListingOptions } from 'snoowrap/dist/objects';
 
 export interface UseListingProps {
-  getListing: () => Promise<Listing<any>>;
+  getListing: (
+    options: ListingOptions | SortedListingOptions,
+  ) => Promise<Listing<any>>;
+  sorted?: boolean;
 }
 
-const useListing = ({ getListing }: UseListingProps) => {
+const useListing = ({ getListing, sorted = false }: UseListingProps) => {
   const [listing, setListing] = useState<Listing<any>>();
   const [errored, setErrored] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [limit, setLimit] = useState(25);
+  const [time, setTime] = useState('day');
+
+  const options = {
+    limit: limit,
+  };
+
+  const sortedOptions = { ...options, time: time };
 
   useEffect(() => {
     get();
@@ -18,7 +30,7 @@ const useListing = ({ getListing }: UseListingProps) => {
   const get = () => {
     if (getListing !== undefined) {
       setLoading(true);
-      getListing()
+      getListing(sorted ? sortedOptions : options)
         .then(list => {
           setListing(list);
         })
@@ -51,7 +63,18 @@ const useListing = ({ getListing }: UseListingProps) => {
     get();
   };
 
-  return { listing, fetchMore, errored, refreshing, loading, refresh };
+  return {
+    listing,
+    fetchMore,
+    errored,
+    refreshing,
+    loading,
+    refresh,
+    limit,
+    setLimit,
+    time,
+    setTime,
+  };
 };
 
 export default useListing;
