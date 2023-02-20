@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import Snoowrap, { Listing, Subreddit } from 'snoowrap';
-import useSnoowrap from './useSnoowrap';
+import { useContext, useEffect, useState } from 'react';
+import { Listing, Subreddit } from 'snoowrap';
+import StarkContext from '../context/StarkContext';
 
 const useSearchSubreddits = (searchText: string) => {
   const [results, setResults] = useState<Listing<Subreddit>>();
   const [errored, setErrored] = useState(false);
-  const { snoowrap } = useSnoowrap();
+  const { snoowrap } = useContext(StarkContext);
 
   const searchSubs = () => {
     if (snoowrap) {

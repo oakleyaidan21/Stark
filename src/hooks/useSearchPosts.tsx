@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Listing, Submission } from 'snoowrap';
-import useSnoowrap from './useSnoowrap';
+import StarkContext from '../context/StarkContext';
 
 const useSearchPosts = (query: string) => {
   const [loading, setLoading] = useState(false);
   const [errored, setErrored] = useState(false);
   const [results, setResults] = useState<Listing<Submission>>();
-  const { snoowrap } = useSnoowrap();
+
+  const { snoowrap } = useContext(StarkContext);
 
   const search = useCallback(() => {
     if (snoowrap) {

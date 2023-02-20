@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Subreddit } from 'snoowrap';
-import useSnoowrap from './useSnoowrap';
+import StarkContext from '../context/StarkContext';
 
 const useSubreddit = (subreddit: Subreddit | string) => {
   const inputIsSub = typeof subreddit !== 'string';
@@ -8,7 +8,7 @@ const useSubreddit = (subreddit: Subreddit | string) => {
   const [subredditInfo, setSubredditInfo] = useState<Subreddit>();
   const [errored, setErrored] = useState(false);
 
-  const { snoowrap } = useSnoowrap();
+  const { snoowrap } = useContext(StarkContext);
 
   useEffect(() => {
     if (!inputIsSub && snoowrap !== undefined) {
