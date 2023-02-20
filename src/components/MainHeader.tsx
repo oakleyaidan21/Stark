@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const MainHeader = (props: NativeStackHeaderProps) => {
   const { route } = props;
   const showHeader = renderContainer(route.name);
-  console.log('how my guy', showHeader, route.name);
   return showHeader ? (
     <View height={50} bg-bgColor center>
       {getContentForRoute(route.name, props)}

@@ -6,7 +6,11 @@ export interface SearchResultHeaderProps {
 
 const SearchResultHeader = ({ query }: SearchResultHeaderProps) => {
   return (
-    <ConfigHeader title={`Results for ${query}`} leftIconBehavior="back" />
+    <ConfigHeader
+      title={`Results for ${query}`}
+      subtitle={'Filter'}
+      leftIconBehavior="back"
+    />
   );
 };
 

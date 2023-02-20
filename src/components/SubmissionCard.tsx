@@ -55,8 +55,7 @@ const SubmissionCard = ({
   const showThumbnail = postType.code !== 'SLF' || !showBody;
 
   const goToSub = () => {
-    console.log('yeet');
-    navigation.navigate('SubredditScreen', {
+    (navigation as any).navigate('SubredditScreen', {
       subreddit: subreddit.display_name,
     });
   };

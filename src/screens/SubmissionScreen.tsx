@@ -1,6 +1,4 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useCallback } from 'react';
-import { FlatList } from 'react-native';
 import FullSubmission from '../components/FullSubmission';
 import ScreenProps from '../types/ScreenProps';
 
@@ -9,17 +7,7 @@ const SubmissionScreen = ({
     params: { submission },
   },
 }: NativeStackScreenProps<ScreenProps, 'Submission'>) => {
-  const renderListHeaderComponent = useCallback(() => {
-    return <FullSubmission submission={submission} />;
-  }, []);
-
-  return (
-    <FlatList
-      ListHeaderComponent={renderListHeaderComponent}
-      data={[]}
-      renderItem={() => <></>}
-    />
-  );
+  return <FullSubmission submission={submission} />;
 };
 
 export default SubmissionScreen;
