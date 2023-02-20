@@ -1,12 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SortType } from '../../hooks/useListingSort';
+import SortActionSheet from '../SortActionSheet';
 
 export interface ConfigHeaderProps {
   title?: string;
   subtitle?: string;
   onTitlePress?: (event: GestureResponderEvent) => void;
+  onSortOptionPress?: (sort: SortType) => void;
   leftIconBehavior?: 'back' | 'other';
 }
 
@@ -15,6 +19,7 @@ const ConfigHeader = ({
   subtitle,
   onTitlePress,
   leftIconBehavior = 'other',
+  onSortOptionPress,
 }: ConfigHeaderProps) => {
   const navigation = useNavigation();
 
@@ -23,6 +28,8 @@ const ConfigHeader = ({
       ? navigation.goBack()
       : console.log('other pressed');
   };
+
+  const [sortListVisible, setSortListVisible] = useState(false);
 
   return (
     <View flex center spread row paddingH-10 paddingV-5 bg-bgColor>
@@ -49,9 +56,16 @@ const ConfigHeader = ({
       </TouchableWithoutFeedback>
       <View row flex spread>
         <Icon name="magnify" color={Colors.oBgColor} size={20} />
-        <Icon name="filter-variant" color={Colors.oBgColor} size={20} />
+        <TouchableWithoutFeedback onPress={() => setSortListVisible(true)}>
+          <Icon name="filter-variant" color={Colors.oBgColor} size={20} />
+        </TouchableWithoutFeedback>
         <Icon name="dots-vertical" color={Colors.oBgColor} size={20} />
       </View>
+      <SortActionSheet
+        visible={sortListVisible}
+        setVisible={setSortListVisible}
+        onSortOptionPress={onSortOptionPress}
+      />
     </View>
   );
 };

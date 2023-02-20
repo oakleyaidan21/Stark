@@ -19,6 +19,7 @@ const HomeHeader = ({ sort, setSort }: HomeHeaderProps) => {
         title={subredditName}
         subtitle={sort}
         onTitlePress={() => setShowSubList(true)}
+        onSortOptionPress={setSort}
       />
       <SubList visible={showSubList} setVisible={setShowSubList} />
     </>

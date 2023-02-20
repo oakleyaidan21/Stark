@@ -15,7 +15,7 @@ const useListing = ({ getListing, sortable = false }: UseListingProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(25);
-  const [time, setTime] = useState('day');
+  const [time, setTime] = useState('all');
 
   const options = {
     limit: limit,
