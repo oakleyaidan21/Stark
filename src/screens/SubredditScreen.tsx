@@ -3,6 +3,7 @@ import { Text, View } from 'react-native-ui-lib';
 import SubredditHeader from '../components/headers/SubredditHeader';
 import ListingScroller from '../components/ListingScroller';
 import SubmissionListingContext from '../context/SubmissionListingContext';
+import useListingSort from '../hooks/useListingSort';
 import useSubmissionListing from '../hooks/useSubmissionListing';
 import useSubreddit from '../hooks/useSubreddit';
 import ScreenProps from '../types/ScreenProps';
@@ -20,15 +21,18 @@ const SubredditScreen = ({
   const subName =
     typeof subreddit === 'string' ? subreddit : subreddit.display_name;
 
-  const { listing, refresh, refreshing, fetchMore } = useSubmissionListing({
-    subredditName: subName,
-    options: { limit: 25 },
-  });
+  const { listing, refresh, refreshing, fetchMore, sort, setSort } =
+    useSubmissionListing({
+      subredditName: subName,
+      options: { limit: 25 },
+    });
 
   const { sub, loading } = useSubreddit(subreddit);
 
   const renderHeader = () => {
-    return sub ? <SubredditHeader subreddit={sub} /> : null;
+    return sub ? (
+      <SubredditHeader subreddit={sub} sort={sort} setSortType={setSort} />
+    ) : null;
   };
 
   return (

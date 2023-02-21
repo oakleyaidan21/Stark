@@ -1,6 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
+import {
+  Animated,
+  GestureResponderEvent,
+  StyleProp,
+  TouchableWithoutFeedback,
+  ViewStyle,
+} from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SortType } from '../../hooks/useListingSort';
@@ -12,6 +18,7 @@ export interface ConfigHeaderProps {
   onTitlePress?: (event: GestureResponderEvent) => void;
   onSortOptionPress?: (sort: SortType) => void;
   leftIconBehavior?: 'back' | 'other';
+  backgroundColor?: string;
 }
 
 const ConfigHeader = ({
@@ -20,6 +27,7 @@ const ConfigHeader = ({
   onTitlePress,
   leftIconBehavior = 'other',
   onSortOptionPress,
+  backgroundColor = Colors.bgColor,
 }: ConfigHeaderProps) => {
   const navigation = useNavigation();
 
@@ -32,7 +40,14 @@ const ConfigHeader = ({
   const [sortListVisible, setSortListVisible] = useState(false);
 
   return (
-    <View flex center spread row paddingH-10 paddingV-5 bg-bgColor>
+    <View
+      flex
+      center
+      spread
+      row
+      paddingH-10
+      paddingV-5
+      backgroundColor={backgroundColor}>
       <View width={50}>
         <TouchableWithoutFeedback onPress={onLeftButtonPress}>
           <Icon

@@ -2,12 +2,20 @@ import { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
+import { SortType } from '../../hooks/useListingSort';
+import ConfigHeader from './ConfigHeader';
 
 export interface SubredditHeaderProps {
   subreddit: Subreddit;
+  setSortType: any;
+  sort: SortType;
 }
 
-const SubredditHeader = ({ subreddit }: SubredditHeaderProps) => {
+const SubredditHeader = ({
+  subreddit,
+  sort,
+  setSortType,
+}: SubredditHeaderProps) => {
   const {
     display_name,
     subscribers,
@@ -94,6 +102,15 @@ const SubredditHeader = ({ subreddit }: SubredditHeaderProps) => {
           />
         </View>
       )}
+      <View style={{ position: 'absolute', width: '100%' }} height={50}>
+        <ConfigHeader
+          title={'Subreddit'}
+          subtitle={sort}
+          onSortOptionPress={setSortType}
+          leftIconBehavior="back"
+          backgroundColor="rgba(0, 0, 0, 0.4)"
+        />
+      </View>
     </View>
   );
 };
