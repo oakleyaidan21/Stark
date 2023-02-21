@@ -22,10 +22,11 @@ const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
     [subredditName, sort],
   );
 
-  const { listing, loading, refreshing, refresh, fetchMore } = useListing({
-    getListing: getPosts,
-    sortable: sort === 'Top',
-  });
+  const { listing, loading, refreshing, refresh, fetchMore, errored } =
+    useListing({
+      getListing: getPosts,
+      sortable: sort === 'Top',
+    });
 
   return {
     listing,
@@ -36,6 +37,7 @@ const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
     loading,
     sort,
     setSort,
+    errored,
   };
 };
 

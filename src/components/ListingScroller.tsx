@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { FlatList, ListRenderItemInfo, ViewToken } from 'react-native';
-import { View, LoaderScreen } from 'react-native-ui-lib';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { View, LoaderScreen, Text } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
+import SubmissionListingContext from '../context/SubmissionListingContext';
 import ListSubmissionCard from './ListSubmissionCard';
 import SeparatorComponent from './SeparatorComponent';
 
@@ -46,6 +48,8 @@ const ListingScroller = ({
     [viewableItems],
   );
 
+  const { listing, errored, refresh } = useContext(SubmissionListingContext);
+
   const onViewableItemsChanged = useCallback(
     (info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
       const items = info.viewableItems.map(token => token.index);
@@ -54,29 +58,42 @@ const ListingScroller = ({
     [setViewableItems],
   );
 
+  const items = content ?? listing;
+
   return (
     <View flex center>
-      <FlatList
-        data={content}
-        style={{ flex: 1, width: '100%' }}
-        ListEmptyComponent={
-          <View marginT-200>
-            <LoaderScreen />
-          </View>
-        }
-        renderItem={renderItem}
-        ListHeaderComponent={header}
-        stickyHeaderHiddenOnScroll
-        removeClippedSubviews
-        stickyHeaderIndices={hasHeader ? [0] : undefined}
-        maxToRenderPerBatch={7}
-        windowSize={18}
-        ItemSeparatorComponent={SeparatorComponent}
-        viewabilityConfig={viewabilityConfig}
-        onViewableItemsChanged={onViewableItemsChanged}
-        keyExtractor={(item, index) => item.id + index.toString()}
-        onEndReached={onEndReached}
-      />
+      {errored ? (
+        <View flex center>
+          <Text bold marginB-10>
+            Error getting content {':('}
+          </Text>
+          <TouchableWithoutFeedback onPress={refresh}>
+            <Text bold>Retry</Text>
+          </TouchableWithoutFeedback>
+        </View>
+      ) : (
+        <FlatList
+          data={items}
+          style={{ flex: 1, width: '100%' }}
+          ListEmptyComponent={
+            <View marginT-200>
+              <LoaderScreen />
+            </View>
+          }
+          renderItem={renderItem}
+          ListHeaderComponent={header}
+          stickyHeaderHiddenOnScroll
+          removeClippedSubviews
+          stickyHeaderIndices={hasHeader ? [0] : undefined}
+          maxToRenderPerBatch={7}
+          windowSize={18}
+          ItemSeparatorComponent={SeparatorComponent}
+          viewabilityConfig={viewabilityConfig}
+          onViewableItemsChanged={onViewableItemsChanged}
+          keyExtractor={(item, index) => item.id + index.toString()}
+          onEndReached={onEndReached}
+        />
+      )}
     </View>
   );
 };
