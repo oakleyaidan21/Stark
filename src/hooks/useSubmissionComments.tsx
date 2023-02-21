@@ -1,31 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Comment, Listing, Submission } from 'snoowrap';
+import { useCallback } from 'react';
+import { Submission } from 'snoowrap';
+import useListing from './useListing';
 
 const useSubmissionComments = (submission: Submission) => {
-  const [comments, setComments] = useState<Listing<Comment>>();
-  const [fetchingComments, setFetchingComments] = useState(false);
-
-  const fetchComments = async () => {
-    setFetchingComments(true);
-    try {
-      const commentList = comments ?? submission.comments;
-      const moreComments = await commentList.fetchMore({
-        amount: 10,
-        append: true,
-      });
-      setComments(moreComments);
-    } catch (error) {
-      console.log('Error getting comments:', error);
-    } finally {
-      setFetchingComments(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchComments();
+  const getComments = useCallback(async () => {
+    return await submission.comments.fetchMore({ amount: 10, append: true });
   }, [submission.id]);
 
-  return { comments, fetchingComments };
+  const { listing, loading, fetchMore } = useListing({
+    getListing: getComments,
+    sortable: true,
+  });
+
+  return { comments: listing, fetchingComments: loading, fetchMore, loading };
 };
 
 export default useSubmissionComments;

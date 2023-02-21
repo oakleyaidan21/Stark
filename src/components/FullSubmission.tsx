@@ -1,6 +1,10 @@
 import { useCallback } from 'react';
-import { FlatList, ListRenderItemInfo } from 'react-native';
-import { LoaderScreen, Text, View } from 'react-native-ui-lib';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  TouchableNativeFeedback,
+} from 'react-native';
+import { Colors, LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Comment, Submission } from 'snoowrap';
 import useSubmissionComments from '../hooks/useSubmissionComments';
 import CommentCard from './CommentCard';
@@ -12,18 +16,39 @@ export interface FullSubmissionProps {
 }
 
 const FullSubmission = ({ submission }: FullSubmissionProps) => {
-  const { comments } = useSubmissionComments(submission);
+  const { comments, fetchMore, loading } = useSubmissionComments(submission);
 
-  const _renderHeader = () =>
-    useCallback(
-      () => <SubmissionCard submission={submission} inView showBody />,
-      [],
-    );
+  const _renderHeader = useCallback(() => {
+    return <SubmissionCard submission={submission} inView showBody />;
+  }, []);
 
   const _renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Comment>) => <CommentCard comment={item} />,
     [],
   );
+
+  const _renderListEmpty = useCallback(() => {
+    if (!loading) {
+      return (
+        <View paddingT-50 center>
+          <Text style={{ color: Colors.tertiaryText }}>No comments</Text>
+        </View>
+      );
+    }
+    return <LoaderScreen style={{ height: 200 }} />;
+  }, [loading]);
+
+  const _renderFooter = useCallback(() => {
+    return !comments?.isFinished ? (
+      <View marginV-20 center>
+        <TouchableNativeFeedback onPress={fetchMore}>
+          <Text bold style={{ color: Colors.tertiaryText }}>
+            Get more comments
+          </Text>
+        </TouchableNativeFeedback>
+      </View>
+    ) : null;
+  }, [comments]);
 
   return (
     <View flex>
@@ -31,9 +56,10 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
         data={comments}
         ItemSeparatorComponent={SeparatorComponent}
         style={{ flex: 1 }}
-        ListHeaderComponent={_renderHeader()}
+        ListHeaderComponent={_renderHeader}
         renderItem={_renderItem}
-        ListEmptyComponent={<LoaderScreen style={{ height: 200 }} />}
+        ListFooterComponent={_renderFooter}
+        ListEmptyComponent={_renderListEmpty}
       />
     </View>
   );
