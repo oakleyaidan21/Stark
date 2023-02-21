@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import { Colors, Image, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
-import { determinePostType } from '../util/RedditUtil';
+import { abbreviateNumber, determinePostType } from '../util/RedditUtil';
 import Flair from './Flair';
 import SubmissionActionBar from './SubmissionActionBar';
 import SubmissionBody from './SubmissionBody';
@@ -102,11 +102,12 @@ const SubmissionCard = ({
             {/* points, comments */}
             <View row centerV marginT-5>
               <Text bold style={{ fontSize: 16 }}>
-                {score}
+                {abbreviateNumber(score)}
               </Text>
               <Text color={Colors.tertiaryText}> | </Text>
               <Text style={{ fontSize: 12 }} color={Colors.tertiaryText}>
-                {num_comments} {num_comments === 1 ? 'comment' : 'comments'}
+                {abbreviateNumber(num_comments)}{' '}
+                {num_comments === 1 ? 'comment' : 'comments'}
               </Text>
             </View>
           </View>

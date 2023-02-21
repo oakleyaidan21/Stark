@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
+import useGetSubredditIcon from '../../hooks/useGetSubredditIcon';
 import { SortType } from '../../hooks/useListingSort';
 import ConfigHeader from './ConfigHeader';
 
@@ -21,8 +22,8 @@ const SubredditHeader = ({
     subscribers,
     public_description,
     banner_img,
-    community_icon,
     banner_background_image,
+    primary_color,
   } = subreddit;
 
   const bannerImg =
@@ -32,8 +33,9 @@ const SubredditHeader = ({
       ? banner_background_image
       : '';
 
+  const iconImg = useGetSubredditIcon(subreddit);
+
   const hasBannerImage = bannerImg.length > 0;
-  const hasCommunityIcon = community_icon.length > 0;
 
   const [subscribing, setSubscribing] = useState(false);
   const [joined, setJoined] = useState(subreddit.user_is_subscriber);
@@ -56,15 +58,19 @@ const SubredditHeader = ({
 
   return (
     <View bg-bgColor marginB-10 style={{ position: 'relative' }}>
-      <View style={{ height: 150, backgroundColor: Colors.primary }}>
+      <ConfigHeader
+        title={'Subreddit'}
+        subtitle={sort}
+        onSortOptionPress={setSortType}
+        leftIconBehavior="back"
+        backgroundColor="rgba(0, 0, 0, 0.4)"
+      />
+      <View style={{ height: 100, backgroundColor: Colors.primary }}>
         {hasBannerImage && (
           <Image source={{ uri: bannerImg }} style={{ flex: 1 }} />
         )}
       </View>
-      <View
-        paddingH-10
-        style={{ paddingTop: hasCommunityIcon ? 20 : 0 }}
-        marginB-10>
+      <View paddingH-10 paddingT-20 marginB-10>
         <View row centerV spread>
           <Text bold style={{ fontSize: 25 }}>
             {display_name}
@@ -78,37 +84,27 @@ const SubredditHeader = ({
           </View>
         </View>
         <View row>
-          <Text style={{ color: Colors.tertiaryText, size: 5 }}>
-            {subscribers} members
+          <Text style={{ color: Colors.tertiaryText, size: 5 }} marginV-5>
+            {subscribers.toLocaleString()} members
           </Text>
         </View>
         <Text>{public_description}</Text>
       </View>
-      {hasCommunityIcon && (
-        <View
-          style={{
-            position: 'absolute',
-            height: 80,
-            width: 80,
-            left: 20,
-            top: 90,
-            backgroundColor: Colors.oBgColor,
-            borderRadius: 40,
-          }}
-          center>
-          <Image
-            source={{ uri: community_icon }}
-            style={{ borderRadius: 35, height: 70, width: 70 }}
-          />
-        </View>
-      )}
-      <View style={{ position: 'absolute', width: '100%' }} height={50}>
-        <ConfigHeader
-          title={'Subreddit'}
-          subtitle={sort}
-          onSortOptionPress={setSortType}
-          leftIconBehavior="back"
-          backgroundColor="rgba(0, 0, 0, 0.4)"
+      <View
+        height={80}
+        width={80}
+        style={{
+          position: 'absolute',
+          left: 20,
+          top: 90,
+          borderRadius: 40,
+          backgroundColor:
+            primary_color.length > 0 ? primary_color : Colors.oBgColor,
+        }}
+        center>
+        <Image
+          source={{ uri: iconImg }}
+          style={{ borderRadius: 35, height: 70, width: 70 }}
         />
       </View>
     </View>

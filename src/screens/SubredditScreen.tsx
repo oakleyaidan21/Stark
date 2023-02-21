@@ -1,9 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text, View } from 'react-native-ui-lib';
+import { LoaderScreen, View } from 'react-native-ui-lib';
 import SubredditHeader from '../components/headers/SubredditHeader';
 import ListingScroller from '../components/ListingScroller';
 import SubmissionListingContext from '../context/SubmissionListingContext';
-import useListingSort from '../hooks/useListingSort';
 import useSubmissionListing from '../hooks/useSubmissionListing';
 import useSubreddit from '../hooks/useSubreddit';
 import ScreenProps from '../types/ScreenProps';
@@ -43,7 +42,9 @@ const SubredditScreen = ({
         subredditName: subName,
       }}>
       {loading ? (
-        <Text>loading!</Text>
+        <View marginT-200>
+          <LoaderScreen />
+        </View>
       ) : (
         <View flex>
           <ListingScroller
