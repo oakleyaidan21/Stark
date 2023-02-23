@@ -13,7 +13,7 @@ const useListing = ({ getListing, sortable = false }: UseListingProps) => {
   const [listing, setListing] = useState<Listing<any>>();
   const [errored, setErrored] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [limit, setLimit] = useState(25);
   const [time, setTime] = useState('all');
 

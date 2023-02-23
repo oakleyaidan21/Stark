@@ -39,7 +39,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
   }, [loading]);
 
   const _renderFooter = useCallback(() => {
-    return !comments?.isFinished ? (
+    return !comments?.isFinished && !loading ? (
       <View marginV-20 center>
         <TouchableNativeFeedback onPress={fetchMore}>
           <Text bold style={{ color: Colors.tertiaryText }}>
