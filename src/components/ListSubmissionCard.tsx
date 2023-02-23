@@ -7,18 +7,16 @@ import SubmissionCard from './SubmissionCard';
 type ListSubmissionCardProps = {
   submission: Submission;
   inView: boolean;
-  navigation: any;
+  onPress: any;
+  index?: number;
 };
 
 const ListSubmissionCard = ({
   submission,
   inView,
-  navigation,
+  onPress,
+  index,
 }: ListSubmissionCardProps) => {
-  const onPress = () => {
-    navigation.navigate('Submission', { submission: submission });
-  };
-
   const animateBody = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setShowBody(!showBody);
@@ -27,7 +25,9 @@ const ListSubmissionCard = ({
   const [showBody, setShowBody] = useState(false);
 
   return (
-    <TouchableNativeFeedback onPress={onPress} onLongPress={animateBody}>
+    <TouchableNativeFeedback
+      onPress={() => onPress(index)}
+      onLongPress={animateBody}>
       <View>
         <SubmissionCard
           submission={submission}

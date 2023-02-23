@@ -20,16 +20,16 @@ interface ListingScrollerProps {
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
     | null
     | undefined;
+  onItemPress: any;
 }
 
 const ListingScroller = ({
   content,
   header,
   onEndReached,
+  onItemPress,
 }: ListingScrollerProps) => {
   const [viewableItems, setViewableItems] = useState<(number | null)[]>([]);
-
-  const navigation = useNavigation();
 
   const hasHeader = !!header;
 
@@ -39,13 +39,14 @@ const ListingScroller = ({
 
       return (
         <ListSubmissionCard
+          index={index}
           submission={item}
           inView={inView}
-          navigation={navigation}
+          onPress={onItemPress}
         />
       );
     },
-    [viewableItems],
+    [viewableItems, onItemPress],
   );
 
   const { listing, errored, refresh } = useContext(SubmissionListingContext);

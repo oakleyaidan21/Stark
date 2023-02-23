@@ -52,9 +52,11 @@ const useListing = ({ getListing, sortable = false }: UseListingProps) => {
         append: true,
       });
       setListing(moreItems);
+      return moreItems;
     } catch (error) {
       console.log('error fetching more', error);
       setErrored(true);
+      throw error;
     }
   };
 

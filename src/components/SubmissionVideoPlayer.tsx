@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,22 +23,24 @@ const SubmissionVideoPlayer = ({
 
   return (
     <View>
-      <Video
-        source={{ uri: videoUrl }}
-        paused={paused}
-        resizeMode={'cover'}
-        muted={muted}
-        style={{
-          width: ww,
-          height: scaledHeight ? scaledHeight : undefined,
-          aspectRatio: scaledHeight ? undefined : 1,
-        }}
-        onLoad={response => {
-          const { width, height } = response.naturalSize;
-          const newHeight = height * (ww / width);
-          setScaledHeight(newHeight);
-        }}
-      />
+      <TouchableWithoutFeedback onPress={() => setPaused(!paused)}>
+        <Video
+          source={{ uri: videoUrl }}
+          paused={paused}
+          resizeMode={'cover'}
+          muted={muted}
+          style={{
+            width: ww,
+            height: scaledHeight ? scaledHeight : undefined,
+            aspectRatio: scaledHeight ? undefined : 1,
+          }}
+          onLoad={response => {
+            const { width, height } = response.naturalSize;
+            const newHeight = height * (ww / width);
+            setScaledHeight(newHeight);
+          }}
+        />
+      </TouchableWithoutFeedback>
       <View
         style={{ position: 'absolute', borderRadius: 15, top: 5, left: 5 }}
         width={30}

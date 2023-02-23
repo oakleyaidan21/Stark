@@ -13,13 +13,20 @@ import SubmissionCard from './SubmissionCard';
 
 export interface FullSubmissionProps {
   submission: Submission;
+  visible?: boolean;
 }
 
-const FullSubmission = ({ submission }: FullSubmissionProps) => {
+const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
   const { comments, fetchMore, loading } = useSubmissionComments(submission);
 
   const _renderHeader = useCallback(() => {
-    return <SubmissionCard submission={submission} inView showBody />;
+    return (
+      <SubmissionCard
+        submission={submission}
+        inView={visible === undefined || visible}
+        showBody
+      />
+    );
   }, []);
 
   const _renderItem = useCallback(

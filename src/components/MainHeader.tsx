@@ -28,6 +28,8 @@ const getContentForRoute = (route: string, props: NativeStackHeaderProps) => {
   switch (route) {
     case 'Submission':
       return <SubmissionHeader />;
+    case 'PostSwiper':
+      return <SubmissionHeader />;
     case 'SearchResultScreen':
     case 'SubredditScreen':
       return null;

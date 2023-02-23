@@ -4,6 +4,11 @@ type ScreenProps = {
   Submission: { submission: Submission };
   SubredditScreen: { subreddit: Subreddit | string };
   SearchResultScreen: { query: string };
+  PostSwiper: {
+    index: number;
+    submissions: Listing<Submission>;
+    fetchMore: any;
+  };
   Tabs: undefined;
   Login: undefined;
   Web: undefined;
