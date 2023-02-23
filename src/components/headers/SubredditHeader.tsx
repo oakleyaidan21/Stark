@@ -88,7 +88,7 @@ const SubredditHeader = ({
             {subscribers.toLocaleString()} members
           </Text>
         </View>
-        <Text>{public_description}</Text>
+        <Text numberOfLines={2}>{public_description}</Text>
       </View>
       <View
         height={80}

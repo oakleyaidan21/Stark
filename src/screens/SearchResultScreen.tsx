@@ -32,18 +32,15 @@ const SearchResultScreen = ({
         value={{
           refresh: refresh,
           refreshing: refreshing,
+          listing: results,
         }}>
         <View flex>
-          {loading ? (
-            <ActivityIndicator color={Colors.oBgColor} />
-          ) : (
-            <ListingScroller
-              content={results}
-              header={() => <SearchResultHeader query={query} />}
-              onEndReached={fetchMore}
-              onItemPress={onItemPress}
-            />
-          )}
+          <ListingScroller
+            content={results}
+            header={() => <SearchResultHeader query={query} />}
+            onEndReached={fetchMore}
+            onItemPress={onItemPress}
+          />
         </View>
       </SubmissionListingContext.Provider>
     </View>

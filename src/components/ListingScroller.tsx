@@ -1,6 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import { useCallback, useContext, useState } from 'react';
-import { FlatList, ListRenderItemInfo, ViewToken } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  ViewToken,
+} from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { View, LoaderScreen, Text } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
@@ -49,7 +53,9 @@ const ListingScroller = ({
     [viewableItems, onItemPress],
   );
 
-  const { listing, errored, refresh } = useContext(SubmissionListingContext);
+  const { listing, errored, refresh, refreshing } = useContext(
+    SubmissionListingContext,
+  );
 
   const onViewableItemsChanged = useCallback(
     (info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
@@ -74,6 +80,9 @@ const ListingScroller = ({
         </View>
       ) : (
         <FlatList
+          refreshControl={
+            <RefreshControl refreshing={!!refreshing} onRefresh={refresh} />
+          }
           data={items}
           style={{ flex: 1, width: '100%' }}
           ListEmptyComponent={
