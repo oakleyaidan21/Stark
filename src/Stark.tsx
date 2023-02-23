@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { LoaderScreen, View } from 'react-native-ui-lib';
 import StarkStatusBar from './components/StarkStatusBar';
 import StarkContext from './context/StarkContext';
 import useSnoowrap from './hooks/useSnoowrap';
@@ -20,7 +20,9 @@ const Stark = () => {
               <MainNavigator />
             </StarkContext.Provider>
           ) : (
-            <ActivityIndicator />
+            <View marginT-200>
+              <LoaderScreen />
+            </View>
           )}
         </View>
       </View>
