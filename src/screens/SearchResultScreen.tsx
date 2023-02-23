@@ -8,18 +8,30 @@ import useSearchPosts from '../hooks/useSearchPosts';
 import ScreenProps from '../types/ScreenProps';
 
 const SearchResultScreen = ({
+  navigation,
   route: {
     params: { query },
   },
 }: NativeStackScreenProps<ScreenProps, 'SearchResultScreen'>) => {
-  const { loading, results, search, getMore } = useSearchPosts(query);
+  const { loading, results, fetchMore, refresh, refreshing } =
+    useSearchPosts(query);
+
+  const onItemPress = (index: number) => {
+    if (results) {
+      navigation.push('PostSwiper', {
+        index: index,
+        submissions: results,
+        fetchMore: fetchMore,
+      });
+    }
+  };
 
   return (
     <View flex>
       <SubmissionListingContext.Provider
         value={{
-          refresh: search,
-          refreshing: loading,
+          refresh: refresh,
+          refreshing: refreshing,
         }}>
         <View flex>
           {loading ? (
@@ -28,7 +40,8 @@ const SearchResultScreen = ({
             <ListingScroller
               content={results}
               header={() => <SearchResultHeader query={query} />}
-              onEndReached={getMore}
+              onEndReached={fetchMore}
+              onItemPress={onItemPress}
             />
           )}
         </View>

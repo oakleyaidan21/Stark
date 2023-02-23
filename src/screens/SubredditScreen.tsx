@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LoaderScreen, View } from 'react-native-ui-lib';
 import SubredditHeader from '../components/headers/SubredditHeader';
@@ -17,6 +18,8 @@ const SubredditScreen = ({
     params: { subreddit },
   },
 }: SubredditScreenProps) => {
+  const navigation = useNavigation();
+
   const subName =
     typeof subreddit === 'string' ? subreddit : subreddit.display_name;
 
@@ -32,6 +35,14 @@ const SubredditScreen = ({
     return sub ? (
       <SubredditHeader subreddit={sub} sort={sort} setSortType={setSort} />
     ) : null;
+  };
+
+  const onItemPress = (index: number) => {
+    navigation.push('PostSwiper', {
+      index: index,
+      submissions: listing,
+      fetchMore: fetchMore,
+    });
   };
 
   return (
@@ -51,6 +62,7 @@ const SubredditScreen = ({
             content={listing}
             header={renderHeader}
             onEndReached={fetchMore}
+            onItemPress={onItemPress}
           />
         </View>
       )}
