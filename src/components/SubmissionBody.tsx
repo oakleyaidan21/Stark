@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import { Image } from 'react-native';
+import { Alert } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import { determinePostType } from '../util/RedditUtil';
+import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
@@ -18,7 +19,7 @@ const SubmissionBody = ({
   inView,
   inList,
 }: SubmissionBodyProps) => {
-  const { url, selftext } = submission;
+  const { url, selftext, selftext_html } = submission;
 
   const postType = useMemo(() => {
     return determinePostType(submission);
@@ -50,7 +51,12 @@ const SubmissionBody = ({
             margin-5
             style={{ borderRadius: 3 }}
             padding-5>
-            <Text>{selftext}</Text>
+            <MDRenderer
+              data={selftext_html ?? ''}
+              onLinkPress={(url: string) =>
+                Alert.alert('Would navigate to ', url)
+              }
+            />
           </View>
         ) : null;
 

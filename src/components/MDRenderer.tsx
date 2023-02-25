@@ -7,7 +7,7 @@ import { Linking } from 'react-native';
 
 type MDRendererProps = {
   data: string;
-  onLinkPress: any;
+  onLinkPress: (url: string) => void;
 };
 
 const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
