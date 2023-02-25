@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useMemo } from 'react';
 import { Alert } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
-import { determinePostType } from '../util/RedditUtil';
+import { determinePostType, onLinkPress } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
@@ -20,6 +21,8 @@ const SubmissionBody = ({
   inList,
 }: SubmissionBodyProps) => {
   const { url, selftext, selftext_html } = submission;
+
+  const navigation = useNavigation();
 
   const postType = useMemo(() => {
     return determinePostType(submission);
@@ -53,9 +56,7 @@ const SubmissionBody = ({
             padding-5>
             <MDRenderer
               data={selftext_html ?? ''}
-              onLinkPress={(url: string) =>
-                Alert.alert('Would navigate to ', url)
-              }
+              onLinkPress={(url: string) => onLinkPress(url, navigation)}
             />
           </View>
         ) : null;

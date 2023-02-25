@@ -132,3 +132,15 @@ export const parseLink = (url: string) => {
   }
   return { type: 'web' };
 };
+
+export const onLinkPress = (url: string, navigation: any) => {
+  const r = parseLink(url);
+  switch (r.type) {
+    case 'sub':
+      navigation.push('SubredditScreen', { subreddit: r.sub });
+      break;
+    default:
+      navigation.navigate('Web', { url: url });
+      break;
+  }
+};
