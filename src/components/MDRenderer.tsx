@@ -38,6 +38,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
         style: { color: Colors.textColor },
         onPress: onLinkPress,
       }}
+      renderersProps={{ a: { onPress: (event, href) => onLinkPress(href) } }}
     />
   );
 };
