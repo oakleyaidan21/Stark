@@ -125,6 +125,8 @@ export const parseLink = (url: string) => {
   }
   if (id) {
     return { type: 'post', id: id };
+  } else if (tokens[0] === 'about:') {
+    return { type: 'sub', sub: tokens[4] };
   } else {
     if (tokens[1] == 'r') {
       return { type: 'sub', sub: tokens[2] };

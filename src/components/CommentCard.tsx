@@ -1,7 +1,5 @@
-import { useCallback } from 'react';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Comment } from 'snoowrap';
-import { parseLink } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
 
 export interface CommentCardProps {
