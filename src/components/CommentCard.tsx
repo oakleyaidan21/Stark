@@ -1,12 +1,16 @@
+import { useCallback } from 'react';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Comment } from 'snoowrap';
+import { parseLink } from '../util/RedditUtil';
+import MDRenderer from './MDRenderer';
 
 export interface CommentCardProps {
   comment: Comment;
+  onLinkPress: any;
 }
 
-const CommentCard = ({ comment }: CommentCardProps) => {
-  const { author, score, score_hidden, body } = comment;
+const CommentCard = ({ comment, onLinkPress }: CommentCardProps) => {
+  const { author, score, score_hidden, body_html } = comment;
 
   return (
     <View padding-10 bg-bgColor>
@@ -23,7 +27,8 @@ const CommentCard = ({ comment }: CommentCardProps) => {
       </View>
       {/* body */}
       <View marginV-5>
-        <Text>{body}</Text>
+        {/* <Text>{body}</Text> */}
+        <MDRenderer data={body_html} onLinkPress={onLinkPress} />
       </View>
     </View>
   );

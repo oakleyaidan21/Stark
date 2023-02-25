@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
 import {
   FlatList,
@@ -7,6 +8,7 @@ import {
 import { Colors, LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Comment, Submission } from 'snoowrap';
 import useSubmissionComments from '../hooks/useSubmissionComments';
+import { parseLink } from '../util/RedditUtil';
 import CommentCard from './CommentCard';
 import SeparatorComponent from './SeparatorComponent';
 import SubmissionCard from './SubmissionCard';
@@ -19,6 +21,8 @@ export interface FullSubmissionProps {
 const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
   const { comments, fetchMore, loading } = useSubmissionComments(submission);
 
+  const navigation = useNavigation();
+
   const _renderHeader = useCallback(() => {
     return (
       <SubmissionCard
@@ -29,8 +33,22 @@ const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
     );
   }, []);
 
+  const openLink = useCallback((url: string) => {
+    const r = parseLink(url);
+    switch (r.type) {
+      // case 'sub':
+      //   navigation.push('SubredditScreen', { subreddit: r.sub });
+      //   break;
+      default:
+        navigation.navigate('Web', { url: url });
+        break;
+    }
+  }, []);
+
   const _renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Comment>) => <CommentCard comment={item} />,
+    ({ item }: ListRenderItemInfo<Comment>) => (
+      <CommentCard comment={item} onLinkPress={openLink} />
+    ),
     [],
   );
 
