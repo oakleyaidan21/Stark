@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native-ui-lib';
-import { HTMLViewNode } from 'react-native-htmlview';
 
 interface SpoilerTextProps {
-  node: HTMLViewNode;
+  text: string;
 }
 
-const SpoilerText = ({ node }: SpoilerTextProps) => {
+const SpoilerText = ({ text }: SpoilerTextProps) => {
   const [showSpoiler, setShowSpoiler] = useState(false);
   return (
     <Text
@@ -15,7 +14,7 @@ const SpoilerText = ({ node }: SpoilerTextProps) => {
         backgroundColor: 'lightgrey',
       }}
       onPress={() => setShowSpoiler(!showSpoiler)}>
-      {node.children[0].data}
+      {text}
     </Text>
   );
 };

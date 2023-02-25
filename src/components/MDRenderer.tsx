@@ -28,13 +28,25 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
   //     [],
   //   );
 
+  const renderersProps = {
+    a: { onPress: (_: any, href: string) => onLinkPress(href) },
+  };
+
   return (
     <RenderHtml
       source={{ html: data }}
       defaultTextProps={{
         style: { color: Colors.textColor },
       }}
-      renderersProps={{ a: { onPress: (_, href) => onLinkPress(href) } }}
+      renderersProps={renderersProps}
+      classesStyles={{
+        blockquote: {
+          paddingLeft: 10,
+          fontStyle: 'italic',
+          marginLeft: 50,
+          color: 'grey',
+        },
+      }}
     />
   );
 };
@@ -45,10 +57,10 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
 //   },
 //   cfr: {},
 //   blockquote: {
-//     paddingLeft: 10,
-//     fontStyle: 'italic',
-//     marginLeft: 50,
-//     color: 'grey',
+// paddingLeft: 10,
+// fontStyle: 'italic',
+// marginLeft: 50,
+// color: 'grey',
 //   },
 // });
 
