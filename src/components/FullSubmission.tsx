@@ -28,7 +28,6 @@ const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
       <SubmissionCard
         submission={submission}
         inView={visible === undefined || visible}
-        showBody
       />
     );
   }, [visible]);

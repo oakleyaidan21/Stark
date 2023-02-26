@@ -33,36 +33,23 @@ const ListingScroller = ({
   onEndReached,
   onItemPress,
 }: ListingScrollerProps) => {
-  const [viewableItems, setViewableItems] = useState<(number | null)[]>([]);
-
   const hasHeader = !!header;
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Submission>) => {
-      const inView = viewableItems.includes(index);
-
       return (
         <ListSubmissionCard
           index={index}
           submission={item}
-          inView={inView}
           onPress={onItemPress}
         />
       );
     },
-    [viewableItems, onItemPress],
+    [onItemPress],
   );
 
   const { listing, errored, refresh, refreshing } = useContext(
     SubmissionListingContext,
-  );
-
-  const onViewableItemsChanged = useCallback(
-    (info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
-      const items = info.viewableItems.map(token => token.index);
-      setViewableItems(items);
-    },
-    [setViewableItems],
   );
 
   const items = content ?? listing;
@@ -99,7 +86,6 @@ const ListingScroller = ({
           windowSize={18}
           ItemSeparatorComponent={SeparatorComponent}
           viewabilityConfig={viewabilityConfig}
-          onViewableItemsChanged={onViewableItemsChanged}
           keyExtractor={(item, index) => item.id + index.toString()}
           onEndReached={onEndReached}
         />
