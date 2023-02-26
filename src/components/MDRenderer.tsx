@@ -13,6 +13,10 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
     a: { onPress: (_: any, href: string) => onLinkPress(href) },
   };
 
+  const baseStyles = {
+    marginVertical: -4,
+  };
+
   return (
     <RenderHtml
       source={{ html: data }}
@@ -21,17 +25,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
       }}
       contentWidth={Dimensions.get('window').width}
       renderersProps={renderersProps}
-      classesStyles={{
-        blockquote: {
-          paddingLeft: 10,
-          fontStyle: 'italic',
-          marginLeft: 50,
-          color: 'grey',
-        },
-      }}
-      baseStyle={{
-        marginVertical: -4,
-      }}
+      baseStyle={baseStyles}
     />
   );
 };
