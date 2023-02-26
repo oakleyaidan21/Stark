@@ -1,15 +1,14 @@
 import { Colors, View } from 'react-native-ui-lib';
-import { Submission } from 'snoowrap';
+import { Comment, Submission, VoteableContent } from 'snoowrap';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useState } from 'react';
-import { Alert } from 'react-native';
 import useVoteableContentActions from '../hooks/useVoteableContentActions';
 
-interface SubmissionActionBarProps {
-  submission: Submission;
+interface ContentActionBarProps {
+  content: VoteableContent<Submission | Comment>;
+  size?: string;
 }
 
-const SubmissionActionBar = ({ submission }: SubmissionActionBarProps) => {
+const ContentActionBar = ({ content, size = 'lg' }: ContentActionBarProps) => {
   const {
     upvoted,
     downvoted,
@@ -20,35 +19,37 @@ const SubmissionActionBar = ({ submission }: SubmissionActionBarProps) => {
     upvote,
     downvote,
     save,
-  } = useVoteableContentActions(submission);
+  } = useVoteableContentActions(content);
+
+  const small = size === 'sm';
 
   return (
-    <View row height={40} paddingH-10 spread centerV>
+    <View row height={small ? 20 : 40} paddingH-10 spread centerV>
       <Icon
         name="arrow-up-bold-outline"
-        size={23}
+        size={small ? 20 : 23}
         color={upvoted ? Colors.upvoted : 'grey'}
         disabled={upvoting}
         onPress={upvote}
       />
       <Icon
         name="arrow-down-bold-outline"
-        size={23}
+        size={small ? 20 : 23}
         color={downvoted ? Colors.downvoted : 'grey'}
         disabled={downvoting}
         onPress={downvote}
       />
       <Icon
         name="star-outline"
-        size={23}
+        size={small ? 20 : 23}
         color={saved ? Colors.primary : 'grey'}
         disabled={saving}
         onPress={save}
       />
-      <Icon name="comment-text-outline" size={23} color={'grey'} />
-      <Icon name="dots-vertical" size={23} color={'grey'} />
+      <Icon name="comment-text-outline" size={small ? 20 : 23} color={'grey'} />
+      <Icon name="dots-vertical" size={small ? 20 : 23} color={'grey'} />
     </View>
   );
 };
 
-export default SubmissionActionBar;
+export default ContentActionBar;

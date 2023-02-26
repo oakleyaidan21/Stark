@@ -7,7 +7,7 @@ import { Submission } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
 import { abbreviateNumber, determinePostType } from '../util/RedditUtil';
 import Flair from './Flair';
-import SubmissionActionBar from './SubmissionActionBar';
+import ContentActionBar from './ContentActionBar';
 import SubmissionBody from './SubmissionBody';
 
 export interface SubmissionCardProps {
@@ -124,7 +124,7 @@ const SubmissionCard = ({
       </View>
       {/* content */}
       {showBody && <SubmissionBody submission={submission} inView={inView} />}
-      <SubmissionActionBar submission={submission} />
+      <ContentActionBar content={submission} />
     </View>
   );
 };

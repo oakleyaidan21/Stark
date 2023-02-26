@@ -149,3 +149,36 @@ export const onLinkPress = (url: string, navigation: any) => {
       break;
   }
 };
+
+export const getTimeSincePosted = (utc: number) => {
+  let milliseconds = Math.round(new Date().getTime()) - utc * 1000;
+  let time = Math.floor(milliseconds / 60000); //starts in minutes
+  let timeType = 'm';
+  if (time > 60) {
+    //hours
+    time = Math.floor(time / 60);
+    timeType = 'h';
+    if (time > 24) {
+      //days
+      time = Math.floor(time / 24);
+      timeType = 'd';
+      if (time > 7) {
+        //weeks
+        time = Math.floor(time / 7);
+        timeType = 'w';
+        if (time > 4) {
+          //months
+          time = Math.floor(time / 4);
+          timeType = 'mo';
+        }
+        if (time > 12) {
+          //years
+          time = Math.floor(time / 12);
+          timeType = 'y';
+        }
+      }
+    }
+  }
+  const toReturn = time + '' + timeType;
+  return toReturn == '0m' ? 'Just now' : toReturn;
+};

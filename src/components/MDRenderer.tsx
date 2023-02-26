@@ -8,26 +8,6 @@ type MDRendererProps = {
 };
 
 const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
-  //   const renderSpecificNodes = useCallback(
-  //     (node, index, siblings, parent, defaultRenderer) => {
-  //       if (node.attribs) {
-  //         if (node.attribs.class) {
-  //           if (node.attribs.class === 'md-spoiler-text') {
-  //             return (
-  //               // / <View style={{ alignSelf: "center" }}>
-  //               <SpoilerText node={node} />
-  //               // <Text style={{ color: "blue" }}>hi</Text>
-  //               // </View>
-  //             );
-  //           }
-  //         }
-  //       }
-
-  //       return undefined;
-  //     },
-  //     [],
-  //   );
-
   const renderersProps = {
     a: { onPress: (_: any, href: string) => onLinkPress(href) },
   };
@@ -47,21 +27,11 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
           color: 'grey',
         },
       }}
+      baseStyle={{
+        marginVertical: -4,
+      }}
     />
   );
 };
-
-// const htmlstyles = StyleSheet.create({
-//   div: {
-//     color: 'white',
-//   },
-//   cfr: {},
-//   blockquote: {
-// paddingLeft: 10,
-// fontStyle: 'italic',
-// marginLeft: 50,
-// color: 'grey',
-//   },
-// });
 
 export default MDRenderer;

@@ -15,6 +15,7 @@ export const loadUIConfig = () => {
       seeCommentsColor: '#a3a3a3',
       tertiaryText: '#A1A1A1',
       statusBarBg: Colors.black,
+      borderColor: '#333333',
     },
     light: {
       textColor: Colors.black,
@@ -27,6 +28,7 @@ export const loadUIConfig = () => {
       seeCommentsColor: '#a3a3a3',
       tertiaryText: '#A1A1A1',
       statusBarBg: Colors.white,
+      borderColor: '#A1A1A1',
     },
   });
 
