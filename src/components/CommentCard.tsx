@@ -21,7 +21,7 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const { author, score, score_hidden, body_html, replies, created_utc } =
     comment;
-  const [expandReplies, setExpandReplies] = useState(true);
+  const [expandReplies, setExpandReplies] = useState(false);
 
   const isOp = op === author.name;
 
@@ -61,11 +61,9 @@ const CommentCard = ({
             </Text>
           </View>
           {/* body */}
-          {expandReplies && (
-            <View marginV-5>
-              <MDRenderer data={body_html} onLinkPress={onLinkPress} />
-            </View>
-          )}
+          <View marginV-5>
+            <MDRenderer data={body_html} onLinkPress={onLinkPress} />
+          </View>
         </View>
       </TouchableWithoutFeedback>
       {/* children */}
