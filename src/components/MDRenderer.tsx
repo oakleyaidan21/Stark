@@ -1,6 +1,7 @@
 import React from 'react';
 import { Colors } from 'react-native-ui-lib';
 import RenderHtml from 'react-native-render-html';
+import { Dimensions } from 'react-native';
 
 type MDRendererProps = {
   data: string;
@@ -18,6 +19,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
       defaultTextProps={{
         style: { color: Colors.textColor },
       }}
+      contentWidth={Dimensions.get('window').width}
       renderersProps={renderersProps}
       classesStyles={{
         blockquote: {

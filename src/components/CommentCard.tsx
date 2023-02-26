@@ -66,19 +66,6 @@ const CommentCard = ({
               <MDRenderer data={body_html} onLinkPress={onLinkPress} />
             </View>
           )}
-
-          {/* <View row spread centerV>
-            <View style={{ width: 250 }}>
-              <ContentActionBar content={comment} size={'sm'} />
-            </View>
-            {replies.length > 0 && (
-              <Text color={Colors.tertiaryText}>
-                {abbreviateNumber(replies.length) +
-                  ' ' +
-                  (replies.length > 1 ? 'replies' : 'reply')}
-              </Text>
-            )}
-          </View> */}
         </View>
       </TouchableWithoutFeedback>
       {/* children */}
@@ -86,6 +73,7 @@ const CommentCard = ({
         <View paddingL-10>
           {replies.map(c => (
             <CommentCard
+              key={c.id}
               comment={c}
               onLinkPress={onLinkPress}
               index={index + 1}
