@@ -15,17 +15,16 @@ import SubmissionCard from './SubmissionCard';
 
 export interface FullSubmissionProps {
   submission: Submission;
-  visible?: boolean;
 }
 
-const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
+const FullSubmission = ({ submission }: FullSubmissionProps) => {
   const { comments, fetchMore, loading } = useSubmissionComments(submission);
 
   const navigation = useNavigation();
 
   const _renderHeader = useCallback(() => {
-    return <SubmissionCard submission={submission} visible={!!visible} />;
-  }, [submission.id, visible]);
+    return <SubmissionCard submission={submission} />;
+  }, [submission.id]);
 
   const openLink = useCallback((url: string) => {
     onLinkPress(url, navigation);

@@ -16,28 +16,25 @@ const PostSwiper = ({
 }: PostSwiperProps) => {
   const [actualSubmissions, setActualSubmissions] =
     useState<Listing<Submission>>(submissions);
-  const [currIndex, setCurrIndex] = useState(initialIndex);
 
   const renderSubmissions = useCallback(() => {
     return actualSubmissions.map((submission, i) => (
-      <FullSubmission
-        key={submission.id}
-        submission={submission}
-        visible={i === currIndex}
-      />
+      <FullSubmission key={submission.id} submission={submission} />
     ));
-  }, [actualSubmissions, currIndex]);
+  }, [actualSubmissions]);
 
-  const onIndexChanged = (newIndex: number) => {
-    setCurrIndex(newIndex);
-    if (newIndex === actualSubmissions.length - 1) {
-      fetchMore()
-        .then(setActualSubmissions)
-        .catch((error: any) => {
-          Alert.alert('Error fetching more posts', error);
-        });
-    }
-  };
+  const onIndexChanged = useCallback(
+    (newIndex: number) => {
+      if (newIndex === actualSubmissions.length - 1) {
+        fetchMore()
+          .then(setActualSubmissions)
+          .catch((error: any) => {
+            Alert.alert('Error fetching more posts', error);
+          });
+      }
+    },
+    [actualSubmissions.length],
+  );
 
   return (
     <View flex>

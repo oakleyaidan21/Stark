@@ -10,10 +10,9 @@ import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 
 interface SubmissionBodyProps {
   submission: Submission;
-  visible: boolean;
 }
 
-const SubmissionBody = ({ submission, visible }: SubmissionBodyProps) => {
+const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
   const { url, selftext, selftext_html } = submission;
 
   const navigation = useNavigation();
@@ -27,7 +26,7 @@ const SubmissionBody = ({ submission, visible }: SubmissionBodyProps) => {
       case 'IMG':
         return <ScaledImage url={url} />;
       case 'RED':
-        return <RGGifPlayer url={url} shouldPlay={visible} />;
+        return <RGGifPlayer url={url} shouldPlay={false} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer
@@ -36,7 +35,7 @@ const SubmissionBody = ({ submission, visible }: SubmissionBodyProps) => {
                 ? url.substring(0, url.length - 4) + 'mp4'
                 : (submission.media?.reddit_video?.hls_url as string)
             }
-            shouldPlay={visible}
+            shouldPlay={false}
           />
         );
       case 'WEB':
@@ -62,7 +61,7 @@ const SubmissionBody = ({ submission, visible }: SubmissionBodyProps) => {
           </View>
         );
     }
-  }, [submission.id, visible]);
+  }, [submission.id]);
 
   return <View bg-bgColor>{renderSubmissionMedia()}</View>;
 };
