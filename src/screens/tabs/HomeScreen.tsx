@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   const onItemPress = (index: number) => {
     navigation.push('PostSwiper', {
-      index: index,
+      initialIndex: index,
       submissions: listing,
       fetchMore: fetchMore,
     });

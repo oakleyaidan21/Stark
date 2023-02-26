@@ -5,7 +5,7 @@ type ScreenProps = {
   SubredditScreen: { subreddit: Subreddit | string };
   SearchResultScreen: { query: string };
   PostSwiper: {
-    index: number;
+    initialIndex: number;
     submissions: Listing<Submission>;
     fetchMore: any;
   };

@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import { Text } from 'react-native-ui-lib';
+import { LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Image } from 'react-native';
 import WebView from 'react-native-webview';
 import useGetRGInfo from '../hooks/useGetRGInfo';
@@ -7,12 +7,11 @@ import useGetRGInfo from '../hooks/useGetRGInfo';
 interface RGGifPlayerProps {
   url: string;
   shouldPlay: boolean;
-  inList?: boolean;
 }
 
 const ww = Dimensions.get('window').width;
 
-const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
+const RGGifPlayer = ({ url, shouldPlay }: RGGifPlayerProps) => {
   const tokens = url.split('/');
   const identifier = tokens[tokens.length - 1];
   const { gifInfo, authInfo } = useGetRGInfo(identifier);
@@ -31,7 +30,7 @@ const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
   };
 
   return gifInfo ? (
-    !shouldPlay || inList ? (
+    !shouldPlay ? (
       <Image
         style={style}
         source={{ uri: gifInfo['gif']['urls']['poster'], headers: headers }}
@@ -51,7 +50,9 @@ const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
       />
     )
   ) : (
-    <Text>loading</Text>
+    <View marginT-200>
+      <LoaderScreen />
+    </View>
   );
 };
 

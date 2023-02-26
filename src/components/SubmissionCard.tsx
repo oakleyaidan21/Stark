@@ -7,15 +7,15 @@ import SubmissionInfo from './SubmissionInfo';
 
 export interface SubmissionCardProps {
   submission: Submission;
-  inView: boolean;
+  visible: boolean;
 }
 
-const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
+const SubmissionCard = ({ submission, visible }: SubmissionCardProps) => {
   return (
     <View bg-bgColor>
       <SubmissionInfo submission={submission} />
       {/* content */}
-      <SubmissionBody submission={submission} inView={inView} />
+      <SubmissionBody submission={submission} visible={visible} />
       <ContentActionBar content={submission} />
     </View>
   );
@@ -24,6 +24,6 @@ const SubmissionCard = ({ submission, inView }: SubmissionCardProps) => {
 export default memo(SubmissionCard, (prevProps, newProps) => {
   return (
     prevProps.submission.id === newProps.submission.id &&
-    prevProps.inView === newProps.inView
+    prevProps.visible === newProps.visible
   );
 });

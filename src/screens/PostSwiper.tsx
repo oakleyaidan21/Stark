@@ -11,12 +11,12 @@ export type PostSwiperProps = NativeStackScreenProps<ScreenProps, 'PostSwiper'>;
 
 const PostSwiper = ({
   route: {
-    params: { submissions, fetchMore, index },
+    params: { submissions, fetchMore, initialIndex },
   },
 }: PostSwiperProps) => {
   const [actualSubmissions, setActualSubmissions] =
     useState<Listing<Submission>>(submissions);
-  const [currIndex, setCurrIndex] = useState(index);
+  const [currIndex, setCurrIndex] = useState(initialIndex);
 
   const renderSubmissions = useCallback(() => {
     return actualSubmissions.map((submission, i) => (
@@ -43,11 +43,10 @@ const PostSwiper = ({
     <View flex>
       <Swiper
         loadMinimal
-        loadMinimalSize={1}
         onIndexChanged={onIndexChanged}
         showsPagination={false}
         loop={false}
-        index={index}>
+        index={initialIndex}>
         {renderSubmissions()}
       </Swiper>
     </View>

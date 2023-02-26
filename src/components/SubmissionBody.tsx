@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useMemo } from 'react';
-import { Alert } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import { determinePostType, onLinkPress } from '../util/RedditUtil';
@@ -11,15 +10,10 @@ import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 
 interface SubmissionBodyProps {
   submission: Submission;
-  inView: boolean;
-  inList?: boolean;
+  visible: boolean;
 }
 
-const SubmissionBody = ({
-  submission,
-  inView,
-  inList,
-}: SubmissionBodyProps) => {
+const SubmissionBody = ({ submission, visible }: SubmissionBodyProps) => {
   const { url, selftext, selftext_html } = submission;
 
   const navigation = useNavigation();
@@ -33,7 +27,7 @@ const SubmissionBody = ({
       case 'IMG':
         return <ScaledImage url={url} />;
       case 'RED':
-        return <RGGifPlayer url={url} shouldPlay={inView} inList={inList} />;
+        return <RGGifPlayer url={url} shouldPlay={visible} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer
@@ -42,13 +36,13 @@ const SubmissionBody = ({
                 ? url.substring(0, url.length - 4) + 'mp4'
                 : (submission.media?.reddit_video?.hls_url as string)
             }
-            shouldPlay={inView}
+            shouldPlay={visible}
           />
         );
       case 'WEB':
         return null;
       case 'SLF':
-        return selftext && !inList ? (
+        return selftext ? (
           <View
             bg-selfTextBgColor
             margin-5
@@ -68,14 +62,9 @@ const SubmissionBody = ({
           </View>
         );
     }
-  }, [submission.id, inView]);
+  }, [submission.id, visible]);
 
-  return (
-    <View bg-bgColor>
-      {renderSubmissionMedia()}
-      {/* <SubmissionActionBar submission={submission} /> */}
-    </View>
-  );
+  return <View bg-bgColor>{renderSubmissionMedia()}</View>;
 };
 
 export default SubmissionBody;

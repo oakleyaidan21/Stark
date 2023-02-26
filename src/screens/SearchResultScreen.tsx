@@ -19,7 +19,7 @@ const SearchResultScreen = ({
   const onItemPress = (index: number) => {
     if (results) {
       navigation.push('PostSwiper', {
-        index: index,
+        initialIndex: index,
         submissions: results,
         fetchMore: fetchMore,
       });

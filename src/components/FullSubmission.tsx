@@ -24,13 +24,8 @@ const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
   const navigation = useNavigation();
 
   const _renderHeader = useCallback(() => {
-    return (
-      <SubmissionCard
-        submission={submission}
-        inView={visible === undefined || visible}
-      />
-    );
-  }, [visible]);
+    return <SubmissionCard submission={submission} visible={!!visible} />;
+  }, [submission.id, visible]);
 
   const openLink = useCallback((url: string) => {
     onLinkPress(url, navigation);
