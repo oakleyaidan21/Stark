@@ -31,7 +31,7 @@ const FullSubmission = ({ submission, visible }: FullSubmissionProps) => {
         showBody
       />
     );
-  }, []);
+  }, [visible]);
 
   const openLink = useCallback((url: string) => {
     onLinkPress(url, navigation);
