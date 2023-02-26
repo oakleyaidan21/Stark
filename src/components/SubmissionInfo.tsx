@@ -23,6 +23,7 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
     score,
     num_comments,
     thumbnail,
+    url,
   } = submission;
 
   const subredditIcon = useGetSubredditIcon(subreddit);
