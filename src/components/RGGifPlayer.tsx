@@ -1,8 +1,9 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Image } from 'react-native';
 import WebView from 'react-native-webview';
 import useGetRGInfo from '../hooks/useGetRGInfo';
+import { useState } from 'react';
 
 interface RGGifPlayerProps {
   url: string;
@@ -15,6 +16,8 @@ const RGGifPlayer = ({ url, shouldPlay }: RGGifPlayerProps) => {
   const tokens = url.split('/');
   const identifier = tokens[tokens.length - 1];
   const { gifInfo, authInfo } = useGetRGInfo(identifier);
+
+  const [showVideo, setShowVideo] = useState(shouldPlay);
 
   const headers = {
     Authorization: `Bearer ${authInfo?.token}`,
@@ -30,14 +33,16 @@ const RGGifPlayer = ({ url, shouldPlay }: RGGifPlayerProps) => {
   };
 
   return gifInfo ? (
-    !shouldPlay ? (
-      <Image
-        style={style}
-        source={{ uri: gifInfo['gif']['urls']['poster'], headers: headers }}
-        onError={error => {
-          console.log('error getting image', error);
-        }}
-      />
+    !showVideo ? (
+      <TouchableWithoutFeedback onPress={() => setShowVideo(true)}>
+        <Image
+          style={style}
+          source={{ uri: gifInfo['gif']['urls']['poster'], headers: headers }}
+          onError={error => {
+            console.log('error getting image', error);
+          }}
+        />
+      </TouchableWithoutFeedback>
     ) : (
       <WebView
         source={{
