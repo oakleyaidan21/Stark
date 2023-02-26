@@ -22,14 +22,14 @@ export const getRGAuthInfo = async () => {
 const useGetRGAuthInfo = () => {
   const [authInfo, setAuthInfo] = useState<any>();
 
-  const getInfo = () => {
+  const getInfo = (getNewToken?: boolean) => {
     getJSON(STORAGE_KEY).then(async info => {
       // if expired or doesn't exist, get a new one
       let expired = false;
       if (Object.keys(info).length === 0) {
         expired = true;
       }
-      if (expired) {
+      if (expired || getNewToken) {
         try {
           const auth = await getRGAuthInfo();
           setJSON(STORAGE_KEY, auth);

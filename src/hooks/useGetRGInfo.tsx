@@ -19,7 +19,7 @@ const useGetRGInfo = (identifier: string) => {
         .then(response => response.json())
         .then(info => {
           if (info['error']) {
-            getInfo();
+            getInfo(true);
           } else {
             setGifInfo(info);
           }
