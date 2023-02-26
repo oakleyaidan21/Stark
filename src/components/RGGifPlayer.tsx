@@ -31,12 +31,7 @@ const RGGifPlayer = ({ url, shouldPlay, inList }: RGGifPlayerProps) => {
   };
 
   return gifInfo ? (
-    // <SubmissionVideoPlayer
-    //   videoUrl={gifInfo['gif']['urls']['hd']}
-    //   shouldPlay={shouldPlay}
-    //   headers={headers}
-    // />
-    inList ? (
+    !shouldPlay || inList ? (
       <Image
         style={style}
         source={{ uri: gifInfo['gif']['urls']['poster'], headers: headers }}

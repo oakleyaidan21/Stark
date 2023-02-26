@@ -8,7 +8,7 @@ import {
 import { Colors, LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Comment, Submission } from 'snoowrap';
 import useSubmissionComments from '../hooks/useSubmissionComments';
-import { onLinkPress, parseLink } from '../util/RedditUtil';
+import { onLinkPress } from '../util/RedditUtil';
 import CommentCard from './CommentCard';
 import SeparatorComponent from './SeparatorComponent';
 import SubmissionCard from './SubmissionCard';

@@ -34,7 +34,7 @@ const PostSwiper = ({
       fetchMore()
         .then(setActualSubmissions)
         .catch((error: any) => {
-          Alert.alert('Error fetching more posts');
+          Alert.alert('Error fetching more posts', error);
         });
     }
   };
