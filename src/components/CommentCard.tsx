@@ -47,7 +47,7 @@ const CommentCard = ({
                 style={{
                   backgroundColor: Colors.primary,
                   borderRadius: 3,
-                  padding: 2,
+                  paddingHorizontal: 2,
                 }}>
                 <Text bold>+{replies.length}</Text>
               </View>
