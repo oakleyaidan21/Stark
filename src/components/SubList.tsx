@@ -1,26 +1,37 @@
-import { useContext } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { ActionSheet, ButtonProps, Colors, View } from 'react-native-ui-lib';
+import { useCallback, useContext } from 'react';
+import { FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
+import {
+  Colors,
+  Dialog,
+  PanningProvider,
+  Text,
+  View,
+} from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
 import StarkContext from '../context/StarkContext';
 import SubmissionListingContext from '../context/SubmissionListingContext';
 import SubredditRow from './SubredditRow';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export interface SubListProps {
   visible: boolean;
   setVisible: any;
 }
 
-const defaults = ['All', 'Front Page', 'Saved'];
+const defaults = [
+  { name: 'All', icon: 'all-inclusive-box' },
+  { name: 'Front Page', icon: 'newspaper' },
+  { name: 'Saved', icon: 'star' },
+];
 
-const SubList = ({ visible, setVisible }: SubListProps) => {
-  const { changeSubreddit } = useContext(SubmissionListingContext);
+export interface SubDialogProps {
+  visible: boolean;
+  setVisible: any;
+}
 
+const SubDialog = ({ visible, setVisible }: SubDialogProps) => {
   const { userSubs } = useContext(StarkContext);
-
-  const allSubs = defaults.concat(
-    userSubs ? userSubs.map(sub => sub.display_name) : [],
-  );
+  const { changeSubreddit } = useContext(SubmissionListingContext);
 
   const onSubPress = (sub: Subreddit | string) => {
     if (changeSubreddit) {
@@ -33,54 +44,68 @@ const SubList = ({ visible, setVisible }: SubListProps) => {
     }
   };
 
-  const options = allSubs.map(sub => ({
-    label: sub,
-    onPress: () => onSubPress(sub),
-  }));
+  const _renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<Subreddit>) => (
+      <TouchableOpacity onPress={() => onSubPress(item)}>
+        <SubredditRow subreddit={item} />
+      </TouchableOpacity>
+    ),
+    [onSubPress],
+  );
 
-  const _renderAction = (
-    { label }: ButtonProps,
-    index: number,
-    onOptionPress: any,
-  ) => {
+  const _renderSeperator = useCallback(() => <View height={5} />, []);
+
+  const _renderHeader = useCallback(() => {
     return (
-      <SubredditActionRow
-        sub={allSubs[index]}
-        onPress={() => onOptionPress(index)}
-        key={label}
-      />
+      <View row centerV padding-5 spread bg-bgColor>
+        {defaults.map(sub => {
+          return (
+            <TouchableOpacity
+              key={sub.name}
+              onPress={() => onSubPress(sub.name)}>
+              <View
+                padding-5
+                row
+                centerV
+                bg-primary
+                style={{ borderRadius: 5 }}>
+                <Icon name={sub.icon} color={Colors.white} size={23} />
+                <Text bold style={{ color: Colors.white }}>
+                  {sub.name}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     );
-  };
+  }, [onSubPress]);
 
   return (
-    <ActionSheet
-      bg-bgColor
-      containerStyle={{ backgroundColor: Colors.bgColor }}
-      dialogStyle={{ backgroundColor: Colors.bgColor, paddingBottom: 10 }}
-      migrateDialog
-      optionsStyle={{ backgroundColor: Colors.bgColor }}
-      options={options}
-      renderAction={_renderAction}
+    <Dialog
       visible={visible}
       onDismiss={() => setVisible(false)}
-    />
+      width="100%"
+      height="70%"
+      direction={PanningProvider.Directions.DOWN}
+      bottom>
+      <View flex bg-bgColor>
+        <FlatList
+          keyExtractor={item => item.display_name}
+          data={userSubs}
+          ListHeaderComponent={_renderHeader}
+          renderItem={_renderItem}
+          style={{ flex: 1 }}
+          ItemSeparatorComponent={_renderSeperator}
+          stickyHeaderIndices={[0]}
+        />
+      </View>
+    </Dialog>
   );
 };
 
-export interface SubredditActionRowProps {
-  sub: Subreddit | string;
-  onPress: any;
-}
-
-const SubredditActionRow = ({ sub, onPress }: SubredditActionRowProps) => {
-  return (
-    <>
-      <View style={{ height: 10 }} />
-      <TouchableOpacity onPress={onPress}>
-        <SubredditRow subreddit={sub} />
-      </TouchableOpacity>
-    </>
-  );
+const SubList = ({ visible, setVisible }: SubListProps) => {
+  return <SubDialog visible={visible} setVisible={setVisible} />;
 };
 
 export default SubList;
