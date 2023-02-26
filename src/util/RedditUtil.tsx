@@ -138,6 +138,9 @@ export const parseLink = (url: string) => {
 export const onLinkPress = (url: string, navigation: any) => {
   const r = parseLink(url);
   switch (r.type) {
+    case 'post':
+      navigation.push('Submission', { id: r.id });
+      break;
     case 'sub':
       navigation.push('SubredditScreen', { subreddit: r.sub });
       break;
