@@ -70,7 +70,7 @@ const SubDialog = ({ visible, setVisible }: SubDialogProps) => {
                 bg-primary
                 style={{ borderRadius: 5 }}>
                 <Icon name={sub.icon} color={Colors.white} size={23} />
-                <Text bold style={{ color: Colors.white }}>
+                <Text bold style={{ color: Colors.white, marginLeft: 5 }}>
                   {sub.name}
                 </Text>
               </View>

@@ -16,7 +16,7 @@ const SubredditRow = ({ subreddit }: SubredditRowProps) => {
     <View row centerV>
       <Image
         source={{ uri: iconUrl }}
-        style={{ width: 30, height: 30, borderRadius: 15, marginRight: 5 }}
+        style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
       />
       <Text>{display_name}</Text>
     </View>
