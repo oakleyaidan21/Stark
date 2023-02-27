@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useContext, useState } from 'react';
 import SubmissionListingContext from '../../../context/SubmissionListingContext';
 import { SortType } from '../../../hooks/useListingSort';
-import SubList from '../../SubList';
 import ConfigHeader from '../ConfigHeader';
 
 export interface HomeHeaderProps {
