@@ -1,10 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { Subreddit } from 'snoowrap';
+import { Listing, Subreddit } from 'snoowrap';
 import SubredditRow from '../components/SubredditRow';
 import StarkContext from '../context/StarkContext';
+import useSearchSubreddits from '../hooks/useSearchSubreddits';
 import ScreenProps from '../types/ScreenProps';
 
 const defaults = [
@@ -20,11 +21,34 @@ export type UserSubScreenProps = NativeStackScreenProps<
 
 const UserSubScreen = ({
   route: {
-    params: { changeSubreddit },
+    params: { changeSubreddit, searchString },
   },
   navigation,
 }: UserSubScreenProps) => {
   const { userSubs } = useContext(StarkContext);
+
+  const [subs, setSubs] = useState<
+    Listing<Subreddit> | Subreddit[] | undefined
+  >(userSubs);
+
+  const { results } = useSearchSubreddits(searchString ?? '');
+
+  useEffect(() => {
+    if (searchString !== undefined && userSubs) {
+      if (searchString === '') {
+        setSubs(userSubs);
+      } else {
+        const filteredSubs = userSubs.filter(sub =>
+          sub.display_name.toLowerCase().includes(searchString.toLowerCase()),
+        );
+        setSubs(filteredSubs);
+      }
+    }
+  }, [searchString]);
+
+  useEffect(() => {
+    setSubs(userSubs);
+  }, [userSubs]);
 
   const dismiss = () => navigation.goBack();
 
@@ -70,7 +94,7 @@ const UserSubScreen = ({
   return (
     <View flex>
       <FlatList
-        data={userSubs}
+        data={results ? subs?.concat(results) : subs}
         contentContainerStyle={{ paddingHorizontal: 5 }}
         renderItem={_renderItem}
         ListHeaderComponent={_renderHeader}
