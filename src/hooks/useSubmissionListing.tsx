@@ -19,7 +19,7 @@ const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
     (options: ListingOptions) => {
       return getSubPosts(snoowrap, subredditName, options, sort);
     },
-    [subredditName, sort],
+    [subredditName, sort, snoowrap],
   );
 
   const { listing, loading, refreshing, refresh, fetchMore, errored } =
