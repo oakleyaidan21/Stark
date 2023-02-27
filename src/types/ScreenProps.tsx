@@ -4,6 +4,7 @@ type ScreenProps = {
   Submission: { submission: Submission; id?: string };
   SubredditScreen: { subreddit: Subreddit | string };
   SearchResultScreen: { query: string };
+  UserSubScreen: { changeSubreddit: any };
   PostSwiper: {
     initialIndex: number;
     submissions: Listing<Submission>;

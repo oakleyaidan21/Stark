@@ -11,6 +11,7 @@ import Web from '../screens/Web';
 import SubredditScreen from '../screens/SubredditScreen';
 import SearchResultScreen from '../screens/SearchResultScreen';
 import PostSwiper from '../screens/PostSwiper';
+import UserSubScreen from '../screens/UserSubScreen';
 
 enableScreens();
 const Stack = createNativeStackNavigator<ScreenProps>();
@@ -22,11 +23,13 @@ const MainNavigator = () => {
         screenOptions={({ route }) => ({
           headerShown: route.name !== 'Tabs',
           contentStyle: { backgroundColor: Colors.emptyBgColor },
-          animation: 'slide_from_right',
+          animation:
+            route.name === 'UserSubScreen' ? 'fade' : 'slide_from_right',
           header: MainHeader,
         })}>
         <Stack.Screen name="Tabs" component={TabNavigator} />
         <Stack.Screen name="PostSwiper" component={PostSwiper} />
+        <Stack.Screen name="UserSubScreen" component={UserSubScreen} />
         <Stack.Screen name="Submission" component={SubmissionScreen} />
         <Stack.Screen name="SubredditScreen" component={SubredditScreen} />
         <Stack.Screen

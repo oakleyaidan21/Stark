@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useContext, useState } from 'react';
 import SubmissionListingContext from '../../../context/SubmissionListingContext';
 import { SortType } from '../../../hooks/useListingSort';
@@ -10,18 +11,23 @@ export interface HomeHeaderProps {
 }
 
 const HomeHeader = ({ sort, setSort }: HomeHeaderProps) => {
-  const { subredditName } = useContext(SubmissionListingContext);
-  const [showSubList, setShowSubList] = useState(false);
+  const { subredditName, changeSubreddit } = useContext(
+    SubmissionListingContext,
+  );
+  const navigation = useNavigation();
 
   return (
     <>
       <ConfigHeader
         title={subredditName}
         subtitle={sort}
-        onTitlePress={() => setShowSubList(true)}
+        onTitlePress={() =>
+          navigation.navigate('UserSubScreen', {
+            changeSubreddit: changeSubreddit,
+          })
+        }
         onSortOptionPress={setSort}
       />
-      <SubList visible={showSubList} setVisible={setShowSubList} />
     </>
   );
 };
