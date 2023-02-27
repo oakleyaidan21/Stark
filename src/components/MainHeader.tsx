@@ -3,6 +3,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { View, Colors } from 'react-native-ui-lib';
 import SubmissionHeader from './headers/SubmissionHeader';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import UserSubListHeader from './headers/UserSubListHeader';
 
 const MainHeader = (props: NativeStackHeaderProps) => {
   const { route } = props;
@@ -30,6 +31,8 @@ const getContentForRoute = (route: string, props: NativeStackHeaderProps) => {
       return <SubmissionHeader />;
     case 'PostSwiper':
       return <SubmissionHeader />;
+    case 'UserSubScreen':
+      return <UserSubListHeader />;
     case 'SearchResultScreen':
     case 'SubredditScreen':
       return null;

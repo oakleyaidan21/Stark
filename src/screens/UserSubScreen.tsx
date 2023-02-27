@@ -44,10 +44,12 @@ const UserSubScreen = ({
       <View>
         {defaults.map(({ name, icon }) => {
           return (
-            <View>
-              <SubredditRow subreddit={name} iconName={icon} />
+            <>
+              <TouchableOpacity onPress={() => onSubPress(name)}>
+                <SubredditRow subreddit={name} iconName={icon} />
+              </TouchableOpacity>
               {_renderSeperator()}
-            </View>
+            </>
           );
         })}
       </View>
