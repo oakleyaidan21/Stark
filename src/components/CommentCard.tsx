@@ -42,15 +42,10 @@ const CommentCard = ({
             <Text flex color={isOp ? 'lightblue' : Colors.primary}>
               {author.name}
             </Text>
-            {!expandReplies && hasReplies && (
-              <View
-                style={{
-                  backgroundColor: Colors.primary,
-                  borderRadius: 3,
-                  paddingHorizontal: 2,
-                }}>
-                <Text bold>+{replies.length}</Text>
-              </View>
+            {hasReplies && (
+              <Text bold color={Colors.tertiaryText}>
+                +{replies.length} |{' '}
+              </Text>
             )}
             <Text color={Colors.tertiaryText} bold>
               {' ' + (score_hidden ? '•' : score)}
