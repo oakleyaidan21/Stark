@@ -32,11 +32,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
 
   const _renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Comment>) => (
-      <CommentCard
-        comment={item}
-        onLinkPress={openLink}
-        op={submission.author.name}
-      />
+      <CommentCard comment={item} onLinkPress={openLink} />
     ),
     [],
   );

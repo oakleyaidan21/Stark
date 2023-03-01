@@ -17,6 +17,12 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
     marginVertical: -4,
   };
 
+  const tagsStyles = {
+    ul: {
+      color: Colors.textColor,
+    },
+  };
+
   return (
     <RenderHtml
       source={{ html: data }}
@@ -26,6 +32,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
       contentWidth={Dimensions.get('window').width}
       renderersProps={renderersProps}
       baseStyle={baseStyles}
+      tagsStyles={tagsStyles}
     />
   );
 };
