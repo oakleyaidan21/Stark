@@ -75,6 +75,7 @@ const CommentCard = ({
               comment={c}
               onLinkPress={onLinkPress}
               index={index + 1}
+              op={op}
             />
           ))}
         </View>
