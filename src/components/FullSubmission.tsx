@@ -65,6 +65,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
       <FlatList
         data={comments}
         ItemSeparatorComponent={SeparatorComponent}
+        ListHeaderComponentStyle={{ marginBottom: 10 }}
         style={{ flex: 1 }}
         ListHeaderComponent={_renderHeader}
         renderItem={_renderItem}

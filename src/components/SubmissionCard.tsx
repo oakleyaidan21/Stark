@@ -11,9 +11,7 @@ export interface SubmissionCardProps {
 
 const SubmissionCard = ({ submission }: SubmissionCardProps) => {
   return (
-    <View
-      bg-bgColor
-      style={{ borderColor: Colors.borderColor, borderBottomWidth: 1 }}>
+    <View bg-bgColor>
       <SubmissionInfo submission={submission} />
       <SubmissionBody submission={submission} />
       <ContentActionBar content={submission} />
