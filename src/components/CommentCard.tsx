@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { LayoutAnimation, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Comment } from 'snoowrap';
 import { getTimeSincePosted } from '../util/RedditUtil';
@@ -25,6 +25,11 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
 
   const hasReplies = replies.length > 0;
 
+  const animateReplies = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpandReplies(!expandReplies);
+  };
+
   return (
     <View
       bg-bgColor
@@ -32,8 +37,7 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
         borderLeftColor: Colors.borderColor,
         borderLeftWidth: index === 0 ? 0 : 1,
       }}>
-      <TouchableWithoutFeedback
-        onPress={() => setExpandReplies(!expandReplies)}>
+      <TouchableWithoutFeedback onPress={animateReplies}>
         <View padding-10>
           {/* username, points, time */}
           <View row centerV>
@@ -41,9 +45,12 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
               {author.name}
             </Text>
             {hasReplies && (
-              <Text bold color={Colors.tertiaryText}>
-                +{replies.length} |{' '}
-              </Text>
+              <>
+                <Text bold color={Colors.tertiaryText}>
+                  +{replies.length}
+                </Text>
+                <Text color={Colors.tertiaryText}> | </Text>
+              </>
             )}
             <Text color={Colors.tertiaryText} bold>
               {score_hidden ? '•' : score}
