@@ -20,6 +20,7 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
     replies,
     created_utc,
     is_submitter,
+    author_flair_text,
   } = comment;
   const [expandReplies, setExpandReplies] = useState(false);
 
@@ -29,6 +30,8 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpandReplies(!expandReplies);
   };
+
+  console.log(comment.author_flair_text);
 
   return (
     <View
@@ -41,9 +44,17 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
         <View padding-10>
           {/* username, points, time */}
           <View row centerV>
-            <Text flex color={is_submitter ? 'lightblue' : Colors.primary}>
-              {author.name}
-            </Text>
+            <View centerV flex row>
+              <Text color={is_submitter ? 'lightblue' : Colors.primary}>
+                {author.name}
+              </Text>
+              <Text
+                color={Colors.tertiaryText}
+                style={{ fontSize: 10, marginLeft: 5 }}
+                numberOfLines={1}>
+                {author_flair_text}
+              </Text>
+            </View>
             {hasReplies && (
               <>
                 <Text bold color={Colors.tertiaryText}>
