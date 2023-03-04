@@ -46,7 +46,7 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
               </Text>
             )}
             <Text color={Colors.tertiaryText} bold>
-              {' ' + (score_hidden ? '•' : score)}
+              {score_hidden ? '•' : score}
             </Text>
             <Text color={Colors.tertiaryText}> | </Text>
             <Text color={Colors.tertiaryText}>
