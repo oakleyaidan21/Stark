@@ -33,7 +33,7 @@ const PostSwiper = ({
           });
       }
     },
-    [actualSubmissions.length],
+    [actualSubmissions, setActualSubmissions],
   );
 
   return (
