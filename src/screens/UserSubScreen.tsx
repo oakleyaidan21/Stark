@@ -3,6 +3,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Listing, Subreddit } from 'snoowrap';
+import SeparatorComponent from '../components/SeparatorComponent';
 import SubredditRow from '../components/SubredditRow';
 import StarkContext from '../context/StarkContext';
 import useSearchSubreddits from '../hooks/useSearchSubreddits';
@@ -80,7 +81,7 @@ const UserSubScreen = ({
     );
   };
 
-  const _renderSeperator = useCallback(() => <View height={5} />, []);
+  const _renderSeperator = useCallback(() => <SeparatorComponent />, []);
 
   const _renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Subreddit>) => (
@@ -96,6 +97,7 @@ const UserSubScreen = ({
       <FlatList
         data={results ? subs?.concat(results) : subs}
         contentContainerStyle={{ paddingHorizontal: 5 }}
+        style={{ marginTop: 5 }}
         renderItem={_renderItem}
         ListHeaderComponent={_renderHeader}
         ItemSeparatorComponent={_renderSeperator}
