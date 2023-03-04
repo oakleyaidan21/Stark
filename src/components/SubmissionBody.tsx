@@ -60,7 +60,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
           <XPostCard
             submission={postType.xpst}
             onPress={() =>
-              navigation.push('Submission', { submission: postType.xpst })
+              navigation.push('Submission', { id: postType.xpst.id })
             }
           />
         );
