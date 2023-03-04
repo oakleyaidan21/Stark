@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LoaderScreen, Text, View } from 'react-native-ui-lib';
+import User from '../components/User';
 import useGetRedditUser from '../hooks/useGetRedditUser';
 import ScreenProps from '../types/ScreenProps';
 
@@ -11,7 +12,7 @@ const UserScreen = ({
   const { fullUser } = useGetRedditUser(name, user);
 
   return fullUser ? (
-    <Text>{fullUser.name}</Text>
+    <User info={fullUser} />
   ) : (
     <View marginT-200>
       <LoaderScreen />
