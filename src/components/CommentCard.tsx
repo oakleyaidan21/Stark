@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { LayoutAnimation, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
@@ -24,11 +25,17 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
   } = comment;
   const [expandReplies, setExpandReplies] = useState(false);
 
+  const navigation = useNavigation();
+
   const hasReplies = replies.length > 0;
 
   const animateReplies = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpandReplies(!expandReplies);
+  };
+
+  const goToUser = () => {
+    navigation.push('UserScreen', { name: author.name });
   };
 
   return (
@@ -43,9 +50,11 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
           {/* username, points, time */}
           <View row centerV>
             <View centerV flex row>
-              <Text color={is_submitter ? 'lightblue' : Colors.primary}>
-                {author.name}
-              </Text>
+              <TouchableWithoutFeedback onPress={goToUser}>
+                <Text color={is_submitter ? 'lightblue' : Colors.primary}>
+                  {author.name}
+                </Text>
+              </TouchableWithoutFeedback>
               <Text
                 color={Colors.tertiaryText}
                 style={{ fontSize: 10, marginLeft: 5 }}

@@ -29,8 +29,14 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
   const subredditIcon = useGetSubredditIcon(subreddit);
 
   const goToSub = () => {
-    (navigation as any).navigate('SubredditScreen', {
+    (navigation as any).push('SubredditScreen', {
       subreddit: subreddit.display_name,
+    });
+  };
+
+  const goToUser = () => {
+    (navigation as any).push('UserScreen', {
+      name: author.name,
     });
   };
 
@@ -73,7 +79,9 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
               </Text>
             </TouchableWithoutFeedback>
             <Text color={Colors.tertiaryText}> | </Text>
-            <Text color={Colors.tertiaryText}>{author.name}</Text>
+            <TouchableWithoutFeedback onPress={goToUser}>
+              <Text color={Colors.tertiaryText}>{author.name}</Text>
+            </TouchableWithoutFeedback>
           </Text>
         </View>
         <View row>

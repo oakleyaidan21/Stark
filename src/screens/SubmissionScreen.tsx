@@ -12,7 +12,7 @@ const SubmissionScreen = ({
   const { fullSubmission } = useSubmission(submission, id);
 
   return fullSubmission ? (
-    <FullSubmission submission={fullSubmission} visible={true} />
+    <FullSubmission submission={fullSubmission} />
   ) : (
     <View marginT-200>
       <LoaderScreen />
