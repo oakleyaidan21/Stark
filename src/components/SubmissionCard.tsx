@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { View } from 'react-native-ui-lib';
+import { Colors, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import ContentActionBar from './ContentActionBar';
 import SubmissionBody from './SubmissionBody';
@@ -11,7 +11,9 @@ export interface SubmissionCardProps {
 
 const SubmissionCard = ({ submission }: SubmissionCardProps) => {
   return (
-    <View bg-bgColor>
+    <View
+      bg-bgColor
+      style={{ borderColor: Colors.borderColor, borderBottomWidth: 1 }}>
       <SubmissionInfo submission={submission} />
       <SubmissionBody submission={submission} />
       <ContentActionBar content={submission} />

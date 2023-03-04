@@ -31,8 +31,6 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
     setExpandReplies(!expandReplies);
   };
 
-  console.log(comment.author_flair_text);
-
   return (
     <View
       bg-bgColor

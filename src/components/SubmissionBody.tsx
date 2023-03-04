@@ -6,7 +6,9 @@ import { determinePostType, onLinkPress } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
+import SubmissionInfo from './SubmissionInfo';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
+import XPostCard from './XPostCard';
 
 interface SubmissionBodyProps {
   submission: Submission;
@@ -53,7 +55,15 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
             />
           </View>
         ) : null;
-
+      case 'XPT':
+        return (
+          <XPostCard
+            submission={postType.xpst}
+            onPress={() =>
+              navigation.push('Submission', { submission: postType.xpst })
+            }
+          />
+        );
       default:
         return (
           <View height={150} center>
