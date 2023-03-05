@@ -21,6 +21,9 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
     ul: {
       color: Colors.textColor,
     },
+    ol: {
+      color: Colors.textColor,
+    },
     blockquote: {
       fontStyle: 'italic',
       color: Colors.tertiaryText,
