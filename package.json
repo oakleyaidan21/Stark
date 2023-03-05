@@ -80,6 +80,11 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
     ]
   }
 }
