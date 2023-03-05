@@ -1,5 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { LoaderScreen, View } from 'react-native-ui-lib';
 import SubredditHeader from '../components/headers/SubredditHeader';
 import ListingScroller from '../components/ListingScroller';
@@ -18,7 +21,7 @@ const SubredditScreen = ({
     params: { subreddit },
   },
 }: SubredditScreenProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const subName =
     typeof subreddit === 'string' ? subreddit : subreddit.display_name;
@@ -38,11 +41,13 @@ const SubredditScreen = ({
   };
 
   const onItemPress = (index: number) => {
-    navigation.push('PostSwiper', {
-      initialIndex: index,
-      submissions: listing,
-      fetchMore: fetchMore,
-    });
+    if (listing) {
+      navigation.push('PostSwiper', {
+        initialIndex: index,
+        submissions: listing,
+        fetchMore: fetchMore,
+      });
+    }
   };
 
   return (

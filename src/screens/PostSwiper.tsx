@@ -19,7 +19,7 @@ const PostSwiper = ({
 
   const renderSubmissions = useCallback(() => {
     return actualSubmissions.map((submission, i) => (
-      <FullSubmission key={submission.id} submission={submission} />
+      <FullSubmission key={submission.id + ' ' + i} submission={submission} />
     ));
   }, [actualSubmissions]);
 

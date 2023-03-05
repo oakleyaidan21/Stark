@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { memo, useMemo } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Colors, Image, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
+import ScreenProps from '../types/ScreenProps';
 import { abbreviateNumber, determinePostType } from '../util/RedditUtil';
 import Flair from './Flair';
 
@@ -28,19 +30,19 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
 
   const subredditIcon = useGetSubredditIcon(subreddit);
 
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
+
   const goToSub = () => {
-    (navigation as any).push('SubredditScreen', {
+    navigation.push('SubredditScreen', {
       subreddit: subreddit.display_name,
     });
   };
 
   const goToUser = () => {
-    (navigation as any).push('UserScreen', {
+    navigation.push('UserScreen', {
       name: author.name,
     });
   };
-
-  const navigation = useNavigation();
 
   const thumbnailUrl =
     thumbnail === '' ||
@@ -115,7 +117,7 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
       </View>
       {showThumbnail && (
         <TouchableWithoutFeedback
-          onPress={() => (navigation as any).navigate('Web', { url: url })}>
+          onPress={() => navigation.navigate('Web', { url: url })}>
           <Image
             source={{ uri: thumbnailUrl }}
             style={{ width: 70, height: 70, borderRadius: 5 }}

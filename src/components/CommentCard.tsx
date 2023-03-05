@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { LayoutAnimation, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Comment } from 'snoowrap';
+import ScreenProps from '../types/ScreenProps';
 import { getTimeSincePosted } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
 
@@ -25,7 +27,7 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
   } = comment;
   const [expandReplies, setExpandReplies] = useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const hasReplies = replies.length > 0;
 

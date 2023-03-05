@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 import {
@@ -11,6 +12,7 @@ import {
 } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useStarkStorage from '../hooks/useStarkStorage';
+import ScreenProps from '../types/ScreenProps';
 
 export interface UserSelectorProps {
   visible: boolean;
@@ -18,7 +20,7 @@ export interface UserSelectorProps {
 }
 
 const UserSelector = ({ visible, setVisible }: UserSelectorProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const { users, setRefreshToken } = useStarkStorage();
 

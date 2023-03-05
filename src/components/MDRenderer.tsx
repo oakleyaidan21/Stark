@@ -8,26 +8,26 @@ type MDRendererProps = {
   onLinkPress: (url: string) => void;
 };
 
+const baseStyles = {
+  marginVertical: -4,
+};
+
+const tagsStyles = {
+  ul: {
+    color: Colors.textColor,
+  },
+  ol: {
+    color: Colors.textColor,
+  },
+  blockquote: {
+    fontStyle: 'italic',
+    color: Colors.tertiaryText,
+  },
+} as any;
+
 const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
   const renderersProps = {
     a: { onPress: (_: any, href: string) => onLinkPress(href) },
-  };
-
-  const baseStyles = {
-    marginVertical: -4,
-  };
-
-  const tagsStyles = {
-    ul: {
-      color: Colors.textColor,
-    },
-    ol: {
-      color: Colors.textColor,
-    },
-    blockquote: {
-      fontStyle: 'italic',
-      color: Colors.tertiaryText,
-    },
   };
 
   return (

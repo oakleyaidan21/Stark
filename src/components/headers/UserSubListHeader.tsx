@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput, TouchableWithoutFeedback } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ScreenProps from '../../types/ScreenProps';
 
 const UserSubListHeader = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const onType = (text: String) => {
-    (navigation as any).setParams({ searchString: text });
+    navigation.setParams({ searchString: text });
   };
 
   return (

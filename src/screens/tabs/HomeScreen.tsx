@@ -4,13 +4,14 @@ import ListingScroller from '../../components/ListingScroller';
 import HomeHeader from '../../components/headers/tabHeaders/HomeHeader';
 import SubmissionListingContext from '../../context/SubmissionListingContext';
 import useSubmissionListing from '../../hooks/useSubmissionListing';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import ScreenProps from '../../types/ScreenProps';
 
 const HomeScreen = () => {
   const [subredditName, setSubredditName] = useState('Front Page');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const { listing, refresh, refreshing, fetchMore, sort, setSort, errored } =
     useSubmissionListing({
@@ -23,11 +24,13 @@ const HomeScreen = () => {
   };
 
   const onItemPress = (index: number) => {
-    navigation.push('PostSwiper', {
-      initialIndex: index,
-      submissions: listing,
-      fetchMore: fetchMore,
-    });
+    if (listing) {
+      navigation.push('PostSwiper', {
+        initialIndex: index,
+        submissions: listing,
+        fetchMore: fetchMore,
+      });
+    }
   };
 
   return (

@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TextInput } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
+import ScreenProps from '../../../types/ScreenProps';
 
 const SearchHeader = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const onType = (text: String) => {
-    (navigation as any).setParams({ searchString: text });
+    navigation.setParams({ searchString: text });
   };
 
   return (

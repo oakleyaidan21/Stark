@@ -1,7 +1,7 @@
 import { Listing, RedditUser, Submission, Subreddit } from 'snoowrap';
 
 type ScreenProps = {
-  Submission: { submission: Submission; id?: string };
+  Submission: { submission?: Submission; id?: string };
   SubredditScreen: { subreddit: Subreddit | string };
   SearchResultScreen: { query: string };
   UserScreen: { name?: string; user?: RedditUser };
@@ -13,7 +13,7 @@ type ScreenProps = {
   };
   Tabs: undefined;
   Login: undefined;
-  Web: undefined;
+  Web: { url: string };
 };
 
 export default ScreenProps;

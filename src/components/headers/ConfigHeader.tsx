@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import {
   Animated,
@@ -10,6 +11,7 @@ import {
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SortType } from '../../hooks/useListingSort';
+import ScreenProps from '../../types/ScreenProps';
 import SortActionSheet from '../SortActionSheet';
 
 export interface ConfigHeaderProps {
@@ -29,7 +31,7 @@ const ConfigHeader = ({
   onSortOptionPress,
   backgroundColor = Colors.bgColor,
 }: ConfigHeaderProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const onLeftButtonPress = () => {
     leftIconBehavior === 'back'

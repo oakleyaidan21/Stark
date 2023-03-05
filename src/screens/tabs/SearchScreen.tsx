@@ -11,6 +11,8 @@ import SubredditRow from '../../components/SubredditRow';
 import useSearchSubreddits from '../../hooks/useSearchSubreddits';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import ScreenProps from '../../types/ScreenProps';
 
 const SearchScreen = ({ route, navigation }: any) => {
   const searchString = route.params?.searchString;
@@ -50,7 +52,7 @@ export interface SearchListHeaderProps {
 }
 
 const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   return (
     <View>

@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo } from 'react';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
+import ScreenProps from '../types/ScreenProps';
 import { determinePostType, onLinkPress } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
@@ -17,7 +19,7 @@ interface SubmissionBodyProps {
 const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
   const { url, selftext, selftext_html } = submission;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const postType = useMemo(() => {
     return determinePostType(submission);

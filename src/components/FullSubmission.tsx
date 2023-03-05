@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import {
   FlatList,
@@ -8,6 +9,7 @@ import {
 import { Colors, LoaderScreen, Text, View } from 'react-native-ui-lib';
 import { Comment, Submission } from 'snoowrap';
 import useSubmissionComments from '../hooks/useSubmissionComments';
+import ScreenProps from '../types/ScreenProps';
 import { onLinkPress } from '../util/RedditUtil';
 import CommentCard from './CommentCard';
 import SeparatorComponent from './SeparatorComponent';
@@ -20,7 +22,7 @@ export interface FullSubmissionProps {
 const FullSubmission = ({ submission }: FullSubmissionProps) => {
   const { comments, fetchMore, loading } = useSubmissionComments(submission);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const _renderHeader = useCallback(() => {
     return <SubmissionCard submission={submission} />;
