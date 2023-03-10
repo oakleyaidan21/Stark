@@ -60,7 +60,7 @@ const FullSubmission = ({ submission }: FullSubmissionProps) => {
         </TouchableNativeFeedback>
       </View>
     ) : null;
-  }, [comments]);
+  }, [comments, loading]);
 
   return (
     <View flex>
