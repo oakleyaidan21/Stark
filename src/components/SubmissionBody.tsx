@@ -39,7 +39,6 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
                 ? url.substring(0, url.length - 4) + 'mp4'
                 : (submission.media?.reddit_video?.hls_url as string)
             }
-            shouldPlay={false}
           />
         );
       case 'WEB':
