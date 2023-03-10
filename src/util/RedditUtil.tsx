@@ -28,6 +28,8 @@ export const getSubPosts = async (
       return await snoowrap.getNew(subName, options);
     case 'top':
       return await snoowrap.getTop(subName, options);
+    case 'rising':
+      return await snoowrap.getRising(subName, options);
     default:
       return await snoowrap.getHot(subName, options);
   }
