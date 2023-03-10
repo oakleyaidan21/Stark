@@ -17,10 +17,15 @@ export const sortOptions = [
   'Rising',
 ];
 
+export type TimeSortType = 'All' | 'Year' | 'Month' | 'Week' | 'Day' | 'Hour';
+
+export const timeOptions = ['All', 'Year', 'Month', 'Week', 'Day', 'Hour'];
+
 const useListingSort = (initialType: SortType) => {
   const [sort, setSort] = useState<SortType>(initialType);
+  const [timeSort, setTimeSort] = useState<TimeSortType>('All');
 
-  return { sort, setSort };
+  return { sort, setSort, timeSort, setTimeSort };
 };
 
 export default useListingSort;

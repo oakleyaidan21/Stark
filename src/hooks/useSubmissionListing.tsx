@@ -13,19 +13,21 @@ export interface UseSubmissionListingProps {
 const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
   const { snoowrap } = useContext(StarkContext);
 
-  const { sort, setSort } = useListingSort('Hot');
+  const { sort, setSort, timeSort, setTimeSort } = useListingSort('Hot');
 
   const getPosts = useCallback(
     (options: ListingOptions) => {
       return getSubPosts(snoowrap, subredditName, options, sort);
     },
-    [subredditName, sort, snoowrap],
+    [subredditName, sort, snoowrap, timeSort],
   );
 
   const { listing, loading, refreshing, refresh, fetchMore, errored } =
     useListing({
       getListing: getPosts,
       sortable: sort === 'Top',
+      timeSort: timeSort,
+      setTimeSort: setTimeSort,
     });
 
   return {
@@ -37,6 +39,8 @@ const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
     loading,
     sort,
     setSort,
+    timeSort,
+    setTimeSort,
     errored,
   };
 };

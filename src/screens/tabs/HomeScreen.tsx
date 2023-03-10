@@ -13,14 +13,33 @@ const HomeScreen = () => {
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
-  const { listing, refresh, refreshing, fetchMore, sort, setSort, errored } =
-    useSubmissionListing({
-      subredditName: subredditName,
-      options: { limit: 25 },
-    });
+  const {
+    listing,
+    refresh,
+    refreshing,
+    fetchMore,
+    sort,
+    setSort,
+    timeSort,
+    setTimeSort,
+    errored,
+  } = useSubmissionListing({
+    subredditName: subredditName,
+    options: { limit: 25 },
+  });
 
   const renderHeader = () => {
-    return <HomeHeader sort={sort} setSort={setSort} />;
+    return (
+      <HomeHeader
+        sort={sort}
+        setSort={setSort}
+        timeSort={timeSort}
+        setTimeSort={type => {
+          setSort('Top');
+          setTimeSort(type);
+        }}
+      />
+    );
   };
 
   const onItemPress = (index: number) => {

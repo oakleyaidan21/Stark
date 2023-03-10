@@ -1,27 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Listing } from 'snoowrap';
 import { ListingOptions, SortedListingOptions } from 'snoowrap/dist/objects';
+import { TimeSortType } from './useListingSort';
 
 export interface UseListingProps {
   getListing: (
     options: ListingOptions | SortedListingOptions,
   ) => Promise<Listing<any>>;
   sortable?: boolean;
+  timeSort?: TimeSortType;
+  setTimeSort?: any;
 }
 
-const useListing = ({ getListing, sortable = false }: UseListingProps) => {
+const useListing = ({
+  getListing,
+  sortable = false,
+  timeSort,
+  setTimeSort,
+}: UseListingProps) => {
   const [listing, setListing] = useState<Listing<any>>();
   const [errored, setErrored] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [limit, setLimit] = useState(25);
-  const [time, setTime] = useState('all');
 
   const options = {
     limit: limit,
   };
 
-  const sortedOptions = { ...options, time: time };
+  const sortedOptions = { ...options, time: timeSort?.toLowerCase() };
 
   useEffect(() => {
     get();
@@ -74,8 +81,6 @@ const useListing = ({ getListing, sortable = false }: UseListingProps) => {
     refresh,
     limit,
     setLimit,
-    time,
-    setTime,
   };
 };
 

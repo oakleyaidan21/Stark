@@ -10,15 +10,17 @@ import {
 } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SortType } from '../../hooks/useListingSort';
+import { SortType, TimeSortType } from '../../hooks/useListingSort';
 import ScreenProps from '../../types/ScreenProps';
 import SortActionSheet from '../SortActionSheet';
+import TimeSortActionSheet from '../TimeSortActionSheet';
 
 export interface ConfigHeaderProps {
   title?: string;
   subtitle?: string;
   onTitlePress?: (event: GestureResponderEvent) => void;
   onSortOptionPress?: (sort: SortType) => void;
+  onTimeOptionPress?: (time: TimeSortType) => void;
   leftIconBehavior?: 'back' | 'other';
   backgroundColor?: string;
 }
@@ -29,6 +31,7 @@ const ConfigHeader = ({
   onTitlePress,
   leftIconBehavior = 'other',
   onSortOptionPress,
+  onTimeOptionPress,
   backgroundColor = Colors.bgColor,
 }: ConfigHeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
@@ -40,6 +43,7 @@ const ConfigHeader = ({
   };
 
   const [sortListVisible, setSortListVisible] = useState(false);
+  const [timeListVisible, setTimeListVisible] = useState(false);
 
   return (
     <View
@@ -81,7 +85,20 @@ const ConfigHeader = ({
       <SortActionSheet
         visible={sortListVisible}
         setVisible={setSortListVisible}
-        onSortOptionPress={onSortOptionPress}
+        onSortOptionPress={type => {
+          if (onSortOptionPress) {
+            if (type == 'Top') {
+              setTimeout(() => setTimeListVisible(true), 500);
+            } else {
+              onSortOptionPress(type);
+            }
+          }
+        }}
+      />
+      <TimeSortActionSheet
+        visible={timeListVisible}
+        setVisible={setTimeListVisible}
+        onSortOptionPress={onTimeOptionPress}
       />
     </View>
   );
