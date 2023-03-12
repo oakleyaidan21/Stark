@@ -4,7 +4,12 @@ import React, { useCallback, useMemo } from 'react';
 import { Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import ScreenProps from '../types/ScreenProps';
-import { determinePostType, onLinkPress } from '../util/RedditUtil';
+import {
+  determinePostType,
+  mapRedditGalleryImages,
+  onLinkPress,
+} from '../util/RedditUtil';
+import GalleryViewer from './ImageGallery';
 import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
@@ -65,6 +70,8 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
             }
           />
         );
+      case 'GAL':
+        return <GalleryViewer images={mapRedditGalleryImages(submission)} />;
       default:
         return (
           <View height={150} center>

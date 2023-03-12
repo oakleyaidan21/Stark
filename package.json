@@ -25,6 +25,7 @@
     "react-native-async-storage": "^0.0.1",
     "react-native-fast-image": "^8.6.1",
     "react-native-gesture-handler": "^2.7.0",
+    "react-native-image-viewing": "^0.2.2",
     "react-native-pager-view": "^6.1.4",
     "react-native-reanimated": "^3.0.0-rc.10",
     "react-native-render-html": "^6.3.4",

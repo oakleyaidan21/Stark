@@ -190,3 +190,23 @@ export const getTimeSincePosted = (utc: number) => {
   const toReturn = time + '' + timeType;
   return toReturn == '0m' ? 'Just now' : toReturn;
 };
+
+export const mapRedditGalleryImages = (data: Submission) => {
+  let idMap = {};
+  const gallery_data = (data as any).gallery_data.items;
+  let urls = new Array(gallery_data.length);
+  for (let i = 0; i < gallery_data.length; i++) {
+    const key = gallery_data[i].media_id;
+    idMap[key] = { index: i, data: gallery_data[i] };
+  }
+
+  const metadata = (data as any).media_metadata;
+  for (const i of Object.entries(metadata)) {
+    urls[idMap[i[0]].index] = {
+      uri: (i[1] as any).s.u,
+      data: idMap[i[0]].data,
+    };
+  }
+
+  return urls;
+};
