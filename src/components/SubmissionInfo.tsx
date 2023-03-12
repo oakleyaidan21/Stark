@@ -7,7 +7,11 @@ import { Colors, Image, Text, View } from 'react-native-ui-lib';
 import { Submission } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
 import ScreenProps from '../types/ScreenProps';
-import { abbreviateNumber, determinePostType } from '../util/RedditUtil';
+import {
+  abbreviateNumber,
+  determinePostType,
+  getTimeSincePosted,
+} from '../util/RedditUtil';
 import Flair from './Flair';
 
 export interface SubmissionInfoProps {
@@ -26,6 +30,7 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
     num_comments,
     thumbnail,
     url,
+    created_utc,
   } = submission;
 
   const subredditIcon = useGetSubredditIcon(subreddit);
@@ -84,6 +89,10 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
             <TouchableWithoutFeedback onPress={goToUser}>
               <Text color={Colors.tertiaryText}>{author.name}</Text>
             </TouchableWithoutFeedback>
+            <Text color={Colors.tertiaryText}> | </Text>
+            <Text color={Colors.tertiaryText}>
+              {getTimeSincePosted(created_utc)}
+            </Text>
           </Text>
         </View>
         <View row>

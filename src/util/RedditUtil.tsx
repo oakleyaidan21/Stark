@@ -128,6 +128,9 @@ export const parseLink = (url: string) => {
   if (id) {
     return { type: 'post', id: id };
   } else if (tokens[0] === 'about:') {
+    if (tokens[3] === 'u') {
+      return { type: 'user', name: tokens[4] };
+    }
     return { type: 'sub', sub: tokens[4] };
   } else {
     if (tokens[1] == 'r') {
@@ -145,6 +148,9 @@ export const onLinkPress = (url: string, navigation: any) => {
       break;
     case 'sub':
       navigation.push('SubredditScreen', { subreddit: r.sub });
+      break;
+    case 'user':
+      navigation.push('UserScreen', { name: r.name });
       break;
     default:
       navigation.navigate('Web', { url: url });
