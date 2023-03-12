@@ -1,8 +1,8 @@
-import { Image } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
 import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FastImage from 'react-native-fast-image';
 
 export interface SubredditRowProps {
   subreddit: Subreddit | string;
@@ -25,7 +25,7 @@ const SubredditRow = ({ subreddit, iconName }: SubredditRowProps) => {
           <Icon name={iconName} size={23} color={Colors.white} />
         </View>
       ) : (
-        <Image
+        <FastImage
           source={{ uri: iconUrl }}
           style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
         />
