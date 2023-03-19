@@ -6,7 +6,7 @@ import {
   StyleSheet,
   BackHandler,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { WebView, WebViewNavigation } from 'react-native-webview';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenProps from '../types/ScreenProps';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -21,13 +21,13 @@ const Web: React.FC<WebProps> = props => {
   const [loading, setLoading] = useState(true);
   const [currUrl, setCurrUrl] = useState(props.route.params.url);
   const [showWeb, setShowWeb] = useState(false);
-  const [count, setCount] = useState(0);
+  const [canGoBack, setCanGoBack] = useState(false);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        if (count === 0) {
+        if (!canGoBack) {
           return false;
         }
         goBack();
@@ -36,7 +36,7 @@ const Web: React.FC<WebProps> = props => {
     );
 
     return () => backHandler.remove();
-  }, [count]);
+  }, [canGoBack]);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('transitionEnd', () => {
@@ -45,22 +45,21 @@ const Web: React.FC<WebProps> = props => {
     return unsubscribe;
   }, [props.navigation]);
 
-  const onNavigationStateChange = useCallback((navState: any) => {
+  const onNavigationStateChange = useCallback((navState: WebViewNavigation) => {
     if (currUrl !== navState.url) {
       setCurrUrl(navState.url);
     }
+    setCanGoBack(navState.canGoBack);
   }, []);
 
   const goBack = () => {
     if (webRef.current) {
-      setCount(count - 1);
       webRef.current.goBack();
     }
   };
 
   const goForward = () => {
     if (webRef.current) {
-      setCount(count + 1);
       webRef.current.goForward();
     }
   };
