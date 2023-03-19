@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Linking, Dimensions, StyleSheet } from 'react-native';
+import {
+  View,
+  Linking,
+  Dimensions,
+  StyleSheet,
+  BackHandler,
+} from 'react-native';
 import { WebView } from 'react-native-webview';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenProps from '../types/ScreenProps';
@@ -15,6 +21,22 @@ const Web: React.FC<WebProps> = props => {
   const [loading, setLoading] = useState(true);
   const [currUrl, setCurrUrl] = useState(props.route.params.url);
   const [showWeb, setShowWeb] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        if (count === 0) {
+          return false;
+        }
+        goBack();
+        return true;
+      },
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('transitionEnd', () => {
@@ -30,11 +52,17 @@ const Web: React.FC<WebProps> = props => {
   }, []);
 
   const goBack = () => {
-    if (webRef.current) webRef.current.goBack();
+    if (webRef.current) {
+      setCount(count - 1);
+      webRef.current.goBack();
+    }
   };
 
   const goForward = () => {
-    if (webRef.current) webRef.current.goForward();
+    if (webRef.current) {
+      setCount(count + 1);
+      webRef.current.goForward();
+    }
   };
 
   const refresh = () => {
