@@ -98,7 +98,7 @@ const SubmissionInfo = ({ submission }: SubmissionInfoProps) => {
         <View row>
           <View flex marginR-5>
             {/* title */}
-            <View marginT-10>
+            <View marginT-5>
               <Text style={{ fontSize: 16 }}>{title}</Text>
             </View>
             {/* flairs */}
