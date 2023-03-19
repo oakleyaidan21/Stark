@@ -36,7 +36,7 @@ const Web: React.FC<WebProps> = props => {
     );
 
     return () => backHandler.remove();
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('transitionEnd', () => {
