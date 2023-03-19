@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenProps from '../types/ScreenProps';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Colors } from 'react-native-ui-lib';
+import { useFocusEffect } from '@react-navigation/native';
 
 type WebProps = NativeStackScreenProps<ScreenProps, 'Web'>;
 
@@ -24,33 +25,21 @@ const Web: React.FC<WebProps> = props => {
   const [canGoBack, setCanGoBack] = useState(false);
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        if (!canGoBack) {
-          return false;
-        }
-        goBack();
-        return true;
-      },
-    );
-
-    return () => backHandler.remove();
-  }, [canGoBack]);
-
-  useEffect(() => {
     const unsubscribe = props.navigation.addListener('transitionEnd', () => {
       setShowWeb(true);
     });
     return unsubscribe;
   }, [props.navigation]);
 
-  const onNavigationStateChange = useCallback((navState: WebViewNavigation) => {
-    if (currUrl !== navState.url) {
-      setCurrUrl(navState.url);
-    }
-    setCanGoBack(navState.canGoBack);
-  }, []);
+  const onNavigationStateChange = useCallback(
+    (navState: WebViewNavigation) => {
+      if (currUrl !== navState.url) {
+        setCurrUrl(navState.url);
+      }
+      setCanGoBack(navState.canGoBack);
+    },
+    [currUrl, setCurrUrl, setCanGoBack],
+  );
 
   const goBack = () => {
     if (webRef.current) {
@@ -70,6 +59,25 @@ const Web: React.FC<WebProps> = props => {
 
   const onLoadEnd = () => setLoading(false);
   const onLoadStart = () => setLoading(true);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (canGoBack) {
+          goBack();
+          return true;
+        }
+        return false;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [canGoBack, goBack]),
+  );
 
   return (
     <View style={{ flex: 1 }}>
