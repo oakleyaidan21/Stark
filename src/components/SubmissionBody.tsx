@@ -33,6 +33,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
   const renderSubmissionMedia = useCallback(() => {
     switch (postType.code) {
       case 'IMG':
+      case 'GIF':
         return <ScaledImage url={url} />;
       case 'RED':
         return <RGGifPlayer url={url} shouldPlay={false} />;
