@@ -24,7 +24,9 @@ const ScaledImage = ({ url }: ScaledImageProps) => {
     height: height,
   };
 
-  return <Image source={{ uri: url }} style={style} />;
+  return (
+    <Image source={{ uri: url }} style={style} progressiveRenderingEnabled />
+  );
 };
 
 export default ScaledImage;
