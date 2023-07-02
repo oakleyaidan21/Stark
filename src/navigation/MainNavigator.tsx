@@ -24,8 +24,7 @@ const MainNavigator = () => {
         screenOptions={({ route }) => ({
           headerShown: route.name !== 'Tabs',
           contentStyle: { backgroundColor: Colors.emptyBgColor },
-          animation:
-            route.name === 'UserSubScreen' ? 'fade' : 'slide_from_right',
+          animation: 'fade',
           header: MainHeader,
         })}>
         <Stack.Screen name="Tabs" component={TabNavigator} />
