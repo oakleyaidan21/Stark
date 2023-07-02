@@ -1,16 +1,12 @@
 import { useCallback, useContext, useState } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  RefreshControl,
-  ViewToken,
-} from 'react-native';
+import { RefreshControl } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { View, LoaderScreen, Text } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
 import SubmissionListingContext from '../context/SubmissionListingContext';
 import ListSubmissionCard from './ListSubmissionCard';
 import SeparatorComponent from './SeparatorComponent';
+import { FlashList, ListRenderItem } from '@shopify/flash-list';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -36,7 +32,7 @@ const ListingScroller = ({
   const hasHeader = !!header;
 
   const renderItem = useCallback(
-    ({ item, index }: ListRenderItemInfo<Submission>) => {
+    ({ item, index }: ListRenderItem<any>) => {
       return (
         <ListSubmissionCard
           index={index}
@@ -55,7 +51,7 @@ const ListingScroller = ({
   const items = content ?? listing;
 
   return (
-    <View flex center>
+    <View flex>
       {errored ? (
         <View flex center>
           <Text bold marginB-10>
@@ -66,12 +62,11 @@ const ListingScroller = ({
           </TouchableWithoutFeedback>
         </View>
       ) : (
-        <FlatList
+        <FlashList
           refreshControl={
             <RefreshControl refreshing={!!refreshing} onRefresh={refresh} />
           }
           data={items}
-          style={{ flex: 1, width: '100%' }}
           ListEmptyComponent={
             <View marginT-200>
               <LoaderScreen />
@@ -79,15 +74,16 @@ const ListingScroller = ({
           }
           renderItem={renderItem}
           ListHeaderComponent={header}
-          stickyHeaderHiddenOnScroll
+          // stickyHeaderHiddenOnScroll
           removeClippedSubviews
-          stickyHeaderIndices={hasHeader ? [0] : undefined}
+          // stickyHeaderIndices={hasHeader ? [0] : undefined}
           maxToRenderPerBatch={7}
           windowSize={18}
           ItemSeparatorComponent={SeparatorComponent}
           viewabilityConfig={viewabilityConfig}
           keyExtractor={(item, index) => item.id + index.toString()}
           onEndReached={onEndReached}
+          estimatedItemSize={142}
         />
       )}
     </View>
