@@ -26,17 +26,31 @@ const SubredditScreen = ({
   const subName =
     typeof subreddit === 'string' ? subreddit : subreddit.display_name;
 
-  const { listing, refresh, refreshing, fetchMore, sort, setSort } =
-    useSubmissionListing({
-      subredditName: subName,
-      options: { limit: 25 },
-    });
+  const {
+    listing,
+    refresh,
+    refreshing,
+    fetchMore,
+    sort,
+    setSort,
+    timeSort,
+    setTimeSort,
+  } = useSubmissionListing({
+    subredditName: subName,
+    options: { limit: 25 },
+  });
 
   const { sub, loading } = useSubreddit(subreddit);
 
   const renderHeader = () => {
     return sub ? (
-      <SubredditHeader subreddit={sub} sort={sort} setSortType={setSort} />
+      <SubredditHeader
+        subreddit={sub}
+        sort={sort}
+        setSortType={setSort}
+        setTimeSort={setTimeSort}
+        timeSort={timeSort}
+      />
     ) : null;
   };
 

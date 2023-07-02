@@ -3,19 +3,23 @@ import { Image, TouchableOpacity } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
 import useGetSubredditIcon from '../../hooks/useGetSubredditIcon';
-import { SortType } from '../../hooks/useListingSort';
+import { SortType, TimeSortType } from '../../hooks/useListingSort';
 import ConfigHeader from './ConfigHeader';
 
 export interface SubredditHeaderProps {
   subreddit: Subreddit;
   setSortType: any;
   sort: SortType;
+  setTimeSort: any;
+  timeSort: TimeSortType;
 }
 
 const SubredditHeader = ({
   subreddit,
   sort,
   setSortType,
+  setTimeSort,
+  timeSort,
 }: SubredditHeaderProps) => {
   const {
     display_name,
@@ -60,8 +64,12 @@ const SubredditHeader = ({
     <View bg-bgColor marginB-10 style={{ position: 'relative' }}>
       <ConfigHeader
         title={'Subreddit'}
-        subtitle={sort}
+        subtitle={sort + (sort === 'Top' ? ` | ${timeSort}` : '')}
         onSortOptionPress={setSortType}
+        onTimeOptionPress={type => {
+          setSortType('Top');
+          setTimeSort(type);
+        }}
         leftIconBehavior="back"
         backgroundColor="rgba(0, 0, 0, 0.4)"
       />
