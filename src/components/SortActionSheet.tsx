@@ -1,5 +1,6 @@
-import { ActionSheet, Colors } from 'react-native-ui-lib';
+import { ActionSheet, ButtonProps, Colors } from 'react-native-ui-lib';
 import { sortOptions, SortType } from '../hooks/useListingSort';
+import SortActionItem from './SortActionItem';
 
 export interface SortActionSheetProps {
   visible: boolean;
@@ -18,6 +19,20 @@ const SortActionSheet = ({
       !!onSortOptionPress ? onSortOptionPress(type as any) : undefined,
   }));
 
+  const _renderAction = (
+    { label }: ButtonProps,
+    index: number,
+    onOptionPress: any,
+  ) => {
+    return (
+      <SortActionItem
+        label={label ?? ''}
+        index={index}
+        onOptionPress={onOptionPress}
+      />
+    );
+  };
+
   return (
     <ActionSheet
       bg-bgColor
@@ -28,6 +43,7 @@ const SortActionSheet = ({
       options={sortingOptions}
       visible={visible}
       onDismiss={() => setVisible(false)}
+      renderAction={_renderAction}
     />
   );
 };
