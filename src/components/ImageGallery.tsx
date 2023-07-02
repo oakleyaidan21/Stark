@@ -34,7 +34,12 @@ const GalleryViewer = ({ images, noModal }: GalleryViewerProps) => {
       )}
 
       <View style={s.pageLength}>
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>
+        <Text
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+            backgroundColor: 'rgba(0,0,0,0.1)',
+          }}>
           {images.length} images
         </Text>
       </View>
