@@ -9,12 +9,12 @@ export type SortType =
   | 'Rising';
 
 export const sortOptions = [
-  'Relevance',
-  'Hot',
-  'Top',
-  'New',
-  'Comments',
-  'Rising',
+  { label: 'Relevance', icon: 'circle-double' },
+  { label: 'Hot', icon: 'fire' },
+  { label: 'Top', icon: 'format-vertical-align-top' },
+  { label: 'New', icon: 'new-box' },
+  { label: 'Comments', icon: 'comment' },
+  { label: 'Rising', icon: 'trending-up' },
 ];
 
 export type TimeSortType = 'All' | 'Year' | 'Month' | 'Week' | 'Day' | 'Hour';

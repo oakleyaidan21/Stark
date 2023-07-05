@@ -85,12 +85,14 @@ const ConfigHeader = ({
       <SortActionSheet
         visible={sortListVisible}
         setVisible={setSortListVisible}
-        onSortOptionPress={type => {
+        onSortOptionPress={(option: any) => {
           if (onSortOptionPress) {
-            if (type == 'Top') {
+            if (option.label == 'Top') {
+              setSortListVisible(false);
               setTimeout(() => setTimeListVisible(true), 500);
             } else {
-              onSortOptionPress(type);
+              setSortListVisible(false);
+              onSortOptionPress(option.label);
             }
           }
         }}
