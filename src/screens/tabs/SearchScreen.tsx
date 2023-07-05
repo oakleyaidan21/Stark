@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenProps from '../../types/ScreenProps';
+import useSnoowrap from '../../hooks/useSnoowrap';
 
 const SearchScreen = ({ route, navigation }: any) => {
   const searchString = route.params?.searchString;
@@ -53,6 +54,7 @@ export interface SearchListHeaderProps {
 
 const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
+  const { snoowrap } = useSnoowrap();
 
   return (
     <View>
@@ -73,18 +75,6 @@ const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
           </Text>
         </View>
       </TouchableNativeFeedback>
-      <View row centerV marginB-10>
-        <View
-          backgroundColor="gray"
-          center
-          marginR-5
-          style={{ borderRadius: 15, width: 30, height: 30 }}>
-          <Icon name={'magnify'} size={25} color={Colors.white} />
-        </View>
-        <Text>
-          Search subreddits with <Text bold>{searchString}</Text>
-        </Text>
-      </View>
       <Text bold marginB-10>
         Subreddits
       </Text>
