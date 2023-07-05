@@ -7,6 +7,7 @@ import { Comment } from 'snoowrap';
 import ScreenProps from '../types/ScreenProps';
 import { getTimeSincePosted } from '../util/RedditUtil';
 import MDRenderer from './MDRenderer';
+import ContentActionBar from './ContentActionBar';
 
 export interface CommentCardProps {
   comment: Comment;
@@ -26,6 +27,7 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
     author_flair_text,
   } = comment;
   const [expandReplies, setExpandReplies] = useState(false);
+  const [expandContentBar, setExpandContentBar] = useState(false);
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
@@ -34,6 +36,11 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
   const animateReplies = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpandReplies(!expandReplies);
+  };
+
+  const animateContentBar = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpandContentBar(!expandContentBar);
   };
 
   const goToUser = () => {
@@ -47,7 +54,9 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
         borderLeftColor: Colors.borderColor,
         borderLeftWidth: index === 0 ? 0 : 1,
       }}>
-      <TouchableWithoutFeedback onPress={animateReplies}>
+      <TouchableWithoutFeedback
+        onPress={animateReplies}
+        onLongPress={animateContentBar}>
         <View padding-10>
           {/* username, points, time */}
           <View row centerV>
@@ -84,6 +93,9 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
           <View marginV-5>
             <MDRenderer data={body_html} onLinkPress={onLinkPress} />
           </View>
+          {expandContentBar && (
+            <ContentActionBar content={comment} size={'sm'} />
+          )}
         </View>
       </TouchableWithoutFeedback>
       {/* children */}
