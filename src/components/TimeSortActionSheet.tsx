@@ -1,7 +1,4 @@
-import { ActionSheet, ButtonProps, Colors } from 'react-native-ui-lib';
 import { timeOptions, TimeSortType } from '../hooks/useListingSort';
-import SortActionItem from './SortActionItem';
-import SortActionSheet from './SortActionSheet';
 import IconActionSheet from './IconActionSheet';
 
 export interface TimeShortActionSheetProps {
