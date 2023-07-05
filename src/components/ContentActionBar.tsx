@@ -2,6 +2,8 @@ import { Colors, View } from 'react-native-ui-lib';
 import { Comment, Submission, VoteableContent } from 'snoowrap';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useVoteableContentActions from '../hooks/useVoteableContentActions';
+import ContentActionSheet from './ContentActionSheet';
+import { useState } from 'react';
 
 interface ContentActionBarProps {
   content: VoteableContent<Submission | Comment>;
@@ -20,6 +22,8 @@ const ContentActionBar = ({ content, size = 'lg' }: ContentActionBarProps) => {
     downvote,
     save,
   } = useVoteableContentActions(content);
+
+  const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
   const small = size === 'sm';
 
@@ -47,7 +51,17 @@ const ContentActionBar = ({ content, size = 'lg' }: ContentActionBarProps) => {
         onPress={save}
       />
       <Icon name="comment-text-outline" size={small ? 20 : 23} color={'grey'} />
-      <Icon name="dots-vertical" size={small ? 20 : 23} color={'grey'} />
+      <Icon
+        name="dots-vertical"
+        size={small ? 20 : 23}
+        color={'grey'}
+        onPress={() => setActionSheetVisible(true)}
+      />
+      <ContentActionSheet
+        visible={actionSheetVisible}
+        setVisible={setActionSheetVisible}
+        content={content}
+      />
     </View>
   );
 };

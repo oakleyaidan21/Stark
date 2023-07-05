@@ -1,9 +1,11 @@
 import Snoowrap, { Submission } from 'snoowrap';
-import { ListingOptions, SortedListingOptions } from 'snoowrap/dist/objects';
+import { SortedListingOptions } from 'snoowrap/dist/objects';
 import { SortType } from '../hooks/useListingSort';
 
-export const isSubmission = (content: any): content is Submission =>
-  content instanceof Submission;
+export const isSubmission = (content: any): content is Submission => {
+  const isASubmission = 'title' in content;
+  return isASubmission;
+};
 
 export const getSubPosts = async (
   snoowrap: Snoowrap,
