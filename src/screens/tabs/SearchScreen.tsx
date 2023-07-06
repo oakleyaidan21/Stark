@@ -84,7 +84,7 @@ const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
             center
             marginR-5
             style={{ borderRadius: 15, width: 30, height: 30 }}>
-            <Icon name={'magnify'} size={25} color={Colors.white} />
+            <Icon name={'account'} size={25} color={Colors.white} />
           </View>
           <Text>
             Go to user <Text bold>{searchString}</Text>
