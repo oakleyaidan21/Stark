@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useCallback, useState } from 'react';
-import { Alert } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { Alert, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { View } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
 import FullSubmission from '../components/FullSubmission';
 import ScreenProps from '../types/ScreenProps';
+import { determinePostType } from '../util/RedditUtil';
 
 export type PostSwiperProps = NativeStackScreenProps<ScreenProps, 'PostSwiper'>;
 
@@ -23,6 +24,19 @@ const PostSwiper = ({
     ));
   }, [actualSubmissions]);
 
+  // on navigation, preload the next 5 post images
+  useEffect(() => {
+    prefetchFiveImages();
+  }, [actualSubmissions]);
+
+  // fetch the next 5 post's images, if they have them
+  const prefetchFiveImages = () => {
+    actualSubmissions.slice(0, 5).forEach(submission => {
+      if (determinePostType(submission).code === 'IMG')
+        Image.prefetch(submission.url);
+    });
+  };
+
   const onIndexChanged = useCallback(
     (newIndex: number) => {
       if (newIndex === actualSubmissions.length - 1) {
@@ -31,6 +45,12 @@ const PostSwiper = ({
           .catch((error: any) => {
             Alert.alert('Error fetching more posts', error);
           });
+      }
+      // try prefetching the post that's 5 out
+      if (newIndex + 5 < actualSubmissions.length - 1) {
+        const submission = actualSubmissions[newIndex + 5];
+        if (determinePostType(submission).code === 'IMG')
+          Image.prefetch(submission.url);
       }
     },
     [actualSubmissions, setActualSubmissions],
