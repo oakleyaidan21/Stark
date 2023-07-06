@@ -54,7 +54,6 @@ export interface SearchListHeaderProps {
 
 const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
-  const { snoowrap } = useSnoowrap();
 
   return (
     <View>
@@ -72,6 +71,23 @@ const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
           </View>
           <Text>
             Search posts with <Text bold>{searchString}</Text>
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() =>
+          navigation.navigate('UserScreen', { name: searchString })
+        }>
+        <View row centerV marginV-10>
+          <View
+            backgroundColor="gray"
+            center
+            marginR-5
+            style={{ borderRadius: 15, width: 30, height: 30 }}>
+            <Icon name={'magnify'} size={25} color={Colors.white} />
+          </View>
+          <Text>
+            Go to user <Text bold>{searchString}</Text>
           </Text>
         </View>
       </TouchableNativeFeedback>

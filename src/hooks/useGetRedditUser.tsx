@@ -5,7 +5,7 @@ import StarkContext from '../context/StarkContext';
 const useGetRedditUser = (name?: string, user?: RedditUser) => {
   const [fullUser, setFullUser] = useState<RedditUser>();
   const [loading, setLoading] = useState(true);
-  const [errored, setErrored] = useState(true);
+  const [errored, setErrored] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const { snoowrap } = useContext(StarkContext);

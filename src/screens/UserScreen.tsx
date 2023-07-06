@@ -9,10 +9,16 @@ const UserScreen = ({
     params: { name, user },
   },
 }: NativeStackScreenProps<ScreenProps, 'UserScreen'>) => {
-  const { fullUser } = useGetRedditUser(name, user);
+  const { fullUser, errored } = useGetRedditUser(name, user);
 
   return fullUser ? (
     <User info={fullUser} />
+  ) : errored ? (
+    <View flex center>
+      <Text>
+        Error getting reddit user with name <Text bold>{name}</Text>
+      </Text>
+    </View>
   ) : (
     <View marginT-200>
       <LoaderScreen />
