@@ -18,11 +18,13 @@ const PostSwiper = ({
   const [actualSubmissions, setActualSubmissions] =
     useState<Listing<Submission>>(submissions);
 
-  const renderSubmissions = useCallback(() => {
+  const [fetchingMore, setFetchingMore] = useState(false);
+
+  const renderSubmissions = () => {
     return actualSubmissions.map((submission, i) => (
       <FullSubmission key={submission.id + ' ' + i} submission={submission} />
     ));
-  }, [actualSubmissions]);
+  };
 
   // on navigation, preload the next 5 post images
   useEffect(() => {
@@ -37,24 +39,27 @@ const PostSwiper = ({
     });
   };
 
-  const onIndexChanged = useCallback(
-    (newIndex: number) => {
-      if (newIndex === actualSubmissions.length - 1) {
+  const onIndexChanged = (newIndex: number) => {
+    if (actualSubmissions.length - newIndex < 5) {
+      if (!fetchingMore) {
+        setFetchingMore(true);
         fetchMore()
-          .then(setActualSubmissions)
+          .then((newSubmissions: Listing<Submission>) => {
+            setFetchingMore(false);
+            setActualSubmissions(newSubmissions);
+          })
           .catch((error: any) => {
             Alert.alert('Error fetching more posts', error);
           });
       }
-      // try prefetching the post that's 5 out
-      if (newIndex + 5 < actualSubmissions.length - 1) {
-        const submission = actualSubmissions[newIndex + 5];
-        if (determinePostType(submission).code === 'IMG')
-          Image.prefetch(submission.url);
-      }
-    },
-    [actualSubmissions, setActualSubmissions],
-  );
+    }
+    // try prefetching the post that's 5 out
+    if (newIndex + 5 < actualSubmissions.length - 1) {
+      const submission = actualSubmissions[newIndex + 5];
+      if (determinePostType(submission).code === 'IMG')
+        Image.prefetch(submission.url);
+    }
+  };
 
   return (
     <View flex>
