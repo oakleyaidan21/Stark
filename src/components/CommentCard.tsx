@@ -11,11 +11,17 @@ import ContentActionBar from './ContentActionBar';
 
 export interface CommentCardProps {
   comment: Comment;
-  onLinkPress: any;
+  onLinkPress?: any;
   index?: number;
+  disableExpand?: boolean;
 }
 
-const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
+const CommentCard = ({
+  comment,
+  onLinkPress,
+  index = 0,
+  disableExpand = false,
+}: CommentCardProps) => {
   const {
     author,
     score,
@@ -34,8 +40,10 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
   const hasReplies = replies.length > 0;
 
   const animateReplies = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpandReplies(!expandReplies);
+    if (!disableExpand) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setExpandReplies(!expandReplies);
+    }
   };
 
   const animateContentBar = () => {
@@ -91,7 +99,12 @@ const CommentCard = ({ comment, onLinkPress, index = 0 }: CommentCardProps) => {
           </View>
           {/* body */}
           <View marginV-5>
-            <MDRenderer data={body_html} onLinkPress={onLinkPress} />
+            <MDRenderer
+              data={body_html}
+              onLinkPress={() => {
+                if (onLinkPress) onLinkPress();
+              }}
+            />
           </View>
           {expandContentBar && (
             <ContentActionBar content={comment} size={'sm'} />

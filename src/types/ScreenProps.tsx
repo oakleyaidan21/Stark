@@ -1,4 +1,4 @@
-import { Listing, RedditUser, Submission, Subreddit } from 'snoowrap';
+import { Comment, Listing, RedditUser, Submission, Subreddit } from 'snoowrap';
 
 type ScreenProps = {
   Submission: { submission?: Submission; id?: string };
@@ -11,6 +11,7 @@ type ScreenProps = {
     submissions: Listing<Submission>;
     fetchMore: any;
   };
+  CreateCommentScreen: { content: Submission | Comment };
   Tabs: undefined;
   Login: undefined;
   Web: { url: string };

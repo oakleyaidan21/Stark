@@ -23,7 +23,7 @@ const useCurrentUser = () => {
 
   useEffect(() => {
     setCurrentUser(getCurrentUser());
-  }, []);
+  }, [users]);
 
   return { currentUser, getCurrentUser };
 };

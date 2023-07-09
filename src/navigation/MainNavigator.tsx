@@ -13,6 +13,7 @@ import SearchResultScreen from '../screens/SearchResultScreen';
 import PostSwiper from '../screens/PostSwiper';
 import UserSubScreen from '../screens/UserSubScreen';
 import UserScreen from '../screens/UserScreen';
+import CreateCommentScreen from '../screens/CreateCommentScreen';
 
 enableScreens();
 const Stack = createNativeStackNavigator<ScreenProps>();
@@ -39,6 +40,10 @@ const MainNavigator = () => {
         />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Web" component={Web} />
+        <Stack.Screen
+          name="CreateCommentScreen"
+          component={CreateCommentScreen}
+        />
       </Stack.Navigator>
     </View>
   );

@@ -4,9 +4,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useVoteableContentActions from '../hooks/useVoteableContentActions';
 import ContentActionSheet from './ContentActionSheet';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 interface ContentActionBarProps {
-  content: VoteableContent<Submission | Comment>;
+  content: Submission | Comment;
   size?: string;
 }
 
@@ -22,6 +23,8 @@ const ContentActionBar = ({ content, size = 'lg' }: ContentActionBarProps) => {
     downvote,
     save,
   } = useVoteableContentActions(content);
+
+  const navigation = useNavigation();
 
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
@@ -50,7 +53,14 @@ const ContentActionBar = ({ content, size = 'lg' }: ContentActionBarProps) => {
         disabled={saving}
         onPress={save}
       />
-      <Icon name="comment-text-outline" size={small ? 20 : 23} color={'grey'} />
+      <Icon
+        name="comment-text-outline"
+        size={small ? 20 : 23}
+        color={'grey'}
+        onPress={() =>
+          navigation.navigate('CreateCommentScreen', { content: content })
+        }
+      />
       <Icon
         name="dots-vertical"
         size={small ? 20 : 23}
