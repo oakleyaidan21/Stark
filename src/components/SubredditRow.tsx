@@ -9,6 +9,8 @@ export interface SubredditRowProps {
   iconName?: string;
 }
 
+const iconSize = 38;
+
 const SubredditRow = ({ subreddit, iconName }: SubredditRowProps) => {
   const isSub = typeof subreddit !== 'string';
   const display_name = isSub ? subreddit.display_name : subreddit;
@@ -21,13 +23,22 @@ const SubredditRow = ({ subreddit, iconName }: SubredditRowProps) => {
           bg-primary
           center
           marginR-10
-          style={{ borderRadius: 15, width: 30, height: 30 }}>
+          style={{
+            borderRadius: iconSize / 2,
+            width: iconSize,
+            height: iconSize,
+          }}>
           <Icon name={iconName} size={23} color={Colors.white} />
         </View>
       ) : (
         <FastImage
           source={{ uri: iconUrl }}
-          style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
+          style={{
+            width: iconSize,
+            height: iconSize,
+            borderRadius: iconSize / 2,
+            marginRight: 10,
+          }}
         />
       )}
       <Text>{display_name}</Text>

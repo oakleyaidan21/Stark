@@ -52,6 +52,7 @@ export interface SearchListHeaderProps {
   searchString: string;
 }
 
+const iconSize = 38;
 const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
@@ -66,7 +67,11 @@ const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
             backgroundColor="gray"
             center
             marginR-5
-            style={{ borderRadius: 15, width: 30, height: 30 }}>
+            style={{
+              borderRadius: iconSize / 2,
+              width: iconSize,
+              height: iconSize,
+            }}>
             <Icon name={'magnify'} size={25} color={Colors.white} />
           </View>
           <Text>
@@ -78,12 +83,17 @@ const SearchListHeader = ({ searchString }: SearchListHeaderProps) => {
         onPress={() =>
           navigation.navigate('UserScreen', { name: searchString })
         }>
-        <View row centerV marginV-10>
+        <View row centerV>
           <View
             backgroundColor="gray"
             center
             marginR-5
-            style={{ borderRadius: 15, width: 30, height: 30 }}>
+            marginB-5
+            style={{
+              borderRadius: iconSize / 2,
+              width: iconSize,
+              height: iconSize,
+            }}>
             <Icon name={'account'} size={25} color={Colors.white} />
           </View>
           <Text>

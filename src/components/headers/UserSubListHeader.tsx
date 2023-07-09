@@ -30,6 +30,9 @@ const UserSubListHeader = () => {
         style={{
           flex: 1,
           color: Colors.textColor,
+          backgroundColor: Colors.textInput,
+          borderRadius: 3,
+          padding: 8,
           marginLeft: 10,
         }}
         onChangeText={onType}
