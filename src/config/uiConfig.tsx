@@ -16,6 +16,7 @@ export const loadUIConfig = () => {
       tertiaryText: '#A1A1A1',
       statusBarBg: Colors.black,
       borderColor: '#333333',
+      textInput: '#242424',
     },
     light: {
       textColor: Colors.black,
@@ -29,6 +30,7 @@ export const loadUIConfig = () => {
       tertiaryText: '#A1A1A1',
       statusBarBg: Colors.white,
       borderColor: '#A1A1A1',
+      textInput: '#242424',
     },
   });
 
