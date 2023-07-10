@@ -1,13 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import {
-  Animated,
-  GestureResponderEvent,
-  StyleProp,
-  TouchableWithoutFeedback,
-  ViewStyle,
-} from 'react-native';
+import { GestureResponderEvent, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SortType, TimeSortType } from '../../hooks/useListingSort';

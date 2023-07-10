@@ -4,6 +4,7 @@ import { View, Colors } from 'react-native-ui-lib';
 import SubmissionHeader from './headers/SubmissionHeader';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserSubListHeader from './headers/UserSubListHeader';
+import CreateCommentHeader from './headers/CreateCommentHeader';
 
 const MainHeader = (props: NativeStackHeaderProps) => {
   const { route } = props;
@@ -33,6 +34,8 @@ const getContentForRoute = (route: string, props: NativeStackHeaderProps) => {
       return <SubmissionHeader />;
     case 'UserSubScreen':
       return <UserSubListHeader />;
+    case 'CreateCommentScreen':
+      return <CreateCommentHeader />;
     case 'SearchResultScreen':
     case 'SubredditScreen':
       return null;

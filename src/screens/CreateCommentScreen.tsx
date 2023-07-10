@@ -29,7 +29,7 @@ const CreateCommentScreen = ({
     content
       .reply(comment)
       .then(() => navigation.goBack())
-      .catch(e => Alert.alert('Error submitting comment', e));
+      .catch(e => Alert.alert('Error submitting comment', e.message));
   };
 
   return (
