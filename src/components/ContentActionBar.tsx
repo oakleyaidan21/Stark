@@ -1,9 +1,9 @@
 import { Colors, View } from 'react-native-ui-lib';
-import { Comment, Submission, VoteableContent } from 'snoowrap';
+import { Comment, Submission } from 'snoowrap';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useVoteableContentActions from '../hooks/useVoteableContentActions';
 import ContentActionSheet from './ContentActionSheet';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 interface ContentActionBarProps {

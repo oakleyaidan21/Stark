@@ -13,7 +13,6 @@ import GalleryViewer from './ImageGallery';
 import MDRenderer from './MDRenderer';
 import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
-import SubmissionInfo from './SubmissionInfo';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 import XPostCard from './XPostCard';
 
@@ -22,7 +21,7 @@ interface SubmissionBodyProps {
 }
 
 const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
-  const { url, selftext, selftext_html } = submission;
+  const { url, selftext, selftext_html, spoiler } = submission;
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
@@ -34,7 +33,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
     switch (postType.code) {
       case 'IMG':
       case 'GIF':
-        return <ScaledImage url={url} />;
+        return <ScaledImage url={url} isSpoiler={spoiler} />;
       case 'RED':
         return <RGGifPlayer url={url} shouldPlay={false} />;
       case 'VID':

@@ -1,19 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Dimensions, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Dimensions,
+  Image,
+  ImageProps,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import { Colors, Text, View } from 'react-native-ui-lib';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface ScaledImageProps {
   url: string;
+  imageProps?: ImageProps;
+  isSpoiler: boolean;
 }
 
 const ww = Dimensions.get('window').width;
 
-const ScaledImage = ({ url }: ScaledImageProps) => {
+const ScaledImage = ({ url, imageProps, isSpoiler }: ScaledImageProps) => {
   const [height, setHeight] = useState<number>(0);
+  const [blurImage, setBlurImage] = useState(isSpoiler ? true : false);
+  const [loading, setLoading] = useState(true);
 
   const getScaledHeight = () => {
     Image.getSize(url, (w, h) => {
       const ratio = ww / w;
       setHeight(h * ratio);
+      setLoading(false);
     });
   };
 
@@ -24,8 +36,28 @@ const ScaledImage = ({ url }: ScaledImageProps) => {
     height: height,
   };
 
-  return (
-    <Image source={{ uri: url }} style={style} progressiveRenderingEnabled />
+  return loading ? (
+    <View height={50} center>
+      <Icon name="image" color={Colors.oBgColor} size={30} />
+    </View>
+  ) : (
+    <View style={style}>
+      <Image
+        source={{ uri: url }}
+        style={{ flex: 1 }}
+        progressiveRenderingEnabled
+        {...imageProps}
+        blurRadius={blurImage ? 15 : 0}
+      />
+      {blurImage && (
+        <View style={{ ...style, position: 'absolute', top: 0 }} flex center>
+          <Text marginB-10>Show sensitive content?</Text>
+          <TouchableWithoutFeedback onPress={() => setBlurImage(false)}>
+            <Text bold>Show</Text>
+          </TouchableWithoutFeedback>
+        </View>
+      )}
+    </View>
   );
 };
 
