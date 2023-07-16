@@ -41,12 +41,13 @@
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-    "snoowrap": "^1.23.0",
+    "snoowrap": "^1.15.2",
     "stream": "^0.0.2",
     "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.22.5",
     "@babel/plugin-transform-private-methods": "^7.22.5",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
