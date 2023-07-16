@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Colors } from 'react-native-ui-lib';
 import RenderHtml from 'react-native-render-html';
 import { Dimensions } from 'react-native';
@@ -44,4 +44,11 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
   );
 };
 
-export default MDRenderer;
+const propsAreEqual = (
+  prevProps: MDRendererProps,
+  newProps: MDRendererProps,
+) => {
+  return prevProps.data != newProps.data;
+};
+
+export default memo(MDRenderer, propsAreEqual);
