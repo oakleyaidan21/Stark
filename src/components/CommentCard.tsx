@@ -101,8 +101,8 @@ const CommentCard = ({
           <View marginV-5>
             <MDRenderer
               data={body_html}
-              onLinkPress={() => {
-                if (onLinkPress) onLinkPress();
+              onLinkPress={url => {
+                if (onLinkPress) onLinkPress(url);
               }}
             />
           </View>
@@ -118,7 +118,9 @@ const CommentCard = ({
             <CommentCard
               key={c.id}
               comment={c}
-              onLinkPress={onLinkPress}
+              onLinkPress={url => {
+                if (onLinkPress) onLinkPress(url);
+              }}
               index={index + 1}
             />
           ))}
