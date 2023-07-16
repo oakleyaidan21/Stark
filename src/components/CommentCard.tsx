@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { LayoutAnimation, TouchableWithoutFeedback } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Comment } from 'snoowrap';
@@ -76,7 +76,7 @@ const CommentCard = ({
               </TouchableWithoutFeedback>
               <Text
                 color={Colors.tertiaryText}
-                style={{ fontSize: 10, marginLeft: 5 }}
+                style={{ fontSize: 10, marginLeft: 5, flex: 1 }}
                 numberOfLines={1}>
                 {author_flair_text}
               </Text>
