@@ -38,7 +38,7 @@ const GalleryViewer = ({ images, noModal }: GalleryViewerProps) => {
           style={{
             color: 'white',
             fontWeight: 'bold',
-            backgroundColor: 'rgba(0,0,0,0.1)',
+            backgroundColor: 'rgba(0,0,0,0.3)',
           }}>
           {images.length} images
         </Text>

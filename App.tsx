@@ -23,12 +23,12 @@ loadUIConfig();
 
 const App = () => {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Stark />
-      </PersistGate>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Stark />
+        </PersistGate>
+      </Provider>
     </GestureHandlerRootView>
   );
 };
