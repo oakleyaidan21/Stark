@@ -1,11 +1,10 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext } from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
   RefreshControl,
-  ViewToken,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { View, LoaderScreen, Text } from 'react-native-ui-lib';
 import { Listing, Submission } from 'snoowrap';
 import SubmissionListingContext from '../context/SubmissionListingContext';
