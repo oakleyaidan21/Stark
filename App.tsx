@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux/store';
 import Stark from './src/Stark';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 require('react-native-ui-lib/config').setConfig({ appScheme: 'default' });
 
 // These next three blocks are for snoowrap shenannigans

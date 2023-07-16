@@ -82,7 +82,6 @@ import org.apache.tools.ant.taskdefs.condition.Os
 //     enableHermes: true,  // clean and rebuild if changing
 // ]
 
-apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 react {
