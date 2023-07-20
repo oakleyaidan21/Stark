@@ -67,7 +67,7 @@ export const determinePostType = (data: Submission) => {
     ? matches[4].substring(matches[4].length - 5, matches[4].length)
     : false;
 
-  if (data.domain == 'redgifs.com') {
+  if (data.domain == 'redgifs.com' || data.domain == 'v3.redgifs.com') {
     return { code: 'RED' };
   }
 
@@ -98,7 +98,6 @@ export const determinePostType = (data: Submission) => {
   if (isImgurGallery) {
     return { code: 'IGL', hash: matches[4] ? matches[4].substring(3) : '' };
   }
-
   return { code: 'WEB' };
 };
 
