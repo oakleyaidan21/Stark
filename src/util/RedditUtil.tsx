@@ -44,7 +44,7 @@ export const determinePostType = (data: Submission) => {
   if (data.is_self) {
     return { code: 'SLF' };
   }
-  if (data.crosspost_parent_list) {
+  if (!!data.crosspost_parent_list && data.crosspost_parent_list.size > 0) {
     return { code: 'XPT', xpst: data.crosspost_parent_list[0] };
   }
   if (!data.url) return { code: 'IDK' };
