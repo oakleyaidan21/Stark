@@ -1,8 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RedditUser } from 'snoowrap';
 
+export interface StarkAuthState {
+  refreshToken: string;
+  authCode: string;
+  users: [any];
+}
+
 const useStarkStorage = () => {
-  const { refreshToken, authCode, users } = useSelector((state: any) => state);
+  const users = useSelector<StarkAuthState>(authState => authState.users);
+  const refreshToken = useSelector<StarkAuthState>(
+    authState => authState.refreshToken,
+  );
+  const authCode = useSelector<StarkAuthState>(authState => authState.authCode);
   const dispatch = useDispatch();
 
   const setRefreshToken = (token: string | null) => {
