@@ -33,7 +33,13 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
     switch (postType.code) {
       case 'IMG':
       case 'GIF':
-        return <ScaledImage url={url} isSpoiler={spoiler} />;
+        return (
+          <ScaledImage
+            url={url}
+            isSpoiler={spoiler}
+            selfText={submission.selftext_html}
+          />
+        );
       case 'RED':
         return <RGGifPlayer url={url} shouldPlay={false} />;
       case 'VID':
