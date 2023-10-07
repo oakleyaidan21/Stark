@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { View } from 'react-native-ui-lib';
@@ -7,6 +7,7 @@ import { Listing, Submission } from 'snoowrap';
 import FullSubmission from '../components/FullSubmission';
 import ScreenProps from '../types/ScreenProps';
 import { determinePostType } from '../util/RedditUtil';
+import React from 'react';
 
 export type PostSwiperProps = NativeStackScreenProps<ScreenProps, 'PostSwiper'>;
 
@@ -40,17 +41,23 @@ const PostSwiper = ({
   };
 
   const onIndexChanged = (newIndex: number) => {
+    if (newIndex == actualSubmissions.length - 1) {
+      Alert.alert(
+        `Hitting the end, here's the state: fetching? ${fetchingMore}`,
+      );
+    }
     if (actualSubmissions.length - newIndex < 5) {
       if (!fetchingMore) {
         setFetchingMore(true);
         fetchMore()
           .then((newSubmissions: Listing<Submission>) => {
-            setFetchingMore(false);
+            console.log('fetching!');
             setActualSubmissions(newSubmissions);
           })
           .catch((error: any) => {
             Alert.alert('Error fetching more posts', error);
-          });
+          })
+          .finally(() => setFetchingMore(false));
       }
     }
     // try prefetching the post that's 5 out
