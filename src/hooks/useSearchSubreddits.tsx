@@ -5,6 +5,7 @@ import StarkContext from '../context/StarkContext';
 const useSearchSubreddits = (searchText?: string) => {
   const [results, setResults] = useState<Listing<Subreddit>>();
   const [errored, setErrored] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { snoowrap } = useContext(StarkContext);
 
   const searchSubs = () => {
@@ -14,6 +15,7 @@ const useSearchSubreddits = (searchText?: string) => {
         return;
       }
       if (snoowrap) {
+        setLoading(true);
         snoowrap
           .searchSubreddits({ query: searchText })
           .then(results => {
@@ -22,7 +24,8 @@ const useSearchSubreddits = (searchText?: string) => {
           .catch(error => {
             console.log('Error searching subs', error);
             setErrored(true);
-          });
+          })
+          .finally(() => setLoading(false));
       }
     }
   };
@@ -32,7 +35,7 @@ const useSearchSubreddits = (searchText?: string) => {
     return () => clearTimeout(timeout);
   }, [searchText]);
 
-  return { results, errored };
+  return { results, errored, loading };
 };
 
 export default useSearchSubreddits;

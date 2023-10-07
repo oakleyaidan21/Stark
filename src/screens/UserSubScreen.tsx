@@ -1,6 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItemInfo,
+  TouchableOpacity,
+} from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { Listing, Subreddit } from 'snoowrap';
 import SeparatorComponent from '../components/SeparatorComponent';
@@ -8,6 +13,7 @@ import SubredditRow from '../components/SubredditRow';
 import StarkContext from '../context/StarkContext';
 import useSearchSubreddits from '../hooks/useSearchSubreddits';
 import ScreenProps from '../types/ScreenProps';
+import React from 'react';
 
 const defaults = [
   { name: 'All', icon: 'all-inclusive-box' },
@@ -32,7 +38,7 @@ const UserSubScreen = ({
     Listing<Subreddit> | Subreddit[] | undefined
   >(userSubs);
 
-  const { results } = useSearchSubreddits(searchString ?? '');
+  const { results, loading } = useSearchSubreddits(searchString ?? '');
 
   useEffect(() => {
     if (searchString !== undefined && userSubs) {
@@ -100,6 +106,7 @@ const UserSubScreen = ({
         style={{ marginTop: 5 }}
         renderItem={_renderItem}
         ListHeaderComponent={_renderHeader}
+        ListFooterComponent={loading ? <ActivityIndicator /> : <></>}
         ItemSeparatorComponent={_renderSeperator}
         keyExtractor={item => item.display_name}
       />
