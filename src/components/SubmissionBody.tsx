@@ -15,6 +15,7 @@ import RGGifPlayer from './RGGifPlayer';
 import ScaledImage from './ScaledImage';
 import SubmissionVideoPlayer from './SubmissionVideoPlayer';
 import XPostCard from './XPostCard';
+import RGImage from './RGImage';
 
 interface SubmissionBodyProps {
   submission: Submission;
@@ -42,6 +43,8 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
         );
       case 'RED':
         return <RGGifPlayer url={url} shouldPlay={false} />;
+      case 'RED_I':
+        return <RGImage url={url} />;
       case 'VID':
         return (
           <SubmissionVideoPlayer

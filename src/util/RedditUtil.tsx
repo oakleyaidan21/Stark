@@ -71,6 +71,10 @@ export const determinePostType = (data: Submission) => {
     return { code: 'RED' };
   }
 
+  if (data.domain == 'i.redgifs.com') {
+    return { code: 'RED_I' };
+  }
+
   if (data.domain == 'gfycat.com') {
     return { code: 'GFY' };
   }
