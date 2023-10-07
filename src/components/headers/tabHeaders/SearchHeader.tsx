@@ -4,6 +4,7 @@ import { TextInput, TouchableNativeFeedback } from 'react-native';
 import { Colors, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenProps from '../../../types/ScreenProps';
+import React from 'react';
 
 const SearchHeader = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();

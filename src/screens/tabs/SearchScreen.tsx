@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   TouchableNativeFeedback,
@@ -13,12 +14,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenProps from '../../types/ScreenProps';
-import useSnoowrap from '../../hooks/useSnoowrap';
 
 const SearchScreen = ({ route, navigation }: any) => {
   const searchString = route.params?.searchString;
 
-  const { results } = useSearchSubreddits(searchString);
+  const { results, loading } = useSearchSubreddits(searchString);
 
   const renderItem = ({ item }: ListRenderItemInfo<Subreddit>) => {
     return (
@@ -42,6 +42,7 @@ const SearchScreen = ({ route, navigation }: any) => {
           ListHeaderComponent={() => (
             <SearchListHeader searchString={searchString} />
           )}
+          ListFooterComponent={loading ? <ActivityIndicator /> : <></>}
         />
       )}
     </View>
