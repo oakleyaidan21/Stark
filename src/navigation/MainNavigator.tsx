@@ -18,12 +18,21 @@ import CreateCommentScreen from '../screens/CreateCommentScreen';
 enableScreens();
 const Stack = createNativeStackNavigator<ScreenProps>();
 
+const showHeader = (name: string) => {
+  switch (name) {
+    case 'Tabs':
+    case 'Web':
+      return false;
+    default:
+      return true;
+  }
+};
 const MainNavigator = () => {
   return (
     <View flex>
       <Stack.Navigator
         screenOptions={({ route }) => ({
-          headerShown: route.name !== 'Tabs',
+          headerShown: showHeader(route.name),
           contentStyle: { backgroundColor: Colors.emptyBgColor },
           animation: 'fade',
           header: MainHeader,

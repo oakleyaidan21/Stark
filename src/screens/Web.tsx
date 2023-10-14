@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  View,
   Linking,
-  Dimensions,
   StyleSheet,
   BackHandler,
   Platform,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenProps from '../types/ScreenProps';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Colors } from 'react-native-ui-lib';
+import { Colors, Text, View } from 'react-native-ui-lib';
 import { useFocusEffect } from '@react-navigation/native';
+import ConfigHeader from '../components/headers/ConfigHeader';
+import { curryGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
 type WebProps = NativeStackScreenProps<ScreenProps, 'Web'>;
-
-const width = Dimensions.get('window').width;
 
 const Web: React.FC<WebProps> = props => {
   const webRef = useRef<WebView>(null);
@@ -80,33 +80,65 @@ const Web: React.FC<WebProps> = props => {
     }, [canGoBack, goBack]),
   );
 
+  const createLinkAlert = () =>
+    Alert.alert(
+      'Follow Link',
+      'Do you want to open the original link or the current link',
+      [
+        {
+          text: 'Original',
+          onPress: () => Linking.openURL(props.route.params.url),
+        },
+        { text: 'Current', onPress: () => Linking.openURL(currUrl) },
+      ],
+    );
+
+  const renderHeader = () => {
+    return (
+      <View bg-bgColor height={50}>
+        <View flex row center spread paddingH-10 padding-V-5>
+          <Icon
+            name="close"
+            onPress={props.navigation.goBack}
+            color={Colors.oBgColor}
+            size={20}
+          />
+          <View flex marginH-5>
+            <Text color={Colors.tertiaryText} numberOfLines={1}>
+              {currUrl}
+            </Text>
+          </View>
+          {loading && (
+            <ActivityIndicator color={Colors.tertiaryText} size={'small'} />
+          )}
+        </View>
+      </View>
+    );
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View flex>
+      {renderHeader()}
       {/* WEB FUNCTIONS */}
       <View style={s.webFunctions}>
-        <Icon
-          name="arrow-left"
-          color={Colors.oBgColor}
-          onPress={goBack}
-          size={25}
-        />
+        <Icon name="close" color={Colors.oBgColor} onPress={goBack} size={20} />
         <Icon
           name="arrow-right"
           color={Colors.oBgColor}
           onPress={goForward}
-          size={25}
+          size={20}
         />
         <Icon
           name="refresh"
           color={Colors.oBgColor}
           onPress={refresh}
-          size={25}
+          size={20}
         />
         <Icon
           name="link"
           color={Colors.oBgColor}
-          onPress={() => Linking.openURL(props.route.params.url)}
-          size={25}
+          onPress={createLinkAlert}
+          size={20}
         />
       </View>
 

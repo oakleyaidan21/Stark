@@ -5,6 +5,7 @@ import SubmissionListingContext from '../../../context/SubmissionListingContext'
 import { SortType, TimeSortType } from '../../../hooks/useListingSort';
 import ScreenProps from '../../../types/ScreenProps';
 import ConfigHeader from '../ConfigHeader';
+import React from 'react';
 
 export interface HomeHeaderProps {
   sort: SortType;

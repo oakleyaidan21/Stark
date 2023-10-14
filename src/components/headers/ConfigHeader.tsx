@@ -8,6 +8,7 @@ import { SortType, TimeSortType } from '../../hooks/useListingSort';
 import ScreenProps from '../../types/ScreenProps';
 import SortActionSheet from '../SortActionSheet';
 import TimeSortActionSheet from '../TimeSortActionSheet';
+import React from 'react';
 
 export interface ConfigHeaderProps {
   title?: string;
