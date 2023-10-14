@@ -83,8 +83,13 @@ const Web: React.FC<WebProps> = props => {
   const createLinkAlert = () =>
     Alert.alert(
       'Follow Link',
-      'Do you want to open the original link or the current link',
+      'Do you want to open the original link or the current link?',
       [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
         {
           text: 'Original',
           onPress: () => Linking.openURL(props.route.params.url),
