@@ -7,23 +7,16 @@ import {
 } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import MDRenderer from './MDRenderer';
 
 interface ScaledImageProps {
   url: string;
   imageProps?: ImageProps;
   isSpoiler: boolean;
-  selfText?: any;
 }
 
 const ww = Dimensions.get('window').width;
 
-const ScaledImage = ({
-  url,
-  imageProps,
-  isSpoiler,
-  selfText,
-}: ScaledImageProps) => {
+const ScaledImage = ({ url, imageProps, isSpoiler }: ScaledImageProps) => {
   const [height, setHeight] = useState<number>(0);
   const [blurImage, setBlurImage] = useState(isSpoiler ? true : false);
   const [loading, setLoading] = useState(true);
@@ -64,7 +57,6 @@ const ScaledImage = ({
           </TouchableWithoutFeedback>
         </View>
       )}
-      {selfText && <MDRenderer data={selfText} onLinkPress={() => {}} />}
     </View>
   );
 };

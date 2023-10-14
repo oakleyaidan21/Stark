@@ -34,13 +34,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
     switch (postType.code) {
       case 'IMG':
       case 'GIF':
-        return (
-          <ScaledImage
-            url={url}
-            isSpoiler={spoiler}
-            selfText={submission.selftext_html}
-          />
-        );
+        return <ScaledImage url={url} isSpoiler={spoiler} />;
       case 'RED':
         return <RGGifPlayer url={url} shouldPlay={false} />;
       case 'RED_I':
@@ -56,20 +50,8 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
           />
         );
       case 'WEB':
+      case 'SLF': // will get rendered in the below function
         return null;
-      case 'SLF':
-        return selftext ? (
-          <View
-            bg-selfTextBgColor
-            margin-5
-            style={{ borderRadius: 3 }}
-            padding-5>
-            <MDRenderer
-              data={selftext_html ?? ''}
-              onLinkPress={(url: string) => onLinkPress(url, navigation)}
-            />
-          </View>
-        ) : null;
       case 'XPT':
         return (
           <XPostCard
@@ -90,7 +72,31 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
     }
   }, [submission.id]);
 
-  return <View bg-bgColor>{renderSubmissionMedia()}</View>;
+  const renderSubmissionText = useCallback(() => {
+    if (submission.selftext) {
+      return (
+        <>
+          {postType.code !== 'SLF' && (
+            <View style={{ height: 1 }} bg-borderColor marginT-5 />
+          )}
+          <View>
+            <MDRenderer
+              data={selftext_html ?? ''}
+              onLinkPress={(url: string) => onLinkPress(url, navigation)}
+            />
+          </View>
+        </>
+      );
+    }
+    return null;
+  }, [submission.id]);
+
+  return (
+    <View bg-bgColor>
+      {renderSubmissionMedia()}
+      {renderSubmissionText()}
+    </View>
+  );
 };
 
 export default SubmissionBody;
