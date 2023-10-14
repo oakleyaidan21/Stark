@@ -22,7 +22,7 @@ interface SubmissionBodyProps {
 }
 
 const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
-  const { url, selftext, selftext_html, spoiler } = submission;
+  const { url, selftext_html, spoiler } = submission;
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
@@ -82,6 +82,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
           <View>
             <MDRenderer
               data={selftext_html ?? ''}
+              id={submission.id}
               onLinkPress={(url: string) => onLinkPress(url, navigation)}
             />
           </View>

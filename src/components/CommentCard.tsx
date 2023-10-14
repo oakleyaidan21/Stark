@@ -23,6 +23,7 @@ const CommentCard = ({
   disableExpand = false,
 }: CommentCardProps) => {
   const {
+    id,
     author,
     score,
     score_hidden,
@@ -101,6 +102,7 @@ const CommentCard = ({
           <View marginV-5>
             <MDRenderer
               data={body_html}
+              id={id}
               onLinkPress={url => {
                 if (onLinkPress) onLinkPress(url);
               }}

@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 
 type MDRendererProps = {
   data: string;
+  id?: string;
   onLinkPress: (url: string) => void;
 };
 
@@ -48,6 +49,9 @@ const propsAreEqual = (
   prevProps: MDRendererProps,
   newProps: MDRendererProps,
 ) => {
+  if (newProps.id && prevProps.id) {
+    return newProps.id != prevProps.id;
+  }
   return prevProps.data != newProps.data;
 };
 
