@@ -3,7 +3,6 @@ import {
   Linking,
   StyleSheet,
   BackHandler,
-  Platform,
   ActivityIndicator,
   Alert,
 } from 'react-native';
@@ -13,8 +12,6 @@ import ScreenProps from '../types/ScreenProps';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { useFocusEffect } from '@react-navigation/native';
-import ConfigHeader from '../components/headers/ConfigHeader';
-import { curryGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
 type WebProps = NativeStackScreenProps<ScreenProps, 'Web'>;
 
@@ -24,6 +21,7 @@ const Web: React.FC<WebProps> = props => {
   const [currUrl, setCurrUrl] = useState(props.route.params.url);
   const [showWeb, setShowWeb] = useState(false);
   const [canGoBack, setCanGoBack] = useState(false);
+  const [canGoForward, setCanGoForward] = useState(false);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('transitionEnd', () => {
@@ -37,9 +35,11 @@ const Web: React.FC<WebProps> = props => {
       if (currUrl !== navState.url) {
         setCurrUrl(navState.url);
       }
+      console.log(navState.canGoBack, navState.canGoForward);
       setCanGoBack(navState.canGoBack);
+      setCanGoForward(navState.canGoForward);
     },
-    [currUrl, setCurrUrl, setCanGoBack],
+    [currUrl, setCurrUrl, setCanGoBack, setCanGoForward],
   );
 
   const goBack = () => {
@@ -79,6 +79,10 @@ const Web: React.FC<WebProps> = props => {
       return () => subscription.remove();
     }, [canGoBack, goBack]),
   );
+
+  const onLinkingPress = () => {
+    Linking.openURL(currUrl);
+  };
 
   const createLinkAlert = () =>
     Alert.alert(
@@ -126,11 +130,18 @@ const Web: React.FC<WebProps> = props => {
       {renderHeader()}
       {/* WEB FUNCTIONS */}
       <View style={s.webFunctions}>
-        <Icon name="close" color={Colors.oBgColor} onPress={goBack} size={20} />
+        <Icon
+          name="arrow-left"
+          color={canGoBack ? Colors.oBgColor : Colors.tertiaryText}
+          onPress={goBack}
+          disabled={!canGoBack}
+          size={20}
+        />
         <Icon
           name="arrow-right"
-          color={Colors.oBgColor}
+          color={canGoForward ? Colors.oBgColor : Colors.tertiaryText}
           onPress={goForward}
+          disabled={!canGoForward}
           size={20}
         />
         <Icon
@@ -142,7 +153,8 @@ const Web: React.FC<WebProps> = props => {
         <Icon
           name="link"
           color={Colors.oBgColor}
-          onPress={createLinkAlert}
+          onPress={onLinkingPress}
+          onLongPress={createLinkAlert}
           size={20}
         />
       </View>
