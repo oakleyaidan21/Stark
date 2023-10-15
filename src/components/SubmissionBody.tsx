@@ -79,7 +79,7 @@ const SubmissionBody = ({ submission }: SubmissionBodyProps) => {
           {postType.code !== 'SLF' && (
             <View style={{ height: 1 }} bg-borderColor marginT-5 />
           )}
-          <View>
+          <View paddingV-5 paddingH-10>
             <MDRenderer
               data={selftext_html ?? ''}
               id={submission.id}

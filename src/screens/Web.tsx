@@ -149,11 +149,7 @@ const Web: React.FC<WebProps> = props => {
 
       {showWeb && (
         <WebView
-          userAgent={
-            Platform.OS === 'android'
-              ? 'Chrome/18.0.1025.166 Mobile Safari/535.19'
-              : 'Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19'
-          }
+          userAgent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36"
           mediaPlaybackRequiresUserAction={true}
           javaScriptCanOpenWindowsAutomatically={false}
           style={{ flex: 1, opacity: 0.9, backgroundColor: 'black' }} // Opacity set to 0.99 to fix completely random bug: https://github.com/react-native-webview/react-native-webview/issues/811
