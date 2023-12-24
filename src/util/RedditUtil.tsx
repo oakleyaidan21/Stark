@@ -40,6 +40,7 @@ export const getSubPosts = async (
 export const postRegex =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)$/;
 
+const imageExtensions = ['.jpg', '.png', '.jpeg', '.webp'];
 export const determinePostType = (data: Submission) => {
   if (data.is_self) {
     return { code: 'SLF' };
@@ -78,12 +79,7 @@ export const determinePostType = (data: Submission) => {
   if (data.domain == 'gfycat.com') {
     return { code: 'GFY' };
   }
-  if (
-    threeExt == '.jpg' ||
-    threeExt == '.png' ||
-    threeExt == '.jpeg' ||
-    threeExt == '.webp'
-  ) {
+  if (imageExtensions.includes(threeExt) || imageExtensions.includes(fourExt)) {
     return { code: 'IMG' };
   }
 
