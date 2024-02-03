@@ -1,5 +1,5 @@
 import Snoowrap, { Submission } from 'snoowrap';
-import { SortedListingOptions } from 'snoowrap/dist/objects';
+import { Comment, SortedListingOptions } from 'snoowrap/dist/objects';
 import { SortType } from '../hooks/useListingSort';
 
 export const isSubmission = (content: any): content is Submission => {
@@ -19,9 +19,7 @@ export const getSubPosts = async (
     `of the ${options.time}`,
   );
   if (subredditName === 'Saved') {
-    return snoowrap.getMe().then(async me => {
-      return await me.getSavedContent();
-    });
+    return await getSavedSubmissions(snoowrap);
   }
   const subName = subredditName === 'Front Page' ? undefined : subredditName;
   const sortType = sort.toLowerCase();
@@ -36,6 +34,25 @@ export const getSubPosts = async (
       return await snoowrap.getHot(subName, options);
   }
 };
+
+const getSavedSubmissions = async (snoowrap: Snoowrap) => {
+  return snoowrap.getMe().then(async me => {
+    const saved = await me.getSavedContent();
+    const justSubmissions = saved.filter(content => !isComment(content));
+    return justSubmissions;
+  });
+};
+
+const getSavedComments = async (snoowrap: Snoowrap) => {
+  return snoowrap.getMe().then(async me => {
+    const saved = await me.getSavedContent();
+    const justSubmissions = saved.filter(content => isComment(content));
+    return justSubmissions;
+  });
+};
+
+export const isComment = (content: Submission | Comment) =>
+  'collapsed' in content;
 
 export const postRegex =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)$/;
