@@ -16,12 +16,15 @@ export interface RedditPreviewImageProps {
 }
 
 export const RedditPreviewImage = ({ url }: RedditPreviewImageProps) => {
-  const [showImage, setShowImage] = useState<Boolean>(false);
+  const [showImage, setShowImage] = useState<Boolean | undefined>(undefined);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    // this is to prevent the component from animating on its first layout
+    if (showImage !== undefined) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
   }, [showImage]);
 
   return (
@@ -35,7 +38,8 @@ export const RedditPreviewImage = ({ url }: RedditPreviewImageProps) => {
             style={{ marginRight: 10, borderRadius: 5 }}
           />
         </TouchableOpacity>
-        <TouchableWithoutFeedback onPress={() => setShowImage(!showImage)}>
+        <TouchableWithoutFeedback
+          onPress={() => setShowImage(showImage ? false : true)}>
           <View flex row centerV height={'100%'}>
             <View row centerV flex>
               <Icon name="image" color={Colors.tertiaryText} size={20} />
