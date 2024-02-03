@@ -28,7 +28,7 @@ const tagsStyles = {
 } as any;
 
 const RedditPreviewImageRenderer = ({ InternalRenderer, ...props }) => {
-  const text = props.tnode.init.textNode.data;
+  const text = props.tnode.init.textNode?.data;
   if (isRedditPreviewImage(text)) {
     return <RedditPreviewImage url={text} />;
   }
@@ -69,7 +69,7 @@ const propsAreEqual = (
   return prevProps.data != newProps.data;
 };
 
-const isRedditPreviewImage = (imgUrl: string) =>
-  imgUrl.includes('preview.redd.it');
+const isRedditPreviewImage = (imgUrl: string | undefined) =>
+  imgUrl?.includes('preview.redd.it');
 
 export default memo(MDRenderer, propsAreEqual);
