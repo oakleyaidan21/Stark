@@ -14,6 +14,7 @@ export interface CommentCardProps {
   onLinkPress?: any;
   index?: number;
   disableExpand?: boolean;
+  onPress?: (comment: Comment) => void;
 }
 
 const CommentCard = ({
@@ -21,6 +22,7 @@ const CommentCard = ({
   onLinkPress,
   index = 0,
   disableExpand = false,
+  onPress,
 }: CommentCardProps) => {
   const {
     id,
@@ -64,7 +66,7 @@ const CommentCard = ({
         borderLeftWidth: index === 0 ? 0 : 1,
       }}>
       <TouchableWithoutFeedback
-        onPress={animateReplies}
+        onPress={onPress ? () => onPress(comment) : animateReplies}
         onLongPress={animateContentBar}>
         <View padding-10>
           {/* username, points, time */}

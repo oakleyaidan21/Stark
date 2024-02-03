@@ -1,5 +1,5 @@
 import Snoowrap, { Submission } from 'snoowrap';
-import { Comment, SortedListingOptions } from 'snoowrap/dist/objects';
+import { Comment, Listing, SortedListingOptions } from 'snoowrap/dist/objects';
 import { SortType } from '../hooks/useListingSort';
 
 export const isSubmission = (content: any): content is Submission => {
@@ -35,19 +35,9 @@ export const getSubPosts = async (
   }
 };
 
-const getSavedSubmissions = async (snoowrap: Snoowrap) => {
+export const getSavedSubmissions = async (snoowrap: Snoowrap) => {
   return snoowrap.getMe().then(async me => {
-    const saved = await me.getSavedContent();
-    const justSubmissions = saved.filter(content => !isComment(content));
-    return justSubmissions;
-  });
-};
-
-const getSavedComments = async (snoowrap: Snoowrap) => {
-  return snoowrap.getMe().then(async me => {
-    const saved = await me.getSavedContent();
-    const justSubmissions = saved.filter(content => isComment(content));
-    return justSubmissions;
+    return await me.getSavedContent();
   });
 };
 

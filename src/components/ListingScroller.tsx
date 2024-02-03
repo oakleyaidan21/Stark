@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -10,6 +10,7 @@ import { Listing, Submission } from 'snoowrap';
 import SubmissionListingContext from '../context/SubmissionListingContext';
 import ListSubmissionCard from './ListSubmissionCard';
 import SeparatorComponent from './SeparatorComponent';
+import { isComment } from '../util/RedditUtil';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -36,13 +37,15 @@ const ListingScroller = ({
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Submission>) => {
-      return (
-        <ListSubmissionCard
-          index={index}
-          submission={item}
-          onPress={onItemPress}
-        />
-      );
+      if (!isComment(item)) {
+        return (
+          <ListSubmissionCard
+            index={index}
+            submission={item}
+            onPress={onItemPress}
+          />
+        );
+      }
     },
     [onItemPress],
   );

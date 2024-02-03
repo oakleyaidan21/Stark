@@ -4,6 +4,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { View, Text, Colors } from 'react-native-ui-lib';
 import { RedditUser } from 'snoowrap';
 import UserPostList from './user/UserPostList';
+import { SavedUserCommentList } from './user/SavedUserCommentsList';
 // import UserCommentList from "./UserCommentList";
 // import UserUpvotedList from "./UserUpvotedList";
 // import UserDownvotedList from "./UserDownvotedList";
@@ -29,10 +30,7 @@ const UserTabs = ({ user }: Props) => {
 
   const PostRoute = useCallback(() => <UserPostList user={user} />, [user]);
 
-  //   const CommentRoute = useCallback(
-  //     () => <UserCommentList user={user} navigation={props.navigation} />,
-  //     [user],
-  //   );
+  const SavedCommentRoute = useCallback(() => <SavedUserCommentList />, [user]);
 
   //   const UpvoteRoute = useCallback(
   //     () => <UserUpvotedList user={user} navigation={props.navigation} />,
@@ -60,7 +58,7 @@ const UserTabs = ({ user }: Props) => {
 
   const renderScene = SceneMap({
     posts: PostRoute,
-    comments: ImplRoute,
+    comments: SavedCommentRoute,
     upvoted: ImplRoute,
     downvoted: ImplRoute,
     trophies: ImplRoute,

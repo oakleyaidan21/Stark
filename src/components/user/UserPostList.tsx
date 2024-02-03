@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { View } from 'react-native-ui-lib';
@@ -12,7 +13,7 @@ export interface UserPostListProps {
 }
 
 const UserPostList = ({ user }: UserPostListProps) => {
-  const { loading, listing, fetchMore, refresh, refreshing } =
+  const { listing, fetchMore, refresh, refreshing } =
     useGetUserSubmissions(user);
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
