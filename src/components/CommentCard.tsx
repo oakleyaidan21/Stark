@@ -35,6 +35,8 @@ const CommentCard = ({
     is_submitter,
     author_flair_text,
   } = comment;
+
+  console.log('body!', body_html);
   const [expandReplies, setExpandReplies] = useState(false);
   const [expandContentBar, setExpandContentBar] = useState(false);
 

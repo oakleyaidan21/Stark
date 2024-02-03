@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { Colors } from 'react-native-ui-lib';
+import { Colors, Text } from 'react-native-ui-lib';
 import RenderHtml from 'react-native-render-html';
 import { Dimensions } from 'react-native';
+import { RedditPreviewImage } from './RedditPreviewImage';
 
 type MDRendererProps = {
   data: string;
@@ -26,9 +27,21 @@ const tagsStyles = {
   },
 } as any;
 
+const RedditPreviewImageRenderer = ({ InternalRenderer, ...props }) => {
+  const text = props.tnode.init.textNode.data;
+  if (isRedditPreviewImage(text)) {
+    return <RedditPreviewImage url={text} />;
+  }
+  return <InternalRenderer {...props} />;
+};
+
 const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
   const renderersProps = {
     a: { onPress: (_: any, href: string) => onLinkPress(href) },
+  };
+
+  const renderers = {
+    a: RedditPreviewImageRenderer,
   };
 
   return (
@@ -41,6 +54,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
       renderersProps={renderersProps}
       baseStyle={baseStyles}
       tagsStyles={tagsStyles}
+      renderers={renderers}
     />
   );
 };
@@ -54,5 +68,8 @@ const propsAreEqual = (
   }
   return prevProps.data != newProps.data;
 };
+
+const isRedditPreviewImage = (imgUrl: string) =>
+  imgUrl.includes('preview.redd.it');
 
 export default memo(MDRenderer, propsAreEqual);
