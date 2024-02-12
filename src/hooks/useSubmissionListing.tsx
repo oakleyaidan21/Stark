@@ -22,16 +22,24 @@ const useSubmissionListing = ({ subredditName }: UseSubmissionListingProps) => {
     [subredditName, sort, snoowrap, timeSort],
   );
 
-  const { listing, loading, refreshing, refresh, fetchMore, errored } =
-    useListing({
-      getListing: getPosts,
-      sortable: sort === 'Top',
-      timeSort: timeSort,
-      setTimeSort: setTimeSort,
-    });
+  const {
+    listing,
+    submissions,
+    loading,
+    refreshing,
+    refresh,
+    fetchMore,
+    errored,
+  } = useListing({
+    getListing: getPosts,
+    sortable: sort === 'Top',
+    timeSort: timeSort,
+    setTimeSort: setTimeSort,
+  });
 
   return {
     listing,
+    submissions,
     refresh,
     refreshing,
     fetchMore,

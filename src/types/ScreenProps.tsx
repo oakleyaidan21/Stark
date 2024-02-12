@@ -8,7 +8,7 @@ type ScreenProps = {
   UserSubScreen: { changeSubreddit: any; searchString?: string };
   PostSwiper: {
     initialIndex: number;
-    submissions: Listing<Submission>;
+    submissions: Array<Submission>;
     fetchMore: any;
   };
   CreateCommentScreen: { content: Submission | Comment };

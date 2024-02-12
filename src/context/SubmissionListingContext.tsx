@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { Comment, Listing, Submission, Subreddit } from 'snoowrap';
 
 interface SubmissionListingContextInterface {
-  listing?: Listing<Submission | Comment>;
+  listing?: Array<Submission>;
   fetchMore?: () => void;
   refresh?: () => void;
   refreshing?: boolean;

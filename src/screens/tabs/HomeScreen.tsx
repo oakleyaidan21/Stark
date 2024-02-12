@@ -15,6 +15,7 @@ const HomeScreen = () => {
 
   const {
     listing,
+    submissions,
     refresh,
     refreshing,
     fetchMore,
@@ -46,7 +47,7 @@ const HomeScreen = () => {
     if (listing) {
       navigation.push('PostSwiper', {
         initialIndex: index,
-        submissions: listing,
+        submissions: submissions,
         fetchMore: fetchMore,
       });
     }
@@ -56,7 +57,7 @@ const HomeScreen = () => {
     <SubmissionListingContext.Provider
       value={{
         refresh: refresh,
-        listing: listing,
+        listing: submissions,
         refreshing: refreshing,
         subredditName: subredditName,
         changeSubreddit: setSubredditName,

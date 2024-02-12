@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -28,6 +29,7 @@ const SubredditScreen = ({
 
   const {
     listing,
+    submissions,
     refresh,
     refreshing,
     fetchMore,
@@ -58,7 +60,7 @@ const SubredditScreen = ({
     if (listing) {
       navigation.push('PostSwiper', {
         initialIndex: index,
-        submissions: listing,
+        submissions: submissions,
         fetchMore: fetchMore,
       });
     }
