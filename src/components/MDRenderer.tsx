@@ -3,6 +3,7 @@ import { Colors, Text } from 'react-native-ui-lib';
 import RenderHtml from 'react-native-render-html';
 import { Dimensions } from 'react-native';
 import { RedditPreviewImage } from './RedditPreviewImage';
+import { RedditSubLink } from './RedditSubLink';
 
 type MDRendererProps = {
   data: string;
@@ -27,10 +28,13 @@ const tagsStyles = {
   },
 } as any;
 
-const RedditPreviewImageRenderer = ({ InternalRenderer, ...props }) => {
+const RedditLinkRenderer = ({ InternalRenderer, ...props }) => {
   const text = props.tnode.init.textNode?.data;
   if (isRedditPreviewImage(text)) {
     return <RedditPreviewImage url={text} />;
+  }
+  if (isRedditSubLink(text)) {
+    return <RedditSubLink subredditNamePrefixed={text} />;
   }
   return <InternalRenderer {...props} />;
 };
@@ -41,7 +45,7 @@ const MDRenderer = ({ data, onLinkPress }: MDRendererProps) => {
   };
 
   const renderers = {
-    a: RedditPreviewImageRenderer,
+    a: RedditLinkRenderer,
   };
 
   return (
@@ -71,5 +75,7 @@ const propsAreEqual = (
 
 const isRedditPreviewImage = (imgUrl: string | undefined) =>
   imgUrl?.includes('preview.redd.it');
+
+const isRedditSubLink = (url: string | undefined) => url?.startsWith('/r/');
 
 export default memo(MDRenderer, propsAreEqual);
