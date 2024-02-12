@@ -10,12 +10,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ScreenProps from '../../types/ScreenProps';
 
 export const SavedUserCommentList = () => {
-  const { listing, fetchMore } = useGetSavedContent();
+  const { listing } = useGetSavedContent();
 
   const navigation = useNavigation<NativeStackNavigationProp<ScreenProps>>();
 
   const onPress = (comment: Comment) => {
-    console.log('guh!!!!', comment);
     navigation.push('Submission', { id: comment.parent_id });
   };
 
