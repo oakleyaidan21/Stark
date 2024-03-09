@@ -30,6 +30,7 @@ const tagsStyles = {
 
 const RedditLinkRenderer = ({ InternalRenderer, ...props }) => {
   const text = props.tnode.init.textNode?.data;
+  console.log('text!!!', text);
   if (isRedditPreviewImage(text)) {
     return <RedditPreviewImage url={text} />;
   }
@@ -76,6 +77,7 @@ const propsAreEqual = (
 const isRedditPreviewImage = (imgUrl: string | undefined) =>
   imgUrl?.includes('preview.redd.it');
 
-const isRedditSubLink = (url: string | undefined) => url?.startsWith('/r/');
+const isRedditSubLink = (url: string | undefined) =>
+  url?.startsWith('/r/') || url?.startsWith('r/');
 
 export default memo(MDRenderer, propsAreEqual);

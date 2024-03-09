@@ -116,6 +116,7 @@ export const abbreviateNumber = (n: number) => {
 };
 
 export const parseLink = (url: string) => {
+  console.log('url!!!!', url);
   const tokens = url.split('/');
   let id = null;
   if (tokens.length < 3) {
@@ -152,6 +153,7 @@ export const onLinkPress = (url: string, navigation: any) => {
   const r = parseLink(url);
   switch (r.type) {
     case 'post':
+      console.log('r my guy', r);
       navigation.push('Submission', { id: r.id });
       break;
     case 'sub':

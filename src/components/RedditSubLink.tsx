@@ -1,8 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native-ui-lib';
-import useGetSubredditIcon from '../hooks/useGetSubredditIcon';
-import FastImage from 'react-native-fast-image';
-import { TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-ui-lib';
 import { useNavigation } from '@react-navigation/native';
 
 interface RedditSubLinkProps {
@@ -12,9 +9,7 @@ interface RedditSubLinkProps {
 export const RedditSubLink = ({
   subredditNamePrefixed,
 }: RedditSubLinkProps) => {
-  const prefixRemoved = subredditNamePrefixed.split('/r/')[1];
-  const iconUrl = useGetSubredditIcon(prefixRemoved);
-  const iconSize = 20;
+  const prefixRemoved = subredditNamePrefixed.split('/').at(-1);
   const navigation = useNavigation();
 
   const onPress = () => {
@@ -24,27 +19,8 @@ export const RedditSubLink = ({
   };
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View
-        padding-3
-        flex
-        row
-        center
-        style={{ borderRadius: 5, alignSelf: 'baseline' }}
-        bg-emptyBgColor>
-        <FastImage
-          source={{ uri: iconUrl }}
-          style={{
-            width: iconSize,
-            height: iconSize,
-            borderRadius: iconSize / 2,
-            marginRight: 5,
-          }}
-        />
-        <Text bold numberOfLines={1}>
-          {subredditNamePrefixed}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <Text bold numberOfLines={1} onPress={onPress}>
+      {subredditNamePrefixed}
+    </Text>
   );
 };
