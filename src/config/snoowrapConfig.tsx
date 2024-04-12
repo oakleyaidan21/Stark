@@ -1,8 +1,7 @@
 const snoowrapConfig = {
-  userAgent: 'com.carrotcake.ARC:v0.1.0',
-  clientId: '0MPSAzNFJKhDHB_PszfUdw',
-  clientSecret: '',
-  refreshToken: '636069329713-HlybsfqH33XOWJb9Af4Pf1q6qLw',
+  userAgent: '<YOUR_AGENT_HERE>',
+  clientId: '<YOUR_CLIENT_ID_HERE>',
+  clientSecret: '', // necessary for the snoowrap constructor; doesn't need an actual value
 };
 
 export default snoowrapConfig;
