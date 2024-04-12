@@ -1,6 +1,6 @@
 const snoowrapConfig = {
-  userAgent: '<YOUR_AGENT_HERE>',
-  clientId: '<YOUR_CLIENT_ID_HERE>',
+  userAgent: '<YOUR_USER_AGENT>',
+  clientId: '<YOUR_CLIENT_ID>',
   clientSecret: '', // necessary for the snoowrap constructor; doesn't need an actual value
 };
 
