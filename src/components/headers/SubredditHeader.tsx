@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Colors, Text, View } from 'react-native-ui-lib';
 import { Subreddit } from 'snoowrap';
@@ -103,8 +103,8 @@ const SubredditHeader = ({
         width={80}
         style={{
           position: 'absolute',
-          left: 20,
-          top: 90,
+          left: 10,
+          top: 80,
           borderRadius: 40,
           backgroundColor:
             primary_color.length > 0 ? primary_color : Colors.oBgColor,
