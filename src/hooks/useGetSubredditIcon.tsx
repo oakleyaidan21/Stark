@@ -26,7 +26,7 @@ const useGetSubredditIcon = (subreddit: Subreddit | string) => {
           setIconUrl(urls[display_name]);
         } else {
           if (typeof subreddit === 'string') {
-            setIconUrl(urls[display_name] ?? '');
+            setIconUrl(urls[subreddit] ?? '');
           } else {
             subreddit?.fetch().then(fullSubreddit => {
               const { icon_img, community_icon } = fullSubreddit;
